@@ -1,1 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0">
+
+<title>PlayNime</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#080808;
+    color:#fff;
+    padding-bottom:80px;
+}
+
+/* =========================
+   TOPO
+========================= */
+
+.header{
+    height:68px;
+    padding:0 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(8,8,8,.96);
+}
+
+.logo{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    overflow:hidden;
+    background:#151515;
+}
+
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.header-icons{
+    display:flex;
+    gap:10px;
+}
+
+.icon-button{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:#151515;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.icon-button svg{
+    width:22px;
+    height:22px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+/* =========================
+   SEÇÕES
+========================= */
+
+section{
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:20px;
+    font-weight:800;
+    margin:20px 15px 12px;
+}
+
+.anime-list{
+    display:flex;
+    gap:11px;
+    overflow-x:auto;
+    padding:0 15px 5px;
+    scrollbar-width:none;
+}
+
+.anime-list::-webkit-scrollbar{
+    display:none;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    min-width:100px;
+    width:100px;
+    height:145px;
+    flex-shrink:0;
+    border-radius:8px;
+    overflow:hidden;
+    background:#151515;
+    cursor:pointer;
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.card-title{
+    display:none;
+}
+
+/* =========================
+   DESTAQUE
+========================= */
+
+.feature{
+    margin:8px 15px 25px;
+    height:210px;
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+    background:#151515;
+}
+
+.feature img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.feature-gradient{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        90deg,
+        rgba(0,0,0,.9),
+        rgba(0,0,0,.35),
+        rgba(0,0,0,.05)
+    );
+}
+
+.feature-info{
+    position:absolute;
+    left:18px;
+    bottom:18px;
+    right:18px;
+}
+
+.feature-title{
+    font-size:23px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.feature-text{
+    color:#ccc;
+    font-size:12px;
+}
+
+/* =========================
+   ESTADO
+========================= */
+
+.status{
+    text-align:center;
+    padding:50px 20px;
+    color:#777;
+    font-size:14px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.bottom-menu{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:68px;
+    background:#101010;
+    border-top:1px solid #222;
+    display:flex;
+    z-index:100;
+}
+
+.menu-item{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#777;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.menu-item svg{
+    width:21px;
+    height:21px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.menu-active{
+    color:#fff;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .card{
+        min-width:88px;
+        width:88px;
+        height:128px;
+    }
+
+    .feature{
+        height:190px;
+        margin-left:14px;
+        margin-right:14px;
+    }
+
+    .section-title{
+        margin-left:14px;
+    }
+
+    .anime-list{
+        padding-left:14px;
+        gap:9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+
+        <img
+            src="PlayNime_logo.jpg"
+            alt="PlayNime">
+
+    </div>
+
+    <div class="header-icons">
+
+        <button
+            class="icon-button"
+            onclick="pesquisar()">
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="11"
+                    cy="11"
+                    r="6">
+                </circle>
+
+                <path d="M16 16l5 5"></path>
+
+            </svg>
+
+        </button>
+
+        <button
+            class="icon-button"
+            onclick="perfil()">
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="12"
+                    cy="8"
+                    r="4">
+                </circle>
+
+                <path
+                    d="M4 21c0-4 3.5-7 8-7s8 3 8 7">
+                </path>
+
+            </svg>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<main id="home">
+
+    <div class="status">
+        Carregando animes...
+    </div>
+
+</main>
+
+
+<nav class="bottom-menu">
+
+    <div
+        class="menu-item menu-active"
+        onclick="location.href='home.html'">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M3 11l9-8 9 8"></path>
+            <path d="M5 10v10h14V10"></path>
+        </svg>
+
+        <span>Início</span>
+
+    </div>
+
+    <div
+        class="menu-item"
+        onclick="location.href='favoritos.html'">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z">
+            </path>
+        </svg>
+
+        <span>Favoritos</span>
+
+    </div>
+
+    <div
+        class="menu-item"
+        onclick="location.href='mais.html'">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+        </svg>
+
+        <span>Mais</span>
+
+    </div>
+
+</nav>
+
+
+<script>
+
+const API =
+    "https://api.jikan.moe/v4";
+
+const home =
+    document.getElementById("home");
+
+
+/* =========================
+   CACHE
+========================= */
+
+const CACHE_KEY =
+    "playnime_home_data_v1";
+
+
+function guardarCache(data){
+
+    try{
+
+        localStorage.setItem(
+            CACHE_KEY,
+            JSON.stringify(data)
+        );
+
+    }catch(e){
+
+        console.log(e);
+
+    }
+
+}
+
+
+function lerCache(){
+
+    try{
+
+        const data =
+            localStorage.getItem(
+                CACHE_KEY
+            );
+
+        return data
+            ? JSON.parse(data)
+            : null;
+
+    }catch(e){
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================
+   API
+========================= */
+
+async function buscar(url){
+
+    try{
+
+        const resposta =
+            await fetch(
+                API + url
+            );
+
+        if(!resposta.ok){
+
+            throw new Error(
+                "HTTP " +
+                resposta.status
+            );
+
+        }
+
+        const json =
+            await resposta.json();
+
+        return json.data || [];
+
+    }catch(e){
+
+        console.log(
+            "Jikan:",
+            e
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+function criarCard(anime){
+
+    if(!anime){
+
+        return "";
+
+    }
+
+    const id =
+        anime.mal_id;
+
+    const imagem =
+        anime.images?.jpg
+        ?.large_image_url ||
+        anime.images?.jpg
+        ?.image_url;
+
+    if(!id || !imagem){
+
+        return "";
+
+    }
+
+    return `
+
+        <div
+            class="card"
+            onclick="abrirAnime(${id})">
+
+            <img
+                src="${imagem}"
+                alt="${anime.title || "Anime"}"
+                loading="lazy">
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   SEÇÃO
+========================= */
+
+function criarSecao(
+    titulo,
+    lista
+){
+
+    if(
+        !lista ||
+        lista.length === 0
+    ){
+
+        return "";
+
+    }
+
+    const cards =
+        lista
+        .slice(0,20)
+        .map(criarCard)
+        .join("");
+
+    if(!cards){
+
+        return "";
+
+    }
+
+    return `
+
+        <section>
+
+            <h2 class="section-title">
+                ${titulo}
+            </h2>
+
+            <div class="anime-list">
+
+                ${cards}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function mostrarHome(data){
+
+    let html = "";
+
+
+    if(
+        data.popular &&
+        data.popular.length
+    ){
+
+        const destaque =
+            data.popular[0];
+
+        const imagem =
+            destaque.images?.jpg
+            ?.large_image_url ||
+            destaque.images?.jpg
+            ?.image_url;
+
+        if(imagem){
+
+            html += `
+
+                <div
+                    class="feature"
+                    onclick="abrirAnime(${destaque.mal_id})">
+
+                    <img
+                        src="${imagem}"
+                        alt="${destaque.title}">
+
+                    <div class="feature-gradient"></div>
+
+                    <div class="feature-info">
+
+                        <div class="feature-title">
+                            ${destaque.title}
+                        </div>
+
+                        <div class="feature-text">
+                            Anime em destaque no PlayNime
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    html += criarSecao(
+        "🔥 Em alta",
+        data.popular
+    );
+
+
+    html += criarSecao(
+        "🆕 Lançamentos",
+        data.season
+    );
+
+
+    html += criarSecao(
+        "⭐ Mais bem avaliados",
+        data.topScore
+    );
+
+
+    html += criarSecao(
+        "⚔️ Ação",
+        data.action
+    );
+
+
+    html += criarSecao(
+        "😂 Comédia",
+        data.comedy
+    );
+
+
+    html += criarSecao(
+        "✨ Fantasia",
+        data.fantasy
+    );
+
+
+    html += criarSecao(
+        "❤️ Romance",
+        data.romance
+    );
+
+
+    html += criarSecao(
+        "🎭 Drama",
+        data.drama
+    );
+
+
+    html += criarSecao(
+        "👊 Shounen",
+        data.shounen
+    );
+
+
+    html += criarSecao(
+        "🌸 Slice of Life",
+        data.slice
+    );
+
+
+    if(!html){
+
+        html = `
+
+            <div class="status">
+                Não foi possível carregar os animes.
+            </div>
+
+        `;
+
+    }
+
+
+    home.innerHTML =
+        html;
+
+}
+
+
+/* =========================
+   CARREGAR DADOS
+========================= */
+
+async function carregarHome(){
+
+    const cache =
+        lerCache();
+
+
+    if(cache){
+
+        mostrarHome(
+            cache
+        );
+
+    }
+
+
+    /*
+     * Fazemos os pedidos em paralelo.
+     */
+
+    const resultados =
+        await Promise.all([
+
+            buscar(
+                "/top/anime?filter=bypopularity&limit=20"
+            ),
+
+            buscar(
+                "/seasons/now?limit=20"
+            ),
+
+            buscar(
+                "/anime?order_by=score&sort=desc&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=1&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=4&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=10&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=22&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=8&limit=20"
+            ),
+
+            buscar(
+                "/anime?genres=36&limit=20"
+            )
+
+        ]);
+
+
+    const dados = {
+
+        popular:
+            resultados[0],
+
+        season:
+            resultados[1],
+
+        topScore:
+            resultados[2],
+
+        action:
+            resultados[3],
+
+        comedy:
+            resultados[4],
+
+        fantasy:
+            resultados[5],
+
+        romance:
+            resultados[6],
+
+        drama:
+            resultados[7],
+
+        shounen:
+            resultados[8],
+
+        slice:
+            resultados[8]
+
+    };
+
+
+    guardarCache(
+        dados
+    );
+
+
+    mostrarHome(
+        dados
+    );
+
+}
+
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+function abrirAnime(id){
+
+    if(!id){
+
+        return;
+
+    }
+
+    location.href =
+        "detalhes.html?id=" + id;
+
+}
+
+
+function pesquisar(){
+
+    location.href =
+        "pesquisa.html";
+
+}
+
+
+function perfil(){
+
+    location.href =
+        "perfil.html";
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
+
+carregarHome();
+
+</script>
+
+</body>
+  </html>
