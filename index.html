@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>PlayNime</title><style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#05030a;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* =====================================================
+   SPLASH
+===================================================== */
+
+.splash{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(
+            circle at center,
+            #16082b 0%,
+            #090414 42%,
+            #05030a 75%,
+            #000000 100%
+        );
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+    width:125px;
+    height:125px;
+    border-radius:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #a855f7,
+            #7c3aed 55%,
+            #4c1d95
+        );
+
+    box-shadow:
+        0 0 25px rgba(168,85,247,.65),
+        0 0 70px rgba(124,58,237,.35);
+
+    animation:
+        aparecer .8s ease,
+        pulsar 2.2s ease-in-out infinite;
+}
+
+/* botão Play */
+
+.play{
+    width:0;
+    height:0;
+
+    border-top:27px solid transparent;
+    border-bottom:27px solid transparent;
+    border-left:42px solid white;
+
+    margin-left:8px;
+
+    filter:
+        drop-shadow(
+            0 0 8px rgba(255,255,255,.75)
+        );
+}
+
+/* =====================================================
+   NOME
+===================================================== */
+
+.nome{
+    margin-top:28px;
+
+    font-size:34px;
+    font-weight:800;
+
+    letter-spacing:-1px;
+
+    color:white;
+
+    text-shadow:
+        0 0 15px rgba(168,85,247,.7);
+}
+
+.nome span{
+    color:#a855f7;
+}
+
+/* =====================================================
+   FRASE
+===================================================== */
+
+.frase{
+    margin-top:9px;
+
+    font-size:13px;
+
+    color:#aaa;
+
+    letter-spacing:1px;
+}
+
+/* =====================================================
+   ANIMAÇÕES
+===================================================== */
+
+@keyframes aparecer{
+
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+@keyframes pulsar{
+
+    0%,
+    100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.045);
+    }
+
+}
+
+</style></head><body><div class="splash"><div class="logo">
+
+    <div class="play"></div>
+
+</div>
+
+<div class="nome">
+    Play<span>Nime</span>
+</div>
+
+<div class="frase">
+    O teu universo de animes
+</div>
+
+</div><script>
+
+/* =====================================================
+   ENTRADA DO PLAYNIME
+===================================================== */
+
+setTimeout(function(){
+
+    window.location.href = "login.html";
+
+}, 3000);
+
+</script></body></html>
