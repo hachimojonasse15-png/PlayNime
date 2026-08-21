@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
-<meta charset="UTF-8"><meta name="viewport"
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport"
 content="width=device-width,
 initial-scale=1.0,
 maximum-scale=1.0,
@@ -15,11 +14,14 @@ user-scalable=no">
 
 html,
 body{
+
     width:100%;
     height:100%;
+
     overflow:hidden;
-    background:#05030a;
-    font-family:Arial,Helvetica,sans-serif;
+
+    background:#05020a;
+
 }
 
 /* =====================================================
@@ -27,20 +29,24 @@ body{
 ===================================================== */
 
 .splash{
+
     width:100%;
-    height:100%;
+    height:100vh;
+
     display:flex;
-    flex-direction:column;
+
     align-items:center;
     justify-content:center;
+
     background:
         radial-gradient(
             circle at center,
-            #16082b 0%,
-            #090414 42%,
-            #05030a 75%,
+            #241044 0%,
+            #10051d 40%,
+            #05020a 75%,
             #000000 100%
         );
+
 }
 
 /* =====================================================
@@ -48,112 +54,127 @@ body{
 ===================================================== */
 
 .logo{
+
     width:125px;
     height:125px;
+
     border-radius:30px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     background:
         linear-gradient(
             145deg,
-            #a855f7,
-            #7c3aed 55%,
-            #4c1d95
+            #b45cff,
+            #8b32ff 50%,
+            #5b16c9
         );
 
     box-shadow:
-        0 0 25px rgba(168,85,247,.65),
-        0 0 70px rgba(124,58,237,.35);
+
+        0 0 30px
+        rgba(168,85,247,.55),
+
+        0 0 70px
+        rgba(124,58,237,.25);
 
     animation:
-        aparecer .8s ease,
-        pulsar 2.2s ease-in-out infinite;
+
+        aparecer .8s
+        cubic-bezier(.2,.8,.2,1);
+
 }
 
-/* botão Play */
+/* =====================================================
+   BOTÃO PLAY
+===================================================== */
 
 .play{
+
     width:0;
     height:0;
 
-    border-top:27px solid transparent;
-    border-bottom:27px solid transparent;
-    border-left:42px solid white;
+    border-top:
+        28px solid transparent;
 
-    margin-left:8px;
+    border-bottom:
+        28px solid transparent;
+
+    border-left:
+        44px solid white;
+
+    margin-left:9px;
 
     filter:
         drop-shadow(
-            0 0 8px rgba(255,255,255,.75)
+            0 0 8px
+            rgba(255,255,255,.8)
         );
+
 }
 
 /* =====================================================
-   NOME
-===================================================== */
-
-.nome{
-    margin-top:28px;
-
-    font-size:34px;
-    font-weight:800;
-
-    letter-spacing:-1px;
-
-    color:white;
-
-    text-shadow:
-        0 0 15px rgba(168,85,247,.7);
-}
-
-.nome span{
-    color:#a855f7;
-}
-
-/* =====================================================
-   FRASE
-===================================================== */
-
-.frase{
-    margin-top:9px;
-
-    font-size:13px;
-
-    color:#aaa;
-
-    letter-spacing:1px;
-}
-
-/* =====================================================
-   ANIMAÇÕES
+   ANIMAÇÃO
 ===================================================== */
 
 @keyframes aparecer{
 
-    from{
+    0%{
+
         opacity:0;
-        transform:scale(.7);
+
+        transform:
+            scale(.65)
+            rotate(-8deg);
+
     }
 
-    to{
+    70%{
+
+        transform:
+            scale(1.04)
+            rotate(1deg);
+
+    }
+
+    100%{
+
         opacity:1;
-        transform:scale(1);
+
+        transform:
+            scale(1)
+            rotate(0);
+
     }
 
 }
 
-@keyframes pulsar{
+/* =====================================================
+   MOBILE
+===================================================== */
 
-    0%,
-    100%{
-        transform:scale(1);
+@media(max-width:600px){
+
+    .logo{
+
+        width:115px;
+        height:115px;
+
+        border-radius:28px;
+
     }
 
-    50%{
-        transform:scale(1.045);
+    .play{
+
+        border-top-width:25px;
+
+        border-bottom-width:25px;
+
+        border-left-width:40px;
+
     }
 
 }
@@ -164,24 +185,18 @@ body{
 
 </div>
 
-<div class="nome">
-    Play<span>Nime</span>
-</div>
-
-<div class="frase">
-    O teu universo de animes
-</div>
-
 </div><script>
 
-/* =====================================================
-   ENTRADA DO PLAYNIME
-===================================================== */
+/*
+ * Splash durante 2 segundos.
+ * Depois abre o login.
+ */
 
 setTimeout(function(){
 
-    window.location.href = "login.html";
+    window.location.href =
+        "login.html";
 
-}, 3000);
+},3000);
 
 </script></body></html>
