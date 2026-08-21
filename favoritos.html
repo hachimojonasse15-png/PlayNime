@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PlayNime - Favoritos</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html,
+body{
+    background:#050505;
+    color:white;
+    min-height:100%;
+}
+
+body{
+    padding-bottom:100px;
+}
+
+/* =========================
+   TOPO
+========================= */
+
+.header{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#9b4dff;
+}
+
+.header-title{
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.container{
+    padding:15px 20px;
+}
+
+.page-title{
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.favorites-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.anime-card{
+    background:#111;
+    border-radius:14px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.anime-card:active{
+    transform:scale(.96);
+}
+
+.anime-card img{
+    width:100%;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    display:block;
+}
+
+.anime-name{
+    padding:10px;
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.remove-btn{
+    width:100%;
+    border:0;
+    padding:9px;
+    background:#1b1b1b;
+    color:#aaa;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.remove-btn:active{
+    background:#9b4dff;
+    color:white;
+}
+
+/* =========================
+   VAZIO
+========================= */
+
+.empty{
+    min-height:55vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#777;
+}
+
+.empty-icon{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.empty h2{
+    color:white;
+    margin-bottom:8px;
+}
+
+.empty p{
+    font-size:14px;
+}
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    left:18px;
+    right:18px;
+    bottom:15px;
+    height:75px;
+
+    background:#151515;
+
+    border:1px solid #292929;
+    border-radius:35px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    z-index:999;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.6);
+}
+
+.nav-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+
+    color:#777;
+    text-decoration:none;
+    font-size:12px;
+}
+
+.nav-icon{
+    font-size:25px;
+}
+
+.nav-item.active{
+    color:white;
+}
+
+.nav-item.active .nav-icon{
+    color:#9b4dff;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:380px){
+
+    .favorites-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        Play<span>Nime</span>
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="page-title">
+        ❤️ Favoritos
+    </div>
+
+    <div
+        id="favorites"
+        class="favorites-grid">
+    </div>
+
+    <div
+        id="empty"
+        class="empty"
+        style="display:none;">
+
+        <div class="empty-icon">
+            ♡
+        </div>
+
+        <h2>
+            Nenhum favorito
+        </h2>
+
+        <p>
+            Os animes que adicionares aos favoritos aparecerão aqui.
+        </p>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     NAVEGAÇÃO
+========================= -->
+
+<nav class="bottom-nav">
+
+    <a
+        href="home.html"
+        class="nav-item">
+
+        <span class="nav-icon">⌂</span>
+        <span>Início</span>
+
+    </a>
+
+
+    <a
+        href="pesquisar.html"
+        class="nav-item">
+
+        <span class="nav-icon">⌕</span>
+        <span>Pesquisar</span>
+
+    </a>
+
+
+    <a
+        href="favoritos.html"
+        class="nav-item active">
+
+        <span class="nav-icon">♡</span>
+        <span>Favoritos</span>
+
+    </a>
+
+
+    <a
+        href="mais.html"
+        class="nav-item">
+
+        <span class="nav-icon">•••</span>
+        <span>Mais</span>
+
+    </a>
+
+</nav>
+
+
+<script>
+
+/* =====================================================
+   FAVORITOS
+===================================================== */
+
+const FAVORITOS_KEY = "playnime_favoritos";
+
+
+function obterFavoritos(){
+
+    try{
+
+        const dados =
+            localStorage.getItem(
+                FAVORITOS_KEY
+            );
+
+        if(!dados){
+
+            return [];
+
+        }
+
+        const lista =
+            JSON.parse(dados);
+
+        return Array.isArray(lista)
+            ? lista
+            : [];
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao carregar favoritos:",
+            erro
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =====================================================
+   GUARDAR
+===================================================== */
+
+function guardarFavoritos(lista){
+
+    try{
+
+        localStorage.setItem(
+            FAVORITOS_KEY,
+            JSON.stringify(lista)
+        );
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao guardar favoritos:",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(texto){
+
+    return String(texto || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   ABRIR ANIME
+===================================================== */
+
+function abrirAnime(id){
+
+    if(!id){
+
+        return;
+
+    }
+
+    window.location.href =
+        "detalhes.html?id=" +
+        encodeURIComponent(id);
+
+}
+
+
+/* =====================================================
+   REMOVER FAVORITO
+===================================================== */
+
+function removerFavorito(id){
+
+    let favoritos =
+        obterFavoritos();
+
+    favoritos =
+        favoritos.filter(
+            anime =>
+                String(anime.mal_id) !==
+                String(id)
+        );
+
+    guardarFavoritos(
+        favoritos
+    );
+
+    carregarFavoritos();
+
+}
+
+
+/* =====================================================
+   MOSTRAR FAVORITOS
+===================================================== */
+
+function carregarFavoritos(){
+
+    const container =
+        document.getElementById(
+            "favorites"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    const favoritos =
+        obterFavoritos();
+
+
+    container.innerHTML = "";
+
+
+    if(
+        favoritos.length === 0
+    ){
+
+        container.style.display =
+            "none";
+
+        empty.style.display =
+            "flex";
+
+        return;
+
+    }
+
+
+    container.style.display =
+        "grid";
+
+    empty.style.display =
+        "none";
+
+
+    favoritos.forEach(
+        anime => {
+
+            if(!anime){
+
+                return;
+
+            }
+
+
+            const id =
+                anime.mal_id;
+
+            const titulo =
+                anime.title ||
+                anime.title_english ||
+                "Anime";
+
+
+            const imagem =
+                anime.images?.jpg?.large_image_url ||
+                anime.images?.jpg?.image_url ||
+                anime.image ||
+                "";
+
+
+            if(!id || !imagem){
+
+                return;
+
+            }
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "anime-card";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${imagem}"
+                    alt="${escaparHTML(titulo)}"
+                    loading="lazy">
+
+                <div class="anime-name">
+                    ${escaparHTML(titulo)}
+                </div>
+
+                <button
+                    class="remove-btn"
+                    onclick="event.stopPropagation(); removerFavorito(${id})">
+
+                    Remover
+
+                </button>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                function(){
+
+                    abrirAnime(id);
+
+                }
+            );
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    carregarFavoritos
+);
+
+</script>
+
+</body>
+  </html>
