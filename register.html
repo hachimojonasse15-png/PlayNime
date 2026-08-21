@@ -1,1 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayNime - Criar conta</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#080808;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:390px;
+}
+
+.logo{
+    width:70px;
+    height:70px;
+    margin:0 auto 18px;
+    border-radius:18px;
+    overflow:hidden;
+    background:#181818;
+    box-shadow:0 8px 30px rgba(120,70,255,.25);
+}
+
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.title{
+    text-align:center;
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#888;
+    font-size:14px;
+    margin-bottom:28px;
+}
+
+.form{
+    background:#111;
+    border:1px solid #222;
+    border-radius:18px;
+    padding:22px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    color:#bbb;
+    margin:0 0 7px 3px;
+}
+
+input{
+    width:100%;
+    height:50px;
+    border:1px solid #292929;
+    border-radius:10px;
+    background:#181818;
+    color:#fff;
+    padding:0 14px;
+    outline:none;
+    font-size:14px;
+    margin-bottom:16px;
+}
+
+input:focus{
+    border-color:#7c4dff;
+    box-shadow:0 0 0 2px rgba(124,77,255,.12);
+}
+
+button{
+    width:100%;
+    height:51px;
+    border:0;
+    border-radius:11px;
+    background:#7c4dff;
+    color:#fff;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+.message{
+    min-height:20px;
+    text-align:center;
+    font-size:13px;
+    margin:14px 0 4px;
+}
+
+.login{
+    text-align:center;
+    margin-top:20px;
+    color:#888;
+    font-size:13px;
+}
+
+.login a{
+    color:#9b7cff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <img src="PlayNime_logo.jpg" alt="PlayNime">
+    </div>
+
+    <div class="title">Criar conta</div>
+
+    <div class="subtitle">
+        Crie sua conta para entrar no PlayNime
+    </div>
+
+    <div class="form">
+
+        <label for="username">Nome de utilizador</label>
+        <input
+            id="username"
+            type="text"
+            placeholder="Digite seu nome"
+            autocomplete="username">
+
+        <label for="email">E-mail</label>
+        <input
+            id="email"
+            type="email"
+            placeholder="Digite seu e-mail"
+            autocomplete="email">
+
+        <label for="password">Palavra-passe</label>
+        <input
+            id="password"
+            type="password"
+            placeholder="Digite sua palavra-passe"
+            autocomplete="new-password">
+
+        <label for="confirmPassword">Confirmar palavra-passe</label>
+        <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Digite novamente"
+            autocomplete="new-password">
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+        <button onclick="criarConta()">
+            Criar conta
+        </button>
+
+        <div class="login">
+            Já tens uma conta?
+            <a href="login.html">Entrar</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function criarConta(){
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const message =
+        document.getElementById("message");
+
+
+    message.style.color = "#ff5c70";
+
+
+    if(!username){
+
+        message.textContent =
+            "Digite o seu nome de utilizador.";
+
+        return;
+    }
+
+
+    if(!email){
+
+        message.textContent =
+            "Digite o seu e-mail.";
+
+        return;
+    }
+
+
+    if(!email.includes("@")){
+
+        message.textContent =
+            "Digite um e-mail válido.";
+
+        return;
+    }
+
+
+    if(password.length < 6){
+
+        message.textContent =
+            "A palavra-passe deve ter pelo menos 6 caracteres.";
+
+        return;
+    }
+
+
+    if(password !== confirmPassword){
+
+        message.textContent =
+            "As palavras-passe não coincidem.";
+
+        return;
+    }
+
+
+    const conta = {
+
+        username: username,
+
+        email: email,
+
+        password: password
+
+    };
+
+
+    localStorage.setItem(
+        "playnime_account",
+        JSON.stringify(conta)
+    );
+
+
+    localStorage.setItem(
+        "playnime_logged_in",
+        "true"
+    );
+
+
+    message.style.color =
+        "#65e6a5";
+
+    message.textContent =
+        "Conta criada com sucesso!";
+
+
+    setTimeout(function(){
+
+        window.location.href =
+            "home.html";
+
+    },800);
+
+}
+
+</script>
+
+</body>
+  </html>
