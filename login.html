@@ -1,1 +1,569 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
 
+<title>Entrar — PlayNime</title><style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+    background:#050505;
+    color:white;
+}
+
+/* =====================================================
+   FUNDO
+===================================================== */
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px 16px;
+
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(139,61,255,.18),
+            transparent 38%
+        ),
+        #050505;
+
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.login{
+
+    width:100%;
+    max-width:390px;
+
+    text-align:center;
+
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+
+    width:76px;
+    height:76px;
+
+    margin:0 auto 22px;
+
+    border-radius:21px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #b45cff,
+            #8b32ff 50%,
+            #5b16c9
+        );
+
+    box-shadow:
+        0 0 28px
+        rgba(139,61,255,.4);
+
+}
+
+.play{
+
+    width:0;
+    height:0;
+
+    border-top:
+        18px solid transparent;
+
+    border-bottom:
+        18px solid transparent;
+
+    border-left:
+        29px solid white;
+
+    margin-left:6px;
+
+}
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+h1{
+
+    font-size:27px;
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    color:#888;
+
+    font-size:14px;
+
+    margin-bottom:30px;
+
+}
+
+/* =====================================================
+   CAMPOS
+===================================================== */
+
+.field{
+
+    text-align:left;
+
+    margin-bottom:16px;
+
+}
+
+.field label{
+
+    display:block;
+
+    color:#bbb;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.field input{
+
+    width:100%;
+
+    height:52px;
+
+    border:none;
+    outline:none;
+
+    border-radius:12px;
+
+    padding:0 15px;
+
+    background:#151515;
+
+    color:white;
+
+    border:1px solid #272727;
+
+    font-size:15px;
+
+    transition:.2s;
+
+}
+
+.field input:focus{
+
+    border-color:#8b32ff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(139,61,255,.12);
+
+}
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+.password-box{
+
+    position:relative;
+
+}
+
+.password-box input{
+
+    padding-right:52px;
+
+}
+
+.show-password{
+
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:52px;
+    height:52px;
+
+    border:0;
+    background:transparent;
+
+    color:#888;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.login-button{
+
+    width:100%;
+
+    height:52px;
+
+    margin-top:8px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a855f7,
+            #7c3aed
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(124,58,237,.25);
+
+    transition:.2s;
+
+}
+
+.login-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =====================================================
+   MENSAGEM
+===================================================== */
+
+.message{
+
+    min-height:20px;
+
+    margin-top:12px;
+
+    font-size:13px;
+
+    color:#ff6b81;
+
+}
+
+/* =====================================================
+   REGISTRO
+===================================================== */
+
+.register{
+
+    margin-top:27px;
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+.register button{
+
+    border:0;
+
+    background:none;
+
+    color:#b45cff;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+/* =====================================================
+   TERMOS
+===================================================== */
+
+.terms{
+
+    margin-top:28px;
+
+    color:#555;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:380px){
+
+    .logo{
+
+        width:68px;
+        height:68px;
+
+        border-radius:19px;
+
+    }
+
+    h1{
+
+        font-size:24px;
+
+    }
+
+    .subtitle{
+
+        margin-bottom:25px;
+
+    }
+
+}
+
+</style></head><body><main class="login"><div class="logo">
+
+    <div class="play"></div>
+
+</div>
+
+<h1>Bem-vindo ao PlayNime</h1>
+
+<p class="subtitle">
+    Entre para continuar a assistir aos teus animes.
+</p>
+
+
+<form id="loginForm">
+
+    <div class="field">
+
+        <label for="email">
+            E-mail
+        </label>
+
+        <input
+            id="email"
+            type="email"
+            placeholder="Digite o seu e-mail"
+            autocomplete="email"
+            required>
+
+    </div>
+
+
+    <div class="field">
+
+        <label for="password">
+            Palavra-passe
+        </label>
+
+        <div class="password-box">
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Digite a sua palavra-passe"
+                autocomplete="current-password"
+                required>
+
+            <button
+                type="button"
+                class="show-password"
+                id="showPassword"
+                aria-label="Mostrar palavra-passe">
+
+                ◉
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="login-button">
+
+        Entrar
+
+    </button>
+
+    <div
+        class="message"
+        id="message">
+    </div>
+
+</form>
+
+
+<div class="register">
+
+    Ainda não tens uma conta?
+
+    <button
+        type="button"
+        onclick="window.location.href='register.html'">
+
+        Criar conta
+
+    </button>
+
+</div>
+
+
+<div class="terms">
+
+    Ao continuar, concordas com os termos
+    e condições do PlayNime.
+
+</div>
+
+</main><script>
+
+/* =====================================================
+   MOSTRAR / ESCONDER PALAVRA-PASSE
+===================================================== */
+
+const password =
+    document.getElementById(
+        "password"
+    );
+
+const showPassword =
+    document.getElementById(
+        "showPassword"
+    );
+
+
+showPassword.addEventListener(
+    "click",
+    function(){
+
+        if(
+            password.type ===
+            "password"
+        ){
+
+            password.type =
+                "text";
+
+            showPassword.textContent =
+                "◉";
+
+        }
+
+        else{
+
+            password.type =
+                "password";
+
+            showPassword.textContent =
+                "◉";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+loginForm.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value.trim();
+
+        const senha =
+            password.value;
+
+
+        if(
+            !email ||
+            !senha
+        ){
+
+            message.textContent =
+                "Preenche todos os campos.";
+
+            return;
+
+        }
+
+
+        /*
+         * Sistema de contas será ligado
+         * ao register.html na próxima etapa.
+         */
+
+        message.style.color =
+            "#b45cff";
+
+        message.textContent =
+            "A preparar o teu acesso...";
+
+    }
+);
+
+</script></body></html>
