@@ -1,1 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>Pesquisar - PlayNime</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#080808;
+    color:#fff;
+    min-height:100vh;
+    padding-bottom:105px;
+}
+
+/* =========================
+   TOPO
+========================= */
+
+.header{
+
+    height:70px;
+
+    padding:0 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.back{
+
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    background:#151515;
+
+    border:1px solid #292929;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+.header-title{
+
+    font-size:21px;
+
+    font-weight:700;
+}
+
+/* =========================
+   PESQUISA
+========================= */
+
+.search-box{
+
+    margin:15px 16px 25px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    background:#151515;
+
+    border:1px solid #292929;
+
+    border-radius:16px;
+
+    padding:0 15px;
+
+}
+
+.search-box svg{
+
+    width:22px;
+    height:22px;
+
+    stroke:#aaa;
+
+    fill:none;
+
+    stroke-width:2;
+
+    flex-shrink:0;
+}
+
+.search-box input{
+
+    width:100%;
+
+    height:100%;
+
+    margin-left:10px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:16px;
+}
+
+.search-box input::placeholder{
+
+    color:#777;
+}
+
+/* =========================
+   RESULTADOS
+========================= */
+
+.section-title{
+
+    margin:0 16px 14px;
+
+    font-size:21px;
+
+    font-weight:700;
+}
+
+.results{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    padding:0 16px;
+}
+
+.anime-card{
+
+    background:#151515;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    min-height:170px;
+}
+
+.anime-card img{
+
+    width:100%;
+
+    height:170px;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.anime-name{
+
+    padding:8px;
+
+    font-size:13px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    color:#eee;
+}
+
+/* =========================
+   ESTADO
+========================= */
+
+.message{
+
+    text-align:center;
+
+    color:#777;
+
+    padding:40px 20px;
+
+    font-size:15px;
+}
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:12px;
+    right:12px;
+    bottom:12px;
+
+    height:70px;
+
+    background:rgba(20,20,20,.96);
+
+    border:1px solid #292929;
+
+    border-radius:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.65);
+
+    backdrop-filter:blur(14px);
+
+    z-index:1000;
+}
+
+.nav-item{
+
+    flex:1;
+
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    color:#777;
+
+    font-size:11px;
+
+    cursor:pointer;
+}
+
+.nav-item svg{
+
+    width:22px;
+    height:22px;
+
+    stroke:currentColor;
+
+    fill:none;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+.nav-item.active{
+
+    color:#fff;
+}
+
+@media(max-width:600px){
+
+    .results{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .anime-card img{
+
+        height:150px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     TOPO
+========================= -->
+
+<header class="header">
+
+    <button
+        class="back"
+        onclick="window.location.href='home.html'">
+
+        ‹
+
+    </button>
+
+    <div class="header-title">
+
+        Pesquisar
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     CAMPO DE PESQUISA
+========================= -->
+
+<div class="search-box">
+
+    <svg viewBox="0 0 24 24">
+
+        <circle
+            cx="11"
+            cy="11"
+            r="6">
+        </circle>
+
+        <path d="M16 16l5 5"></path>
+
+    </svg>
+
+    <input
+        id="searchInput"
+        type="search"
+        placeholder="Pesquisar anime..."
+        autocomplete="off">
+
+</div>
+
+
+<!-- =========================
+     RESULTADOS
+========================= -->
+
+<h2 class="section-title">
+
+    Resultados
+
+</h2>
+
+<div
+    id="results"
+    class="results">
+
+    <div class="message">
+
+        Digite o nome de um anime para pesquisar.
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     NAVEGAÇÃO
+========================= -->
+
+<nav class="bottom-nav">
+
+
+    <!-- INÍCIO -->
+
+    <div
+        class="nav-item"
+        onclick="window.location.href='home.html'">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="M3 11l9-8 9 8"></path>
+
+            <path d="M5 10v10h14V10"></path>
+
+        </svg>
+
+        <span>Início</span>
+
+    </div>
+
+
+    <!-- PESQUISAR -->
+
+    <div
+        class="nav-item active">
+
+        <svg viewBox="0 0 24 24">
+
+            <circle
+                cx="11"
+                cy="11"
+                r="6">
+            </circle>
+
+            <path d="M16 16l5 5"></path>
+
+        </svg>
+
+        <span>Pesquisar</span>
+
+    </div>
+
+
+    <!-- FAVORITOS -->
+
+    <div
+        class="nav-item"
+        onclick="window.location.href='favoritos.html'">
+
+        <svg viewBox="0 0 24 24">
+
+            <path d="
+                M20.8 8.6
+                c0 5.5-8.8 11-8.8 11
+                S3.2 14.1 3.2 8.6
+                A4.6 4.6 0 0 1 12 6.4
+                a4.6 4.6 0 0 1 8.8 2.2z">
+            </path>
+
+        </svg>
+
+        <span>Favoritos</span>
+
+    </div>
+
+
+    <!-- MAIS -->
+
+    <div
+        class="nav-item"
+        onclick="window.location.href='mais.html'">
+
+        <svg viewBox="0 0 24 24">
+
+            <circle
+                cx="5"
+                cy="12"
+                r="1">
+            </circle>
+
+            <circle
+                cx="12"
+                cy="12"
+                r="1">
+            </circle>
+
+            <circle
+                cx="19"
+                cy="12"
+                r="1">
+            </circle>
+
+        </svg>
+
+        <span>Mais</span>
+
+    </div>
+
+</nav>
+
+
+</body>
+
+      </html>
