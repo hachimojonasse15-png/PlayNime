@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
 
 <meta charset="UTF-8">
@@ -12,14 +11,11 @@
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 html{
@@ -29,483 +25,430 @@ html{
 body{
     background:#080808;
     color:#fff;
-    font-family:Arial, Helvetica, sans-serif;
+    min-height:100vh;
     overflow-x:hidden;
 }
 
-/* =====================================================
-   HERO
-===================================================== */
+/* ===============================
+   VARIÁVEIS
+================================ */
+
+:root{
+    --purple:#9b4dff;
+    --purple-light:#b875ff;
+    --yellow:#ffd43b;
+    --red:#ff3b4f;
+    --card:#151515;
+    --border:#272727;
+    --muted:#a7a7a7;
+}
+
+/* ===============================
+   BANNER
+================================ */
 
 .hero{
     position:relative;
     width:100%;
     min-height:560px;
+    background:#101010;
     overflow:hidden;
 }
 
-.hero-bg{
+.hero-backdrop{
     position:absolute;
     inset:0;
     width:100%;
     height:100%;
     object-fit:cover;
     object-position:center;
-    z-index:0;
 }
-
-/* Pequeno escurecimento apenas para leitura,
-   sem aquele gradiente preto pesado */
-
-.hero::after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:130px;
-    background:linear-gradient(
-        transparent,
-        rgba(8,8,8,.92)
-    );
-    z-index:1;
-}
-
-.top-bar{
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    z-index:5;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:18px 20px;
-}
-
-.back-btn{
-    width:44px;
-    height:44px;
-
-    border:none;
-    border-radius:50%;
-
-    background:rgba(0,0,0,.42);
-    color:#fff;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:27px;
-    cursor:pointer;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:800;
-}
-
-.logo span{
-    color:#a855f7;
-}
-
-.top-actions{
-    display:flex;
-    gap:10px;
-}
-
-.top-icon{
-    width:44px;
-    height:44px;
-
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:50%;
-
-    background:rgba(0,0,0,.4);
-
-    color:#fff;
-    font-size:20px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* =====================================================
-   HERO CONTENT
-===================================================== */
 
 .hero-content{
     position:absolute;
-    left:20px;
-    right:20px;
-    bottom:45px;
-
+    left:28px;
+    right:28px;
+    bottom:35px;
     z-index:3;
 }
 
-.anime-title{
-    font-size:34px;
-    line-height:1.08;
-    margin-bottom:13px;
-    font-weight:800;
+.top-actions{
+    position:absolute;
+    top:25px;
+    left:22px;
+    right:22px;
+    display:flex;
+    justify-content:space-between;
+    z-index:5;
 }
 
-.meta{
+.icon-button{
+    width:48px;
+    height:48px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:15px;
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(8px);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.icon-button svg{
+    width:25px;
+    height:25px;
+    stroke:currentColor;
+}
+
+.hero-title{
+    font-size:42px;
+    font-weight:800;
+    line-height:1.08;
+    max-width:850px;
+    margin-bottom:18px;
+    text-shadow:0 2px 12px rgba(0,0,0,.85);
+}
+
+.meta-row{
     display:flex;
     align-items:center;
     flex-wrap:wrap;
-    gap:14px;
-
-    margin-bottom:16px;
+    gap:15px;
+    margin-bottom:18px;
 }
 
 .rating{
-    color:#c084fc;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--yellow);
+    font-size:20px;
     font-weight:700;
+}
+
+.rating svg{
+    width:22px;
+    height:22px;
+    fill:var(--yellow);
+    stroke:var(--yellow);
 }
 
 .year{
-    color:#ddd;
+    color:#fff;
+    font-size:19px;
+    font-weight:600;
 }
 
-.genre-list{
+.genre-row{
     display:flex;
+    gap:10px;
     flex-wrap:wrap;
-    gap:8px;
 }
 
 .genre{
-    padding:8px 13px;
-
-    border-radius:20px;
-
-    background:rgba(25,25,25,.78);
-    border:1px solid rgba(255,255,255,.1);
-
-    color:#ddd;
-    font-size:13px;
+    padding:9px 16px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:22px;
+    background:rgba(0,0,0,.42);
+    backdrop-filter:blur(7px);
+    color:#fff;
+    font-size:14px;
 }
 
-/* =====================================================
-   MAIN
-===================================================== */
+/* ===============================
+   ÁREA PRINCIPAL
+================================ */
 
 .main{
-    position:relative;
-    z-index:4;
-
-    padding:0 20px 40px;
-    margin-top:-1px;
+    width:100%;
+    max-width:1100px;
+    margin:auto;
+    padding:0 28px 80px;
 }
 
-/* =====================================================
-   ACTIONS
-===================================================== */
+/* ===============================
+   AÇÕES
+================================ */
 
-.actions{
-    display:flex;
-    align-items:center;
-
-    gap:28px;
-
-    padding:20px 0;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
+.action-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    padding:22px 0;
+    border-bottom:1px solid var(--border);
 }
 
-.action{
+.action-card{
+    min-height:90px;
+    border:1px solid var(--border);
+    background:#111;
+    border-radius:18px;
     display:flex;
-    align-items:center;
-    gap:9px;
-
-    background:none;
-    border:none;
-
-    color:#fff;
-    font-size:15px;
-
-    cursor:pointer;
-}
-
-.action-icon{
-    width:25px;
-    height:25px;
-
-    display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
+    gap:8px;
+    color:#fff;
+    cursor:pointer;
+    transition:.2s;
+}
 
-    font-size:24px;
+.action-card:hover{
+    background:#181818;
+    border-color:#3b3b3b;
+}
+
+.action-card svg{
+    width:28px;
+    height:28px;
+    stroke:currentColor;
+}
+
+.action-card span{
+    font-size:14px;
+    color:#ddd;
 }
 
 .favorite-icon{
-    font-size:31px;
-    line-height:1;
-
     color:#fff;
-
-    transition:
-        color .2s ease,
-        transform .2s ease;
 }
 
-.favorite.active .favorite-icon{
-    color:#ff315b;
-    transform:scale(1.08);
+.favorite-card.active{
+    border-color:var(--red);
 }
 
-/* =====================================================
-   SECTION TITLE
-===================================================== */
-
-.section-title{
-    font-size:24px;
-    font-weight:800;
-
-    margin-top:27px;
-    margin-bottom:12px;
+.favorite-card.active .favorite-icon{
+    color:var(--red);
+    fill:var(--red);
 }
 
-/* =====================================================
-   SYNOPSIS
-===================================================== */
-
-.synopsis-wrap{
-    border-bottom:1px solid rgba(255,255,255,.08);
-    padding-bottom:15px;
-}
-
-.synopsis{
-    color:#d2d2d2;
-    font-size:16px;
-    line-height:1.65;
-
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:4;
-    overflow:hidden;
-
-    transition:max-height .3s ease;
-}
-
-.synopsis.expanded{
-    display:block;
-}
-
-/* seta fica ABAIXO */
-
-.synopsis-toggle{
-    width:100%;
-
-    margin-top:10px;
-
-    border:none;
-    background:none;
-
-    color:#b565ff;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-}
-
-.chevron{
-    font-size:25px;
-
-    transition:transform .25s ease;
-}
-
-.synopsis-wrap.expanded .chevron{
-    transform:rotate(180deg);
-}
-
-/* =====================================================
-   INFO
-===================================================== */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-
-    margin-top:20px;
-}
-
-.info-card{
-    background:#121212;
-
-    border:1px solid rgba(255,255,255,.07);
-
-    border-radius:14px;
-
-    padding:15px;
-}
-
-.info-label{
-    color:#858585;
-    font-size:12px;
-    margin-bottom:6px;
-}
-
-.info-value{
-    color:#fff;
-    font-size:15px;
-    font-weight:700;
-}
-
-/* =====================================================
-   SEASONS
-===================================================== */
-
-.seasons{
-    display:flex;
-    gap:14px;
-
-    overflow-x:auto;
-
-    padding-bottom:8px;
-
-    scrollbar-width:none;
-}
-
-.seasons::-webkit-scrollbar{
-    display:none;
-}
-
-.season-card{
-    flex:0 0 135px;
-
-    background:#121212;
-
-    border-radius:13px;
-
-    overflow:hidden;
-
-    border:1px solid rgba(255,255,255,.07);
-}
-
-.season-card img{
-    width:100%;
-    height:190px;
-
-    object-fit:cover;
-
-    display:block;
-}
-
-.season-name{
-    padding:10px;
-
-    font-weight:700;
-    font-size:14px;
-}
-
-/* =====================================================
+/* ===============================
    TOAST
-===================================================== */
+================================ */
 
 .toast{
     position:fixed;
-
     left:50%;
-    bottom:25px;
-
-    transform:
-        translate(-50%,120px);
-
-    z-index:100;
-
-    background:#181818;
-
-    border:1px solid rgba(168,85,247,.35);
-
+    bottom:30px;
+    transform:translate(-50%,20px);
+    background:#1b1b1b;
+    border:1px solid #333;
     color:#fff;
-
     padding:13px 20px;
-
     border-radius:12px;
-
-    font-size:14px;
-
     opacity:0;
-
-    transition:
-        opacity .25s ease,
-        transform .25s ease;
+    pointer-events:none;
+    z-index:100;
+    transition:.25s;
 }
 
 .toast.show{
     opacity:1;
-
-    transform:
-        translate(-50%,0);
+    transform:translate(-50%,0);
 }
-/* =====================================================
-   AJUSTE FINAL PLAYNIME
-===================================================== */
 
-@media (max-width:600px){
+/* ===============================
+   SINOPSE
+================================ */
+
+.synopsis{
+    padding:25px 0 10px;
+}
+
+.synopsis-text{
+    color:#fff;
+    font-size:17px;
+    line-height:1.7;
+    max-height:115px;
+    overflow:hidden;
+    transition:max-height .35s ease;
+}
+
+.synopsis-text.expanded{
+    max-height:2000px;
+}
+
+.synopsis-toggle{
+    width:100%;
+    height:45px;
+    border:0;
+    background:transparent;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.synopsis-toggle svg{
+    width:27px;
+    height:27px;
+    stroke:#fff;
+    transition:.25s;
+}
+
+.synopsis-toggle.open svg{
+    transform:rotate(180deg);
+}
+
+/* ===============================
+   TEMPORADAS
+================================ */
+
+.seasons{
+    margin-top:28px;
+}
+
+.season-selector{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#151515;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:16px 18px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.season-selector svg{
+    width:22px;
+    height:22px;
+    stroke:#fff;
+}
+
+.season-list{
+    display:none;
+    margin-top:8px;
+    background:#151515;
+    border:1px solid var(--border);
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.season-list.show{
+    display:block;
+}
+
+.season-option{
+    padding:15px 18px;
+    color:#fff;
+    border-bottom:1px solid #252525;
+    cursor:pointer;
+}
+
+.season-option:last-child{
+    border-bottom:0;
+}
+
+.season-option:hover{
+    background:#202020;
+}
+
+.season-option.selected{
+    background:#241435;
+    color:var(--purple-light);
+}
+
+/* ===============================
+   EPISÓDIOS
+================================ */
+
+.episodes{
+    margin-top:25px;
+}
+
+.episode{
+    display:flex;
+    gap:14px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+}
+
+.episode-thumb{
+    width:120px;
+    height:68px;
+    border-radius:9px;
+    object-fit:cover;
+    background:#181818;
+    flex-shrink:0;
+}
+
+.episode-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:0;
+}
+
+.episode-title{
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    line-height:1.35;
+}
+
+.episode-meta{
+    color:#999;
+    font-size:13px;
+    margin-top:7px;
+}
+
+.loading{
+    color:#888;
+    text-align:center;
+    padding:30px 0;
+}
+
+/* ===============================
+   RESPONSIVO
+================================ */
+
+@media(max-width:600px){
 
     .hero{
-        min-height:540px;
+        min-height:500px;
     }
 
     .hero-content{
-        left:18px;
-        right:18px;
-        bottom:38px;
+        left:20px;
+        right:20px;
+        bottom:28px;
     }
 
-    .anime-title{
-        font-size:32px;
-    }
-
-    .main{
-        padding-left:18px;
-        padding-right:18px;
-    }
-
-    .actions{
-        justify-content:space-between;
-        gap:12px;
-    }
-
-    .action{
-        font-size:14px;
-    }
-
-    .action-icon{
-        font-size:23px;
-    }
-
-    .favorite-icon{
+    .hero-title{
         font-size:34px;
     }
 
-    .info-grid{
-        grid-template-columns:1fr 1fr;
+    .main{
+        padding-left:20px;
+        padding-right:20px;
     }
 
+    .action-grid{
+        gap:8px;
+    }
+
+    .action-card{
+        min-height:82px;
+    }
+
+    .action-card span{
+        font-size:13px;
+    }
+
+    .episode-thumb{
+        width:105px;
+        height:60px;
+    }
 }
 
-@media (min-width:700px){
-
-    .hero-content,
-    .main{
-        max-width:1000px;
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-      }
 </style>
-
 </head>
 
 <body>
@@ -513,30 +456,48 @@ body{
 <div class="hero">
 
     <img
-        id="heroBackground"
-        class="hero-bg"
+        id="heroBackdrop"
+        class="hero-backdrop"
         src=""
         alt="">
 
-    <div class="top-bar">
+    <div class="top-actions">
 
         <button
-            class="back-btn"
-            onclick="history.back()">
-            ‹
+            class="icon-button"
+            onclick="history.back()"
+            aria-label="Voltar">
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path d="M19 12H5"/>
+                <path d="M12 19l-7-7 7-7"/>
+
+            </svg>
+
         </button>
 
-        <div class="logo">
-            Play<span>Nime</span>
-        </div>
+        <button
+            class="icon-button"
+            onclick="showToast('Notificações')"
+            aria-label="Notificações">
 
-        <div class="top-actions">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
 
-            <button class="top-icon">
-                ⌕
-            </button>
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
 
-        </div>
+            </svg>
+
+        </button>
 
     </div>
 
@@ -544,205 +505,203 @@ body{
 
         <h1
             id="animeTitle"
-            class="anime-title">
+            class="hero-title">
             Carregando...
         </h1>
 
-        <div class="meta">
+        <div class="meta-row">
 
-            <span
-                id="animeRating"
-                class="rating">
-                ★ —
-            </span>
+            <div class="rating">
 
-            <span
+                <svg
+                    viewBox="0 0 24 24">
+
+                    <path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1L12 2z"/>
+
+                </svg>
+
+                <span id="animeRating">--</span>
+
+            </div>
+
+            <div
                 id="animeYear"
                 class="year">
-                —
-            </span>
+                ----
+            </div>
 
         </div>
 
         <div
-            id="genres"
-            class="genre-list">
+            id="genreRow"
+            class="genre-row">
         </div>
 
     </div>
 
 </div>
 
+<div class="main">
 
-<main class="main">
-
-    <!-- AÇÕES -->
-
-    <div class="actions">
+    <div class="action-grid">
 
         <button
-            class="action"
+            class="action-card"
             onclick="shareAnime()">
 
-            <span class="action-icon">
-                ♧
-            </span>
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
 
-            <span>
-                Partilhar
-            </span>
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <path d="M8.6 13.5l6.8 4"/>
+                <path d="M15.4 6.5l-6.8 4"/>
+
+            </svg>
+
+            <span>Partilhar</span>
 
         </button>
-
 
         <button
-            class="action"
-            onclick="showToast('Comentários em breve')">
+            class="action-card"
+            onclick="openComments()">
 
-            <span class="action-icon">
-                ◯
-            </span>
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
 
-            <span>
-                Comentários
-            </span>
+                <path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.8 8.8 0 0 1-3.5-.7L4 20l1.3-3.7A7.1 7.1 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5z"/>
+
+            </svg>
+
+            <span>Comentários</span>
 
         </button>
-
 
         <button
             id="favoriteButton"
-            class="action favorite"
+            class="action-card favorite-card"
             onclick="toggleFavorite()">
 
-            <span
-                id="favoriteIcon"
-                class="favorite-icon">
-                ♡
-            </span>
+            <svg
+                class="favorite-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8">
 
-            <span>
-                Favoritos
-            </span>
+                <path d="M20.8 8.7c0 5.5-8.8 11-8.8 11S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5z"/>
+
+            </svg>
+
+            <span>Favoritos</span>
 
         </button>
 
     </div>
 
+    <div class="synopsis">
 
-    <!-- SINOPSE -->
-
-    <h2 class="section-title">
-        Sinopse
-    </h2>
-
-    <div
-        id="synopsisWrap"
-        class="synopsis-wrap">
-
-        <p
-            id="synopsis"
-            class="synopsis">
+        <div
+            id="synopsisText"
+            class="synopsis-text">
             Carregando sinopse...
-        </p>
+        </div>
 
         <button
             id="synopsisToggle"
             class="synopsis-toggle"
-            onclick="toggleSynopsis()">
+            onclick="toggleSynopsis()"
+            aria-label="Expandir sinopse">
 
-            <span class="chevron">
-               ⌄
-            </span>
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path d="M6 9l6 6 6-6"/>
+
+            </svg>
 
         </button>
 
     </div>
 
+    <div class="seasons">
 
-    <!-- INFORMAÇÕES -->
+        <button
+            id="seasonSelector"
+            class="season-selector"
+            onclick="toggleSeasonList()">
 
-    <h2 class="section-title">
-        Informações
-    </h2>
+            <span id="selectedSeason">
+                Temporada 1
+            </span>
 
-    <div class="info-grid">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
 
-        <div class="info-card">
+                <path d="M6 9l6 6 6-6"/>
 
-            <div class="info-label">
-                Ano
-            </div>
+            </svg>
 
-            <div
-                id="infoYear"
-                class="info-value">
-                —
-            </div>
+        </button>
 
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="info-label">
-                Nota
-            </div>
-
-            <div
-                id="infoRating"
-                class="info-value">
-                —
-            </div>
-
+        <div
+            id="seasonList"
+            class="season-list">
         </div>
 
     </div>
-
-
-    <!-- TEMPORADAS -->
-
-    <h2 class="section-title">
-        Temporadas
-    </h2>
 
     <div
-        id="seasons"
-        class="seasons">
+        id="episodes"
+        class="episodes">
+
+        <div class="loading">
+            Carregando episódios...
+        </div>
+
     </div>
 
-</main>
-
+</div>
 
 <div
     id="toast"
     class="toast">
 </div>
 
-
 <script>
 
-/* =====================================================
+/* ==========================================
    CONFIGURAÇÃO
-===================================================== */
+========================================== */
 
 const JIKAN_API =
     "https://api.jikan.moe/v4";
 
+const TMDB_API_KEY =
+    "COLE_SUA_CHAVE_TMDB_AQUI";
+
 const TMDB_API =
     "https://api.themoviedb.org/3";
 
-/*
-   COLOQUE A SUA CHAVE TMDB AQUI
-*/
+const TMDB_IMAGE =
+    "https://image.tmdb.org/t/p/original";
 
-const TMDB_API_KEY =
-    "SUA_CHAVE_TMDB";
-
-
-/* =====================================================
-   ID DO ANIME
-===================================================== */
+const TMDB_POSTER =
+    "https://image.tmdb.org/t/p/w500";
 
 const params =
     new URLSearchParams(
@@ -752,89 +711,41 @@ const params =
 const animeId =
     params.get("id");
 
+let animeData = null;
+let tmdbData = null;
+let selectedSeasonNumber = 1;
+let seasonsData = [];
 
-/* =====================================================
-   ELEMENTOS
-===================================================== */
+/* ==========================================
+   INÍCIO
+========================================== */
 
-const heroBackground =
-    document.getElementById(
-        "heroBackground"
-    );
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-const animeTitle =
-    document.getElementById(
-        "animeTitle"
-    );
+        if(!animeId){
 
-const animeRating =
-    document.getElementById(
-        "animeRating"
-    );
+            document.getElementById(
+                "animeTitle"
+            ).textContent =
+                "Anime não encontrado";
 
-const animeYear =
-    document.getElementById(
-        "animeYear"
-    );
+            return;
+        }
 
-const infoYear =
-    document.getElementById(
-        "infoYear"
-    );
+        loadAnime();
 
-const infoRating =
-    document.getElementById(
-        "infoRating"
-    );
-
-const genres =
-    document.getElementById(
-        "genres"
-    );
-
-const synopsis =
-    document.getElementById(
-        "synopsis"
-    );
-
-const seasons =
-    document.getElementById(
-        "seasons"
-    );
-
-
-/* =====================================================
-   ESCAPAR HTML
-===================================================== */
-
-function escapeHTML(text){
-
-    if(!text){
-        return "";
     }
+);
 
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-}
+                  <script>
 
-
-/* =====================================================
-   BUSCAR ANIME NO JIKAN
-===================================================== */
+/* ==========================================
+   CARREGAR ANIME JIKAN
+========================================== */
 
 async function loadAnime(){
-
-    if(!animeId){
-
-        animeTitle.textContent =
-            "Anime não encontrado";
-
-        return;
-    }
 
     try{
 
@@ -844,270 +755,244 @@ async function loadAnime(){
             );
 
         if(!response.ok){
-
             throw new Error(
-                "Erro ao buscar anime"
+                "Erro Jikan"
             );
         }
 
         const json =
             await response.json();
 
-        const anime =
+        animeData =
             json.data;
 
-        window.currentAnime =
-            anime;
+        renderAnime();
 
-
-        /* =========================
-           TÍTULO
-        ========================= */
-
-        animeTitle.textContent =
-            anime.title ||
-            anime.title_english ||
-            "Sem título";
-
-
-        /* =========================
-           NOTA
-        ========================= */
-
-        const score =
-            anime.score;
-
-        animeRating.textContent =
-            score
-                ? `★ ${score}`
-                : "★ —";
-
-        infoRating.textContent =
-            score
-                ? `${score}/10`
-                : "Sem nota";
-
-
-        /* =========================
-           ANO
-        ========================= */
-
-        let year = "—";
-
-        if(anime.year){
-
-            year = anime.year;
-
-        }else if(
-            anime.aired &&
-            anime.aired.from
-        ){
-
-            year =
-                new Date(
-                    anime.aired.from
-                ).getFullYear();
-
-        }
-
-        animeYear.textContent =
-            year;
-
-        infoYear.textContent =
-            year;
-
-
-        /* =========================
-           GÉNEROS
-        ========================= */
-
-        genres.innerHTML = "";
-
-        const genreData =
-            anime.genres || [];
-
-        genreData.forEach(
-            genre => {
-
-                const tag =
-                    document.createElement(
-                        "span"
-                    );
-
-                tag.className =
-                    "genre";
-
-                tag.textContent =
-                    genre.name;
-
-                genres.appendChild(
-                    tag
-                );
-
-            }
-        );
-
-
-        /* =========================
-           SINOPSE
-        ========================= */
-
-        synopsis.textContent =
-            anime.synopsis ||
-            "Sinopse não disponível.";
-
-
-        /* =========================
-           TEMPORADAS
-        ========================= */
-
-        await loadSeasons(
-            anime
-        );
-
-
-        /* =========================
-           TMDB
-        ========================= */
-
-        await loadTMDBBackground(
-            anime
-        );
-
-
-        /* =========================
-           FAVORITO
-        ========================= */
-
-        updateFavoriteButton();
+        await findTMDBAnime();
 
     }catch(error){
 
-        console.error(
-            "Erro:",
-            error
-        );
+        console.error(error);
 
-        animeTitle.textContent =
-            "Não foi possível carregar";
+        document.getElementById(
+            "animeTitle"
+        ).textContent =
+            "Não foi possível carregar o anime";
 
-        synopsis.textContent =
-            "Ocorreu um erro ao carregar as informações deste anime.";
     }
 
 }
 
+/* ==========================================
+   MOSTRAR DADOS
+========================================== */
 
-/* =====================================================
-   BUSCAR FUNDO NO TMDB
-===================================================== */
+function renderAnime(){
 
-async function loadTMDBBackground(
-    anime
-){
+    const title =
+        animeData.title ||
+        animeData.title_english ||
+        "Anime";
+
+    document.getElementById(
+        "animeTitle"
+    ).textContent =
+        title;
+
+    const score =
+        animeData.score;
+
+    document.getElementById(
+        "animeRating"
+    ).textContent =
+        score
+        ? Number(score).toFixed(2)
+        : "--";
+
+    let year = "----";
+
+    if(animeData.aired){
+
+        const from =
+            animeData.aired.from;
+
+        if(from){
+
+            year =
+                new Date(from)
+                .getFullYear();
+
+        }
+
+    }
+
+    document.getElementById(
+        "animeYear"
+    ).textContent =
+        year;
+
+    const genres =
+        [
+            ...(animeData.genres || []),
+            ...(animeData.themes || [])
+        ];
+
+    const genreRow =
+        document.getElementById(
+            "genreRow"
+        );
+
+    genreRow.innerHTML = "";
+
+    genres
+        .slice(0,5)
+        .forEach(item => {
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+            el.className =
+                "genre";
+
+            el.textContent =
+                item.name;
+
+            genreRow.appendChild(
+                el
+            );
+
+        });
+
+    const synopsis =
+        animeData.synopsis ||
+        "Sinopse indisponível.";
+
+    document.getElementById(
+        "synopsisText"
+    ).textContent =
+        synopsis;
+
+    setJikanPoster();
+
+    loadJikanEpisodes();
+
+}
+
+/* ==========================================
+   POSTER TEMPORÁRIO JIKAN
+========================================== */
+
+function setJikanPoster(){
+
+    const image =
+        animeData.images &&
+        animeData.images.jpg &&
+        animeData.images.jpg.large_image_url;
+
+    if(image){
+
+        document.getElementById(
+            "heroBackdrop"
+        ).src =
+            image;
+
+    }
+
+}
+
+/* ==========================================
+   BUSCAR NO TMDB
+========================================== */
+
+async function findTMDBAnime(){
 
     if(
         !TMDB_API_KEY ||
         TMDB_API_KEY ===
-        "SUA_CHAVE_TMDB"
+        "COLE_SUA_CHAVE_TMDB_AQUI"
     ){
 
-        /*
-           Se ainda não colocou a chave,
-           usamos temporariamente a imagem
-           do Jikan.
-        */
-
-        const fallback =
-            anime.images &&
-            anime.images.jpg &&
-            anime.images.jpg.large_image_url;
-
-        if(fallback){
-
-            heroBackground.src =
-                fallback;
-        }
+        console.warn(
+            "Chave TMDB ainda não configurada."
+        );
 
         return;
-    }
 
+    }
 
     try{
 
-        const searchTitle =
-            anime.title_english ||
-            anime.title ||
-            anime.title_japanese;
-
+        const title =
+            animeData.title_english ||
+            animeData.title;
 
         const url =
-            `${TMDB_API}/search/multi` +
-            `?api_key=${TMDB_API_KEY}` +
-            `&language=pt-PT` +
-            `&query=${encodeURIComponent(
-                searchTitle
-            )}`;
-
+            `${TMDB_API}/search/tv` +
+            `?api_key=${encodeURIComponent(TMDB_API_KEY)}` +
+            `&query=${encodeURIComponent(title)}` +
+            `&language=pt-BR`;
 
         const response =
             await fetch(url);
 
-
         if(!response.ok){
-
-            throw new Error(
-                "TMDB search failed"
-            );
+            return;
         }
-
 
         const json =
             await response.json();
 
+        if(
+            !json.results ||
+            !json.results.length
+        ){
 
-        const results =
-            (json.results || [])
-                .filter(
+            return;
+        }
+
+        /* tenta encontrar o resultado
+           mais parecido */
+
+        const originalTitle =
+            animeData.title;
+
+        let result =
+            json.results.find(
+                item =>
+                    item.name &&
+                    item.name.toLowerCase()
+                    === title.toLowerCase()
+            );
+
+        if(!result){
+
+            result =
+                json.results.find(
                     item =>
-                        item.media_type === "tv" ||
-                        item.media_type === "movie"
+                        item.original_name &&
+                        item.original_name
+                        .toLowerCase()
+                        === originalTitle
+                        .toLowerCase()
                 );
 
-
-        const result =
-            results.find(
-                item =>
-                    item.backdrop_path
-            ) ||
-            results.find(
-                item =>
-                    item.poster_path
-            );
-
-
-        if(result){
-
-            if(result.backdrop_path){
-
-                heroBackground.src =
-                    `https://image.tmdb.org/t/p/original${result.backdrop_path}`;
-
-            }else if(
-                result.poster_path
-            ){
-
-                heroBackground.src =
-                    `https://image.tmdb.org/t/p/original${result.poster_path}`;
-
-            }
-
-        }else{
-
-            useJikanFallback(
-                anime
-            );
         }
+
+        if(!result){
+
+            result =
+                json.results[0];
+
+        }
+
+        tmdbData =
+            result;
+
+        applyTMDBBanner();
+
+        await loadTMDBDetails();
 
     }catch(error){
 
@@ -1116,391 +1001,572 @@ async function loadTMDBBackground(
             error
         );
 
-        useJikanFallback(
-            anime
-        );
     }
 
 }
 
+/* ==========================================
+   APLICAR BANNER TMDB
+========================================== */
 
-/* =====================================================
-   FALLBACK JIKAN
-===================================================== */
-
-function useJikanFallback(
-    anime
-){
-
-    const image =
-        anime.images &&
-        anime.images.jpg &&
-        (
-            anime.images.jpg
-                .large_image_url ||
-            anime.images.jpg
-                .image_url
-        );
-
-    if(image){
-
-        heroBackground.src =
-            image;
-    }
-
-                 }
-
-      /* =====================================================
-   TEMPORADAS
-===================================================== */
-
-async function loadSeasons(
-    anime
-){
-
-    seasons.innerHTML = "";
-
-
-    /*
-       O anime principal aparece
-       como uma temporada.
-    */
-
-    addSeasonCard(
-        anime,
-        "Temporada 1"
-    );
-
-
-    /*
-       Tentamos encontrar relações
-       de sequências/prequelas no Jikan.
-    */
+function applyTMDBBanner(){
 
     if(
-        !anime.relations ||
-        !Array.isArray(anime.relations)
+        !tmdbData ||
+        !tmdbData.backdrop_path
     ){
 
         return;
     }
 
-
-    let seasonNumber = 2;
-
-
-    for(
-        const relation of anime.relations
-    ){
-
-        if(
-            relation.relation !==
-            "Sequel"
-        ){
-
-            continue;
-        }
-
-
-        if(
-            !relation.entry ||
-            !relation.entry.length
-        ){
-
-            continue;
-        }
-
-
-        const entry =
-            relation.entry[0];
-
-
-        try{
-
-            const response =
-                await fetch(
-                    `${JIKAN_API}/anime/${entry.mal_id}`
-                );
-
-
-            if(!response.ok){
-
-                continue;
-            }
-
-
-            const json =
-                await response.json();
-
-
-            if(json.data){
-
-                addSeasonCard(
-                    json.data,
-                    `Temporada ${seasonNumber}`
-                );
-
-                seasonNumber++;
-
-            }
-
-        }catch(error){
-
-            console.warn(
-                "Erro ao carregar temporada:",
-                error
-            );
-
-        }
-
-
-        /*
-           Pequeno intervalo para
-           não sobrecarregar a API.
-        */
-
-        await sleep(350);
-
-    }
-
-}
-
-
-/* =====================================================
-   CRIAR CARD DA TEMPORADA
-===================================================== */
-
-function addSeasonCard(
-    anime,
-    label
-){
+    const banner =
+        TMDB_IMAGE +
+        tmdbData.backdrop_path;
 
     const image =
-        anime.images &&
-        anime.images.jpg &&
-        (
-            anime.images.jpg
-                .large_image_url ||
-            anime.images.jpg
-                .image_url
+        document.getElementById(
+            "heroBackdrop"
         );
 
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-    card.className =
-        "season-card";
-
-
-    card.innerHTML = `
-
-        <img
-            src="${image || ""}"
-            alt="${escapeHTML(
-                anime.title
-            )}"
-            loading="lazy">
-
-        <div class="season-name">
-            ${escapeHTML(label)}
-        </div>
-
-    `;
-
-
-    seasons.appendChild(
-        card
-    );
+    image.src =
+        banner;
 
 }
 
+/* ==========================================
+   DETALHES TMDB
+========================================== */
 
-/* =====================================================
-   SLEEP
-===================================================== */
+async function loadTMDBDetails(){
 
-function sleep(ms){
+    if(
+        !tmdbData ||
+        !tmdbData.id
+    ){
 
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                ms
-            )
-    );
-
-}
-
-
-/* =====================================================
-   SINOPSE
-===================================================== */
-
-function toggleSynopsis(){
-
-    const wrap =
-        document.getElementById(
-            "synopsisWrap"
-        );
-
-    const text =
-        document.getElementById(
-            "synopsis"
-        );
-
-
-    const expanded =
-        wrap.classList.toggle(
-            "expanded"
-        );
-
-
-    if(expanded){
-
-        text.classList.add(
-            "expanded"
-        );
-
-    }else{
-
-        text.classList.remove(
-            "expanded"
-        );
-
+        return;
     }
-
-}
-
-
-/* =====================================================
-   FAVORITOS
-===================================================== */
-
-function getFavorites(){
 
     try{
 
-        return JSON.parse(
-            localStorage.getItem(
-                "playnime_favorites"
-            )
-        ) || [];
+        const url =
+            `${TMDB_API}/tv/${tmdbData.id}` +
+            `?api_key=${encodeURIComponent(TMDB_API_KEY)}` +
+            `&language=pt-BR`;
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+            return;
+        }
+
+        const data =
+            await response.json();
+
+        tmdbData =
+            {
+                ...tmdbData,
+                ...data
+            };
+
+        createSeasonList();
 
     }catch(error){
 
-        return [];
+        console.warn(error);
 
     }
 
 }
 
+/* ==========================================
+   TEMPORADAS
+========================================== */
 
-/* =====================================================
-   SALVAR FAVORITOS
-===================================================== */
-
-function saveFavorites(
-    favorites
-){
-
-    localStorage.setItem(
-        "playnime_favorites",
-        JSON.stringify(
-            favorites
-        )
-    );
-
-}
-
-
-/* =====================================================
-   ALTERAR FAVORITO
-===================================================== */
-
-function toggleFavorite(){
+function createSeasonList(){
 
     if(
-        !window.currentAnime
+        !tmdbData ||
+        !tmdbData.seasons
     ){
+
+        createFallbackSeason();
 
         return;
     }
 
-
-    const anime =
-        window.currentAnime;
-
-
-    let favorites =
-        getFavorites();
-
-
-    const id =
-        anime.mal_id;
-
-
-    const exists =
-        favorites.some(
-            item =>
-                item.id === id
+    seasonsData =
+        tmdbData.seasons
+        .filter(
+            season =>
+                season.season_number >= 0
         );
 
+    if(!seasonsData.length){
 
-    if(exists){
+        createFallbackSeason();
 
-        favorites =
-            favorites.filter(
-                item =>
-                    item.id !== id
+        return;
+    }
+
+    const list =
+        document.getElementById(
+            "seasonList"
+        );
+
+    list.innerHTML = "";
+
+    seasonsData.forEach(
+        season => {
+
+            const option =
+                document.createElement(
+                    "div"
+                );
+
+            option.className =
+                "season-option";
+
+            if(
+                season.season_number ===
+                selectedSeasonNumber
+            ){
+
+                option.classList.add(
+                    "selected"
+                );
+
+            }
+
+            option.textContent =
+                season.season_number === 0
+                ? "Especiais"
+                : `Temporada ${season.season_number}`;
+
+            option.onclick =
+                () => {
+
+                    selectedSeasonNumber =
+                        season.season_number;
+
+                    document.getElementById(
+                        "selectedSeason"
+                    ).textContent =
+                        option.textContent;
+
+                    document
+                        .querySelectorAll(
+                            ".season-option"
+                        )
+                        .forEach(
+                            el =>
+                                el.classList
+                                .remove(
+                                    "selected"
+                                )
+                        );
+
+                    option.classList.add(
+                        "selected"
+                    );
+
+                    document
+                        .getElementById(
+                            "seasonList"
+                        )
+                        .classList
+                        .remove(
+                            "show"
+                        );
+
+                    loadTMDBEpisodes(
+                        selectedSeasonNumber
+                    );
+
+                };
+
+            list.appendChild(
+                option
             );
 
+        }
+    );
 
-        saveFavorites(
-            favorites
+    loadTMDBEpisodes(
+        selectedSeasonNumber
+    );
+
+}
+
+/* ==========================================
+   TEMPORADA FALLBACK
+========================================== */
+
+function createFallbackSeason(){
+
+    seasonsData = [
+        {
+            season_number:1,
+            name:"Temporada 1"
+        }
+    ];
+
+    document.getElementById(
+        "selectedSeason"
+    ).textContent =
+        "Temporada 1";
+
+    loadJikanEpisodes();
+
+}
+
+<script>
+
+/* ==========================================
+   EPISÓDIOS TMDB
+========================================== */
+
+async function loadTMDBEpisodes(
+    seasonNumber
+){
+
+    if(
+        !tmdbData ||
+        !tmdbData.id
+    ){
+
+        loadJikanEpisodes();
+
+        return;
+    }
+
+    const episodes =
+        document.getElementById(
+            "episodes"
         );
 
+    episodes.innerHTML =
+        `<div class="loading">
+            Carregando episódios...
+        </div>`;
 
-        updateFavoriteButton();
+    try{
 
+        const url =
+            `${TMDB_API}/tv/${tmdbData.id}` +
+            `/season/${seasonNumber}` +
+            `?api_key=${encodeURIComponent(TMDB_API_KEY)}` +
+            `&language=pt-BR`;
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+
+            loadJikanEpisodes();
+
+            return;
+        }
+
+        const json =
+            await response.json();
+
+        if(
+            !json.episodes ||
+            !json.episodes.length
+        ){
+
+            loadJikanEpisodes();
+
+            return;
+        }
+
+        renderEpisodes(
+            json.episodes
+        );
+
+    }catch(error){
+
+        console.warn(error);
+
+        loadJikanEpisodes();
+
+    }
+
+}
+
+/* ==========================================
+   EPISÓDIOS JIKAN
+========================================== */
+
+async function loadJikanEpisodes(){
+
+    if(!animeId){
+        return;
+    }
+
+    const episodes =
+        document.getElementById(
+            "episodes"
+        );
+
+    episodes.innerHTML =
+        `<div class="loading">
+            Carregando episódios...
+        </div>`;
+
+    try{
+
+        const response =
+            await fetch(
+                `${JIKAN_API}/anime/${animeId}/episodes?page=1`
+            );
+
+        if(!response.ok){
+
+            episodes.innerHTML = "";
+
+            return;
+        }
+
+        const json =
+            await response.json();
+
+        const data =
+            json.data || [];
+
+        renderEpisodes(
+            data
+        );
+
+    }catch(error){
+
+        console.warn(error);
+
+        episodes.innerHTML = "";
+
+    }
+
+}
+
+/* ==========================================
+   RENDER EPISÓDIOS
+========================================== */
+
+function renderEpisodes(
+    episodeList
+){
+
+    const container =
+        document.getElementById(
+            "episodes"
+        );
+
+    container.innerHTML = "";
+
+    if(
+        !episodeList ||
+        !episodeList.length
+    ){
+
+        container.innerHTML =
+            `<div class="loading">
+                Nenhum episódio disponível.
+            </div>`;
+
+        return;
+    }
+
+    episodeList.forEach(
+        (episode,index) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "episode";
+
+            let image =
+                "";
+
+            let number =
+                episode.episode_number;
+
+            let title =
+                episode.name ||
+                episode.title ||
+                `Episódio ${number || index+1}`;
+
+            let duration =
+                "";
+
+            if(
+                episode.still_path
+            ){
+
+                image =
+                    "https://image.tmdb.org/t/p/w300" +
+                    episode.still_path;
+
+            }else if(
+                animeData &&
+                animeData.images &&
+                animeData.images.jpg
+            ){
+
+                image =
+                    animeData.images.jpg
+                    .large_image_url;
+
+            }
+
+            if(
+                episode.runtime
+            ){
+
+                duration =
+                    `${episode.runtime} min`;
+
+            }else{
+
+                duration =
+                    "24 min";
+
+            }
+
+            item.innerHTML = `
+
+                <img
+                    class="episode-thumb"
+                    src="${escapeHTML(image)}"
+                    alt="">
+
+                <div class="episode-info">
+
+                    <div class="episode-title">
+                        ${escapeHTML(
+                            number
+                            ? `${number}. ${title}`
+                            : title
+                        )}
+                    </div>
+
+                    <div class="episode-meta">
+                        ${escapeHTML(duration)}
+                    </div>
+
+                </div>
+
+            `;
+
+            item.onclick =
+                () => {
+
+                    showToast(
+                        "Episódio selecionado"
+                    );
+
+                };
+
+            container.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+/* ==========================================
+   EXPANDIR SINOPSE
+========================================== */
+
+function toggleSynopsis(){
+
+    const text =
+        document.getElementById(
+            "synopsisText"
+        );
+
+    const button =
+        document.getElementById(
+            "synopsisToggle"
+        );
+
+    text.classList.toggle(
+        "expanded"
+    );
+
+    button.classList.toggle(
+        "open"
+    );
+
+}
+
+/* ==========================================
+   TEMPORADA MENU
+========================================== */
+
+function toggleSeasonList(){
+
+    document.getElementById(
+        "seasonList"
+    ).classList.toggle(
+        "show"
+    );
+
+}
+
+/* ==========================================
+   FAVORITOS
+========================================== */
+
+function toggleFavorite(){
+
+    if(!animeData){
+        return;
+    }
+
+    const button =
+        document.getElementById(
+            "favoriteButton"
+        );
+
+    const key =
+        `playnime_favorite_${animeId}`;
+
+    const active =
+        localStorage.getItem(
+            key
+        ) === "true";
+
+    if(active){
+
+        localStorage.removeItem(
+            key
+        );
+
+        button.classList.remove(
+            "active"
+        );
 
         showToast(
             "Removido dos favoritos"
         );
 
-
     }else{
 
-        favorites.push({
-
-            id:
-                anime.mal_id,
-
-            title:
-                anime.title,
-
-            image:
-                anime.images?.jpg
-                    ?.large_image_url ||
-                anime.images?.jpg
-                    ?.image_url ||
-                "",
-
-            score:
-                anime.score || null
-
-        });
-
-
-        saveFavorites(
-            favorites
+        localStorage.setItem(
+            key,
+            "true"
         );
 
-
-        updateFavoriteButton();
-
+        button.classList.add(
+            "active"
+        );
 
         showToast(
             "Adicionado aos favoritos"
@@ -1510,107 +1576,47 @@ function toggleFavorite(){
 
 }
 
+/* ==========================================
+   VERIFICAR FAVORITO
+========================================== */
 
-/* =====================================================
-   ATUALIZAR CORAÇÃO
-===================================================== */
+function checkFavorite(){
 
-function updateFavoriteButton(){
+    const key =
+        `playnime_favorite_${animeId}`;
 
     if(
-        !window.currentAnime
+        localStorage.getItem(key)
+        === "true"
     ){
 
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "favoriteButton"
-        );
-
-    const icon =
-        document.getElementById(
-            "favoriteIcon"
-        );
-
-
-    const favorites =
-        getFavorites();
-
-
-    const id =
-        window.currentAnime
-            .mal_id;
-
-
-    const active =
-        favorites.some(
-            item =>
-                item.id === id
-        );
-
-
-    if(active){
-
-        button.classList.add(
-            "active"
-        );
-
-        icon.textContent =
-            "♥";
-
-    }else{
-
-        button.classList.remove(
-            "active"
-        );
-
-        icon.textContent =
-            "♡";
+        document
+            .getElementById(
+                "favoriteButton"
+            )
+            .classList
+            .add(
+                "active"
+            );
 
     }
 
 }
 
-
-/* =====================================================
+/* ==========================================
    PARTILHAR
-===================================================== */
+========================================== */
 
 async function shareAnime(){
 
-    if(
-        !window.currentAnime
-    ){
-
-        return;
-    }
-
-
-    const anime =
-        window.currentAnime;
-
-
     const title =
-        anime.title ||
-        "Anime";
+        animeData &&
+        animeData.title
+        ? animeData.title
+        : "Anime";
 
-
-    const shareData = {
-
-        title:
-            `PlayNime - ${title}`,
-
-        text:
-            `Confira ${title} no PlayNime.`,
-
-        url:
-            window.location.href
-
-    };
-
+    const url =
+        window.location.href;
 
     try{
 
@@ -1618,17 +1624,24 @@ async function shareAnime(){
             navigator.share
         ){
 
-            await navigator.share(
-                shareData
-            );
+            await navigator.share({
+
+                title:
+                    `PlayNime - ${title}`,
+
+                text:
+                    `Veja ${title} no PlayNime`,
+
+                url:
+                    url
+
+            });
 
         }else{
 
-            await navigator
-                .clipboard
-                .writeText(
-                    window.location.href
-                );
+            await navigator.clipboard.writeText(
+                url
+            );
 
             showToast(
                 "Link copiado"
@@ -1638,18 +1651,27 @@ async function shareAnime(){
 
     }catch(error){
 
-        console.log(
-            "Partilha cancelada"
-        );
+        console.log(error);
 
     }
 
 }
 
+/* ==========================================
+   COMENTÁRIOS
+========================================== */
 
-/* =====================================================
-   TOAST
-===================================================== */
+function openComments(){
+
+    showToast(
+        "Comentários em breve"
+    );
+
+}
+
+/* ==========================================
+   NOTIFICAÇÃO
+========================================== */
 
 function showToast(
     message
@@ -1660,42 +1682,204 @@ function showToast(
             "toast"
         );
 
-
     toast.textContent =
         message;
-
 
     toast.classList.add(
         "show"
     );
 
+    setTimeout(
+        () => {
 
-    clearTimeout(
-        window.toastTimer
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2200
     );
-
-
-    window.toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2200
-        );
 
 }
 
+/* ==========================================
+   SEGURANÇA HTML
+========================================== */
 
-/* =====================================================
-   INICIAR
-===================================================== */
+function escapeHTML(
+    value
+){
 
-loadAnime();
+    return String(
+        value || ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+/* ==========================================
+   FINAL
+========================================== */
+
+checkFavorite();
+
+<script>
+
+/* ==========================================
+   MELHORAR CARREGAMENTO DO BANNER
+========================================== */
+
+const backdrop =
+    document.getElementById(
+        "heroBackdrop"
+    );
+
+backdrop.addEventListener(
+    "error",
+    () => {
+
+        if(
+            animeData &&
+            animeData.images &&
+            animeData.images.jpg
+        ){
+
+            const fallback =
+                animeData.images.jpg
+                .large_image_url;
+
+            if(
+                backdrop.src !== fallback
+            ){
+
+                backdrop.src =
+                    fallback;
+
+            }
+
+        }
+
+    }
+);
+
+/* ==========================================
+   FECHAR MENU DE TEMPORADAS
+   AO CLICAR FORA
+========================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const list =
+            document.getElementById(
+                "seasonList"
+            );
+
+        const selector =
+            document.getElementById(
+                "seasonSelector"
+            );
+
+        if(
+            !list.contains(event.target) &&
+            !selector.contains(event.target)
+        ){
+
+            list.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+/* ==========================================
+   ATUALIZAR FAVORITO APÓS CARREGAMENTO
+========================================== */
+
+setTimeout(
+    () => {
+
+        checkFavorite();
+
+    },
+    300
+);
+
+/* ==========================================
+   PREPARAR IMAGEM DO TMDB
+========================================== */
+
+function preloadTMDBBackdrop(
+    url
+){
+
+    if(!url){
+        return;
+    }
+
+    const img =
+        new Image();
+
+    img.onload =
+        () => {
+
+            const backdrop =
+                document.getElementById(
+                    "heroBackdrop"
+                );
+
+            backdrop.src =
+                url;
+
+        };
+
+    img.src =
+        url;
+
+}
+
+/* ==========================================
+   TENTAR NOVAMENTE TMDB
+========================================== */
+
+async function retryTMDB(){
+
+    if(!animeData){
+        return;
+    }
+
+    await findTMDBAnime();
+
+}
+
+/* ==========================================
+   FIM DO PLAYNIME
+========================================== */
 
 </script>
-</body>     
+
+</body>
 </html>
+                  
