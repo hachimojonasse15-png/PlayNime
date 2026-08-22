@@ -1,1 +1,1291 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
 
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>PlayNime - Detalhes</title>
+
+<style>
+
+/* =====================================================
+   BASE
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    background:#080808;
+}
+
+body{
+    background:#080808;
+    color:#fff;
+    min-height:100vh;
+}
+
+/* =====================================================
+   TOPO
+===================================================== */
+
+.topbar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:70px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 18px;
+
+    background:rgba(8,8,8,.94);
+
+    backdrop-filter:blur(12px);
+
+    z-index:1000;
+
+    border-bottom:1px solid #1d1d1d;
+}
+
+.back-button{
+
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    border:1px solid #292929;
+
+    background:#151515;
+
+    color:white;
+
+    font-size:27px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.logo{
+
+    margin-left:14px;
+
+    font-size:22px;
+
+    font-weight:800;
+
+    color:white;
+}
+
+.logo span{
+    color:#a855f7;
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.page{
+
+    padding-top:70px;
+
+    padding-bottom:40px;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    position:relative;
+
+    min-height:520px;
+
+    overflow:hidden;
+
+    background:#111;
+}
+
+.hero-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:.42;
+
+    filter:blur(1px);
+}
+
+.hero-gradient{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(8,8,8,.05),
+            rgba(8,8,8,.35) 45%,
+            #080808 100%
+        );
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:2;
+
+    min-height:520px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:22px;
+
+    padding:30px 22px 35px;
+}
+
+/* =====================================================
+   CAPA
+===================================================== */
+
+.poster{
+
+    width:150px;
+
+    min-width:150px;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:14px;
+
+    background:#171717;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.7);
+}
+
+/* =====================================================
+   INFORMAÇÃO
+===================================================== */
+
+.info{
+
+    max-width:650px;
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:6px 11px;
+
+    border-radius:7px;
+
+    background:#a855f7;
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+}
+
+.title{
+
+    font-size:32px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+}
+
+.meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    color:#d0d0d0;
+
+    font-size:14px;
+
+    margin-bottom:14px;
+}
+
+.rating{
+
+    color:#ffd84d;
+
+    font-weight:700;
+}
+
+.genres{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-bottom:16px;
+}
+
+.genre{
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    background:#202020;
+
+    color:#ddd;
+
+    font-size:12px;
+}
+
+.synopsis{
+
+    color:#cfcfcf;
+
+    line-height:1.55;
+
+    font-size:15px;
+
+    max-width:650px;
+}
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.content{
+
+    padding:25px 20px;
+}
+
+.section-title{
+
+    font-size:22px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+}
+
+.details-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(145px,1fr)
+        );
+
+    gap:12px;
+}
+
+.detail-box{
+
+    background:#141414;
+
+    border:1px solid #222;
+
+    border-radius:13px;
+
+    padding:15px;
+}
+
+.detail-label{
+
+    color:#888;
+
+    font-size:12px;
+
+    margin-bottom:6px;
+}
+
+.detail-value{
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:24px;
+}
+
+.button{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:13px 20px;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    color:white;
+}
+
+.favorite-button{
+
+    background:#a855f7;
+}
+
+.favorite-button.active{
+
+    background:#7c3aed;
+}
+
+.back-home{
+
+    background:#202020;
+
+    border:1px solid #303030;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+
+    min-height:70vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#aaa;
+
+    gap:15px;
+}
+
+.spinner{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    border:4px solid #292929;
+
+    border-top-color:#a855f7;
+
+    animation:
+        girar
+        .8s
+        linear
+        infinite;
+}
+
+@keyframes girar{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =====================================================
+   ERRO
+===================================================== */
+
+.error{
+
+    min-height:70vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#aaa;
+}
+
+.error strong{
+
+    color:white;
+
+    font-size:21px;
+
+    margin-bottom:8px;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:650px){
+
+    .hero{
+
+        min-height:600px;
+    }
+
+    .hero-content{
+
+        min-height:600px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        justify-content:flex-end;
+
+        padding:25px 18px 30px;
+    }
+
+    .poster{
+
+        width:135px;
+
+        min-width:135px;
+
+        height:200px;
+    }
+
+    .title{
+
+        font-size:26px;
+    }
+
+    .synopsis{
+
+        font-size:14px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     TOPO
+===================================================== -->
+
+<header class="topbar">
+
+    <button
+        class="back-button"
+        onclick="voltar()"
+        aria-label="Voltar">
+
+        ‹
+
+    </button>
+
+    <div class="logo">
+        Play<span>Nime</span>
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     PÁGINA
+===================================================== -->
+
+<main
+    id="app"
+    class="page">
+
+    <div class="loading">
+
+        <div class="spinner"></div>
+
+        <div>
+            Carregando anime...
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURAÇÃO
+===================================================== */
+
+const JIKAN_API =
+    "https://api.jikan.moe/v4";
+
+
+/* =====================================================
+   ID DO ANIME
+===================================================== */
+
+const parametros =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const animeId =
+    parametros.get("id");
+
+
+/* =====================================================
+   ELEMENTO PRINCIPAL
+===================================================== */
+
+const app =
+    document.getElementById("app");
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(valor){
+
+    if(
+        valor === null ||
+        valor === undefined
+    ){
+
+        return "";
+
+    }
+
+    return String(valor)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   IMAGEM
+===================================================== */
+
+function imagemAnime(anime){
+
+    return (
+
+        anime?.images?.jpg?.large_image_url ||
+
+        anime?.images?.jpg?.image_url ||
+
+        anime?.images?.webp?.large_image_url ||
+
+        anime?.images?.webp?.image_url ||
+
+        ""
+
+    );
+
+}
+
+
+/* =====================================================
+   TEXTO
+===================================================== */
+
+function textoAnime(anime){
+
+    if(
+        anime?.synopsis
+    ){
+
+        return anime.synopsis;
+
+    }
+
+    return "Sinopse não disponível.";
+
+}
+
+
+/* =====================================================
+   FAVORITOS
+===================================================== */
+
+function pegarFavoritos(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "playNimeFavoritos"
+            )
+        ) || [];
+
+    }catch(erro){
+
+        return [];
+
+    }
+
+}
+
+
+function guardarFavoritos(lista){
+
+    localStorage.setItem(
+        "playNimeFavoritos",
+        JSON.stringify(lista)
+    );
+
+}
+
+
+/* =====================================================
+   VERIFICAR FAVORITO
+===================================================== */
+
+function estaNosFavoritos(id){
+
+    const favoritos =
+        pegarFavoritos();
+
+    return favoritos.some(
+        anime =>
+            Number(anime.mal_id) === Number(id)
+    );
+
+}
+
+
+/* =====================================================
+   ADICIONAR / REMOVER FAVORITO
+===================================================== */
+
+function alternarFavorito(anime){
+
+    if(!anime){
+
+        return;
+
+    }
+
+    let favoritos =
+        pegarFavoritos();
+
+    const existe =
+        favoritos.some(
+            item =>
+                Number(item.mal_id) ===
+                Number(anime.mal_id)
+        );
+
+
+    if(existe){
+
+        favoritos =
+            favoritos.filter(
+                item =>
+                    Number(item.mal_id) !==
+                    Number(anime.mal_id)
+            );
+
+    }else{
+
+        favoritos.push({
+
+            mal_id:
+                anime.mal_id,
+
+            title:
+                anime.title,
+
+            image:
+                imagemAnime(anime),
+
+            score:
+                anime.score || null
+
+        });
+
+    }
+
+
+    guardarFavoritos(
+        favoritos
+    );
+
+
+    atualizarBotaoFavorito(
+        anime.mal_id
+    );
+
+}
+
+
+/* =====================================================
+   ATUALIZAR BOTÃO
+===================================================== */
+
+function atualizarBotaoFavorito(id){
+
+    const botao =
+        document.getElementById(
+            "favoriteButton"
+        );
+
+    if(!botao){
+
+        return;
+
+    }
+
+
+    if(
+        estaNosFavoritos(id)
+    ){
+
+        botao.classList.add(
+            "active"
+        );
+
+        botao.textContent =
+            "♥ Remover dos favoritos";
+
+    }else{
+
+        botao.classList.remove(
+            "active"
+        );
+
+        botao.textContent =
+            "♡ Adicionar aos favoritos";
+
+    }
+
+}
+
+
+/* =====================================================
+   FORMATAR DATA
+===================================================== */
+
+function formatarData(data){
+
+    if(!data){
+
+        return "Não informado";
+
+    }
+
+    const partes =
+        data.split("-");
+
+    if(
+        partes.length >= 1
+    ){
+
+        return partes[0];
+
+    }
+
+    return data;
+
+}
+
+
+/* =====================================================
+   FORMATAR EPISÓDIOS
+===================================================== */
+
+function episodiosAnime(anime){
+
+    if(
+        anime?.episodes
+    ){
+
+        return anime.episodes;
+
+    }
+
+    return "N/A";
+
+}
+
+
+/* =====================================================
+   FORMATAR TEMPORADA
+===================================================== */
+
+function temporadaAnime(anime){
+
+    if(
+        anime?.season &&
+        anime?.year
+    ){
+
+        return (
+            anime.season +
+            " " +
+            anime.year
+        );
+
+    }
+
+    if(anime?.year){
+
+        return String(
+            anime.year
+        );
+
+    }
+
+    return "Não informado";
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function statusAnime(anime){
+
+    if(
+        !anime?.status
+    ){
+
+        return "Não informado";
+
+    }
+
+    return anime.status;
+
+}
+
+
+/* =====================================================
+   GÉNEROS
+===================================================== */
+
+function gerarGeneros(anime){
+
+    const generos =
+        anime?.genres || [];
+
+    if(
+        generos.length === 0
+    ){
+
+        return `
+            <span class="genre">
+                Anime
+            </span>
+        `;
+
+    }
+
+
+    return generos
+        .map(
+            genero => `
+                <span class="genre">
+                    ${escaparHTML(
+                        genero.name
+                    )}
+                </span>
+            `
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   RENDERIZAR
+===================================================== */
+
+function renderizarAnime(anime){
+
+    const imagem =
+        imagemAnime(anime);
+
+    const titulo =
+        escaparHTML(
+            anime?.title ||
+            "Anime"
+        );
+
+    const sinopse =
+        escaparHTML(
+            textoAnime(anime)
+        );
+
+    const nota =
+        anime?.score
+            ? Number(anime.score)
+                .toFixed(1)
+            : "N/A";
+
+
+    const favorito =
+        estaNosFavoritos(
+            anime.mal_id
+        );
+
+
+    app.innerHTML = `
+
+        <section class="hero">
+
+            ${
+                imagem
+                ?
+                `
+                <img
+                    class="hero-bg"
+                    src="${imagem}"
+                    alt="">
+                `
+                :
+                ""
+            }
+
+            <div
+                class="hero-gradient">
+            </div>
+
+
+            <div class="hero-content">
+
+                ${
+                    imagem
+                    ?
+                    `
+                    <img
+                        class="poster"
+                        src="${imagem}"
+                        alt="${titulo}">
+                    `
+                    :
+                    ""
+                }
+
+
+                <div class="info">
+
+                    <div class="badge">
+                        ANIME
+                    </div>
+
+
+                    <h1 class="title">
+                        ${titulo}
+                    </h1>
+
+
+                    <div class="meta">
+
+                        <span class="rating">
+                            ★ ${nota}
+                        </span>
+
+                        <span>
+                            ${formatarData(
+                                anime?.aired?.from
+                                    ?.substring(0,10)
+                            )}
+                        </span>
+
+                        <span>
+                            ${episodiosAnime(
+                                anime
+                            )} episódios
+                        </span>
+
+                    </div>
+
+
+                    <div class="genres">
+
+                        ${gerarGeneros(
+                            anime
+                        )}
+
+                    </div>
+
+
+                    <p class="synopsis">
+
+                        ${sinopse}
+
+                    </p>
+
+
+                    <div class="actions">
+
+                        <button
+                            id="favoriteButton"
+                            class="
+                                button
+                                favorite-button
+                                ${
+                                    favorito
+                                    ? "active"
+                                    : ""
+                                }
+                            "
+                            onclick="
+                                alternarFavorito(
+                                    window.animeAtual
+                                )
+                            ">
+
+                            ${
+                                favorito
+                                ?
+                                "♥ Remover dos favoritos"
+                                :
+                                "♡ Adicionar aos favoritos"
+                            }
+
+                        </button>
+
+
+                        <button
+                            class="
+                                button
+                                back-home
+                            "
+                            onclick="voltar()">
+
+                            Voltar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="content">
+
+            <h2 class="section-title">
+                Informações
+            </h2>
+
+
+            <div class="details-grid">
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Título
+                    </div>
+
+                    <div class="detail-value">
+                        ${titulo}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Temporada
+                    </div>
+
+                    <div class="detail-value">
+                        ${escaparHTML(
+                            temporadaAnime(
+                                anime
+                            )
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Estado
+                    </div>
+
+                    <div class="detail-value">
+                        ${escaparHTML(
+                            statusAnime(
+                                anime
+                            )
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Episódios
+                    </div>
+
+                    <div class="detail-value">
+                        ${episodiosAnime(
+                            anime
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Nota
+                    </div>
+
+                    <div class="detail-value">
+                        ★ ${nota}
+                    </div>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <div class="detail-label">
+                        Fonte
+                    </div>
+
+                    <div class="detail-value">
+                        Jikan / MyAnimeList
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CARREGAR ANIME
+===================================================== */
+
+async function carregarAnime(){
+
+    if(!animeId){
+
+        mostrarErro(
+            "Anime não encontrado",
+            "O endereço não possui o ID do anime."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                `${JIKAN_API}/anime/${animeId}/full`
+            );
+
+
+        if(
+            resposta.status === 429
