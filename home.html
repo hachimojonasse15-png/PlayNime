@@ -2,13 +2,20 @@
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>PlayNime</title>
 
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
     margin:0;
@@ -17,315 +24,683 @@
     font-family:Arial,Helvetica,sans-serif;
 }
 
-body{
-    background:#080808;
-    color:#fff;
-    min-height:100vh;
-    padding-bottom:105px;
+html{
+    background:#070707;
 }
 
-/* =========================
+body{
+    background:#070707;
+    color:#fff;
+    min-height:100vh;
+    padding-bottom:110px;
+}
+
+button{
+    font-family:inherit;
+}
+
+
+/* =====================================================
    TOPO
-========================= */
+===================================================== */
 
 .header{
-    height:70px;
+
+    height:76px;
+
     padding:0 18px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:50;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(7,7,7,.98),
+            rgba(7,7,7,.88),
+            transparent
+        );
 }
 
 .logo{
-    width:44px;
-    height:44px;
-    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-size:24px;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+}
+
+.logo-icon{
+
+    width:39px;
+    height:39px;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b35ff,
+            #b66cff
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:
+        0 5px 20px
+        rgba(139,53,255,.35);
+}
+
+.logo-icon::after{
+
+    content:"";
+
+    width:0;
+    height:0;
+
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+    border-left:13px solid white;
+
+    margin-left:3px;
+}
+
+.logo span{
+
+    color:#a855f7;
+}
+
+.header-search{
+
+    width:42px;
+    height:42px;
+
+    border:1px solid #292929;
+
+    background:#151515;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.header-search svg{
+
+    width:22px;
+    height:22px;
+
+    stroke:white;
+
+    fill:none;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+#home-content{
+
+    width:100%;
+
     overflow:hidden;
 }
 
-.logo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.home-loading{
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
 }
 
-.header-icons{
-    display:flex;
-    gap:10px;
+
+/* =====================================================
+   SECÇÕES
+===================================================== */
+
+.anime-section{
+
+    margin-bottom:27px;
 }
 
-.header-btn{
-    width:42px;
-    height:42px;
-    border-radius:50%;
+.section-header{
+
     display:flex;
+
     align-items:center;
-    justify-content:center;
-    background:#151515;
-    border:1px solid #242424;
-}
 
-.header-btn svg{
-    width:22px;
-    height:22px;
-    stroke:#fff;
-    fill:none;
-    stroke-width:2;
-}
+    justify-content:space-between;
 
-/* =========================
-   TÍTULOS
-========================= */
+    padding:0 15px;
+
+    margin-bottom:13px;
+}
 
 .section-title{
-    font-size:21px;
-    font-weight:700;
-    margin:22px 16px 12px;
+
+    font-size:20px;
+
+    font-weight:750;
+
+    letter-spacing:-.3px;
 }
 
-/* =========================
-   LISTA DE ANIMES
-========================= */
+.section-more{
+
+    color:#777;
+
+    font-size:12px;
+}
+
+
+/* =====================================================
+   LISTA HORIZONTAL
+===================================================== */
 
 .anime-list{
+
     display:flex;
+
     gap:11px;
+
     overflow-x:auto;
-    padding:0 16px;
+
+    padding:0 15px 5px;
+
     scrollbar-width:none;
+
+    scroll-behavior:smooth;
 }
 
 .anime-list::-webkit-scrollbar{
     display:none;
 }
 
+
+/* =====================================================
+   CARD
+===================================================== */
+
 .anime-card{
-    min-width:105px;
-    width:105px;
-    height:150px;
-    border-radius:10px;
+
+    width:108px;
+
+    flex:0 0 108px;
+
+    cursor:pointer;
+
+    position:relative;
+}
+
+.anime-poster{
+
+    width:108px;
+
+    height:155px;
+
+    border-radius:9px;
+
     overflow:hidden;
+
     background:#151515;
-    flex-shrink:0;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,.45);
+
+    position:relative;
 }
 
-.anime-card img{
+.anime-poster img{
+
     width:100%;
+
     height:100%;
+
     object-fit:cover;
+
+    display:block;
+
+    transition:
+        transform .25s ease;
 }
 
-/* =========================
-   BARRA DE NAVEGAÇÃO
-========================= */
+.anime-card:active
+.anime-poster img{
+
+    transform:scale(.96);
+}
+
+.anime-name{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    color:#eee;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.anime-score{
+
+    position:absolute;
+
+    top:7px;
+
+    left:7px;
+
+    padding:4px 6px;
+
+    border-radius:5px;
+
+    background:
+        rgba(0,0,0,.78);
+
+    font-size:10px;
+
+    color:#fff;
+}
+
+
+/* =====================================================
+   SKELETON
+===================================================== */
+
+.skeleton{
+
+    width:108px;
+
+    height:155px;
+
+    flex:0 0 108px;
+
+    border-radius:9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #121212 25%,
+            #1d1d1d 50%,
+            #121212 75%
+        );
+
+    background-size:200% 100%;
+
+    animation:
+        skeleton 1.3s infinite;
+}
+
+@keyframes skeleton{
+
+    from{
+        background-position:200% 0;
+    }
+
+    to{
+        background-position:-200% 0;
+    }
+
+}
+
+
+/* =====================================================
+   SECÇÃO DE DESTAQUE
+===================================================== */
+
+.feature-section{
+
+    margin:5px 15px 30px;
+
+}
+
+.feature-card{
+
+    height:205px;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:#151515;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.5);
+}
+
+.feature-card img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.feature-gradient{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.92),
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.05)
+        );
+}
+
+.feature-info{
+
+    position:absolute;
+
+    left:18px;
+
+    bottom:18px;
+
+    right:20px;
+}
+
+.feature-tag{
+
+    display:inline-block;
+
+    background:#a855f7;
+
+    padding:5px 8px;
+
+    border-radius:5px;
+
+    font-size:9px;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+}
+
+.feature-title{
+
+    font-size:22px;
+
+    font-weight:800;
+
+    max-width:70%;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.feature-sub{
+
+    color:#ccc;
+
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+
+/* =====================================================
+   VAZIO
+===================================================== */
+
+.section-empty{
+
+    padding:10px 15px;
+
+    color:#666;
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
 
 .bottom-nav{
+
     position:fixed;
-    left:12px;
-    right:12px;
-    bottom:12px;
 
-    height:70px;
+    left:15px;
 
-    background:rgba(20,20,20,.96);
+    right:15px;
+
+    bottom:13px;
+
+    height:72px;
+
+    background:
+        rgba(19,19,19,.96);
 
     border:1px solid #292929;
 
-    border-radius:22px;
+    border-radius:25px;
 
-    display:flex;
-    align-items:center;
-    justify-content:space-around;
+    display:grid;
 
-    box-shadow:
-        0 8px 30px rgba(0,0,0,.65);
-
-    backdrop-filter:blur(14px);
+    grid-template-columns:
+        repeat(4,1fr);
 
     z-index:1000;
+
+    box-shadow:
+        0 8px 35px
+        rgba(0,0,0,.65);
+
+    backdrop-filter:blur(15px);
 }
 
 .nav-item{
-    flex:1;
-    height:100%;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
 
     gap:5px;
 
-    color:#777;
+    color:#707070;
+
+    text-decoration:none;
 
     font-size:11px;
-
-    cursor:pointer;
-
-    transition:.2s;
 }
 
 .nav-item svg{
+
     width:22px;
     height:22px;
 
     stroke:currentColor;
+
     fill:none;
 
     stroke-width:2;
 
     stroke-linecap:round;
+
     stroke-linejoin:round;
 }
 
 .nav-item.active{
+
     color:#fff;
 }
 
-.nav-item:active{
-    transform:scale(.92);
+.nav-item.active svg{
+
+    stroke:#a855f7;
 }
 
-/* =========================
+
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:600px){
 
+    .header{
+        height:70px;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .logo-icon{
+        width:37px;
+        height:37px;
+    }
+
     .anime-card{
-        min-width:92px;
-        width:92px;
-        height:132px;
+        width:100px;
+        flex-basis:100px;
     }
 
-    .section-title{
-        font-size:20px;
+    .anime-poster{
+        width:100px;
+        height:145px;
     }
 
-    .bottom-nav{
-        left:10px;
-        right:10px;
-        bottom:10px;
-        height:68px;
-        border-radius:21px;
+    .skeleton{
+        width:100px;
+        flex-basis:100px;
+        height:145px;
     }
+
+    .feature-card{
+        height:190px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      TOPO
-========================= -->
+===================================================== -->
 
 <header class="header">
 
     <div class="logo">
 
-        <img
-            src="PlayNime_logo.jpg"
-            alt="PlayNime">
+        <div class="logo-icon"></div>
+
+        Play<span>Nime</span>
 
     </div>
 
-    <div class="header-icons">
 
-        <div class="header-btn">
+    <button
+        class="header-search"
+        onclick="abrirPesquisa()"
+        aria-label="Pesquisar">
 
-            <svg viewBox="0 0 24 24">
+        <svg viewBox="0 0 24 24">
 
-                <circle
-                    cx="11"
-                    cy="11"
-                    r="6">
-                </circle>
+            <circle
+                cx="11"
+                cy="11"
+                r="6">
+            </circle>
 
-                <path d="M16 16l5 5"></path>
+            <path d="M16 16l5 5"></path>
 
-            </svg>
+        </svg>
 
-        </div>
-
-    </div>
+    </button>
 
 </header>
 
 
-<!-- =========================
-     CONTEÚDO
-========================= -->
+<!-- =====================================================
+     HOME
+===================================================== -->
 
-<main id="homeContent">
+<main id="home-content">
 
-    <section>
+    <div class="home-loading">
 
-        <h2 class="section-title">
-            Em alta
-        </h2>
+        Carregando animes...
 
-        <div class="anime-list">
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/1286/99889l.jpg">
-            </div>
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/1079/138100l.jpg">
-            </div>
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/5/65187l.jpg">
-            </div>
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/1223/121999l.jpg">
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section>
-
-        <h2 class="section-title">
-            Lançamentos
-        </h2>
-
-        <div class="anime-list">
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/1286/99889l.jpg">
-            </div>
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/1079/138100l.jpg">
-            </div>
-
-            <div class="anime-card">
-                <img src="https://cdn.myanimelist.net/images/anime/5/65187l.jpg">
-            </div>
-
-        </div>
-
-    </section>
+    </div>
 
 </main>
 
 
-<!-- =========================
+<!-- =====================================================
      NAVEGAÇÃO
-========================= -->
+===================================================== -->
 
 <nav class="bottom-nav">
 
-    <!-- INÍCIO -->
 
-    <div
-        class="nav-item active"
-        onclick="window.location.href='home.html'">
+    <a
+        href="home.html"
+        class="nav-item active">
 
         <svg viewBox="0 0 24 24">
 
@@ -337,14 +712,12 @@ body{
 
         <span>Início</span>
 
-    </div>
+    </a>
 
 
-    <!-- PESQUISAR -->
-
-    <div
-        class="nav-item"
-        onclick="window.location.href='pesquisar.html'">
+    <a
+        href="pesquisar.html"
+        class="nav-item">
 
         <svg viewBox="0 0 24 24">
 
@@ -360,14 +733,12 @@ body{
 
         <span>Pesquisar</span>
 
-    </div>
+    </a>
 
 
-    <!-- FAVORITOS -->
-
-    <div
-        class="nav-item"
-        onclick="window.location.href='favoritos.html'">
+    <a
+        href="favoritos.html"
+        class="nav-item">
 
         <svg viewBox="0 0 24 24">
 
@@ -383,14 +754,12 @@ body{
 
         <span>Favoritos</span>
 
-    </div>
+    </a>
 
 
-    <!-- MAIS -->
-
-    <div
-        class="nav-item"
-        onclick="window.location.href='mais.html'">
+    <a
+        href="mais.html"
+        class="nav-item">
 
         <svg viewBox="0 0 24 24">
 
@@ -416,9 +785,489 @@ body{
 
         <span>Mais</span>
 
-    </div>
+    </a>
 
 </nav>
 
+
+<script>
+
+/* =====================================================
+   PESQUISA
+===================================================== */
+
+function abrirPesquisa(){
+
+    window.location.href =
+        "pesquisar.html";
+
+}
+
+
+/* =====================================================
+   ELEMENTO PRINCIPAL
+===================================================== */
+
+const home =
+    document.getElementById(
+        "home-content"
+    );
+
+
+/* =====================================================
+   CRIAR SKELETONS
+===================================================== */
+
+function criarSkeletons(){
+
+    return Array
+        .from(
+            {length:6},
+            () =>
+                `<div class="skeleton"></div>`
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   CRIAR CARD
+===================================================== */
+
+function criarCard(anime){
+
+    if(
+        !anime ||
+        !anime.mal_id
+    ){
+
+        return "";
+
+    }
+
+
+    const imagem =
+        playNimeImagem(anime);
+
+
+    if(!imagem){
+
+        return "";
+
+    }
+
+
+    const titulo =
+        playNimeTitulo(anime);
+
+
+    const nota =
+        playNimeNota(anime);
+
+
+    return `
+
+        <article
+            class="anime-card"
+            onclick="playNimeAbrirAnime(${anime.mal_id})">
+
+            <div class="anime-poster">
+
+                <img
+                    src="${imagem}"
+                    alt="${playNimeEscaparHTML(titulo)}"
+                    loading="lazy">
+
+                ${
+                    nota !== "N/A"
+                    ?
+                    `<div class="anime-score">
+                        ★ ${nota}
+                    </div>`
+                    :
+                    ""
+                }
+
+            </div>
+
+            <div class="anime-name">
+
+                ${playNimeEscaparHTML(titulo)}
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CRIAR SECÇÃO
+===================================================== */
+
+function criarSecao(
+    titulo,
+    lista
+){
+
+    const animes =
+        Array.isArray(lista)
+            ? lista
+            : [];
+
+
+    const cards =
+        animes
+            .map(criarCard)
+            .filter(Boolean)
+            .join("");
+
+
+    if(!cards){
+
+        return "";
+
+    }
+
+
+    return `
+
+        <section class="anime-section">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    ${titulo}
+
+                </div>
+
+                <div class="section-more">
+
+                    Ver tudo
+
+                </div>
+
+            </div>
+
+            <div class="anime-list">
+
+                ${cards}
+
+            </div>
+
+        </section>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CARREGAR UMA SECÇÃO
+===================================================== */
+
+async function carregarSecao(
+    titulo,
+    endpoint
+){
+
+    const id =
+        "secao-" +
+        Math.random()
+            .toString(36)
+            .substring(2);
+
+
+    home.insertAdjacentHTML(
+        "beforeend",
+
+        `
+
+        <section
+            class="anime-section"
+            id="${id}">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    ${titulo}
+
+                </div>
+
+            </div>
+
+            <div class="anime-list">
+
+                ${criarSkeletons()}
+
+            </div>
+
+        </section>
+
+        `
+    );
+
+
+    const elemento =
+        document.getElementById(id);
+
+
+    const dados =
+        await playNimeAPI(
+            endpoint
+        );
+
+
+    if(!dados.length){
+
+        elemento.remove();
+
+        return;
+
+    }
+
+
+    elemento.outerHTML =
+        criarSecao(
+            titulo,
+            dados
+        );
+
+}
+
+
+/* =====================================================
+   DESTAQUE
+===================================================== */
+
+async function carregarDestaque(){
+
+    const dados =
+        await playNimeAPI(
+            "/top/anime?filter=bypopularity&limit=5"
+        );
+
+
+    if(!dados.length){
+
+        return;
+
+    }
+
+
+    const anime =
+        dados[0];
+
+
+    const imagem =
+        playNimeImagem(anime);
+
+
+    const titulo =
+        playNimeTitulo(anime);
+
+
+    if(!imagem){
+
+        return;
+
+    }
+
+
+    home.insertAdjacentHTML(
+
+        "afterbegin",
+
+        `
+
+        <section class="feature-section">
+
+            <div
+                class="feature-card"
+                onclick="playNimeAbrirAnime(${anime.mal_id})">
+
+                <img
+                    src="${imagem}"
+                    alt="${playNimeEscaparHTML(titulo)}">
+
+                <div class="feature-gradient"></div>
+
+                <div class="feature-info">
+
+                    <div class="feature-tag">
+
+                        EM DESTAQUE
+
+                    </div>
+
+                    <div class="feature-title">
+
+                        ${playNimeEscaparHTML(titulo)}
+
+                    </div>
+
+                    <div class="feature-sub">
+
+                        Descubra este anime no PlayNime
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        `
+
+    );
+
+}
+
+
+/* =====================================================
+   CONSTRUIR HOME
+===================================================== */
+
+async function construirHome(){
+
+    home.innerHTML = "";
+
+
+    /*
+     * O destaque é carregado separadamente.
+     */
+
+    carregarDestaque();
+
+
+    /*
+     * Cada secção faz o seu próprio pedido.
+     * Assim, se uma falhar, as outras continuam.
+     */
+
+    carregarSecao(
+        "Em alta",
+        "/top/anime?filter=bypopularity&limit=15"
+    );
+
+
+    carregarSecao(
+        "Novos episódios",
+        "/seasons/now?limit=15"
+    );
+
+
+    carregarSecao(
+        "Mais bem avaliados",
+        "/top/anime?filter=favorite&limit=15"
+    );
+
+
+    carregarSecao(
+        "Ação",
+        "/anime?genres=1&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Aventura",
+        "/anime?genres=2&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Comédia",
+        "/anime?genres=4&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Fantasia",
+        "/anime?genres=10&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Romance",
+        "/anime?genres=22&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Slice of Life",
+        "/anime?genres=36&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Shounen",
+        "/anime?genres=27&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Mistério",
+        "/anime?genres=7&order_by=score&sort=desc&limit=15"
+    );
+
+
+    carregarSecao(
+        "Terror",
+        "/anime?genres=14&order_by=score&sort=desc&limit=15"
+    );
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(
+            typeof playNimeAPI !==
+            "function"
+        ){
+
+            home.innerHTML = `
+
+                <div class="home-loading">
+
+                    Não foi possível iniciar
+                    o PlayNime.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        construirHome();
+
+    }
+);
+
+</script>
+
+
+<!-- =====================================================
+     SCRIPT PRINCIPAL
+===================================================== -->
+
+<script src="script.js"></script>
+
 </body>
-</html>
+
+          </html>
