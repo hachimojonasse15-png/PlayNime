@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
 
 <meta charset="UTF-8">
@@ -1289,3 +1290,161 @@ async function carregarAnime(){
 
         if(
             resposta.status === 429
+        ){
+
+            throw new Error(
+                "RATE_LIMIT"
+            );
+
+        }
+
+
+        if(
+            !resposta.ok
+        ){
+
+            throw new Error(
+                "HTTP_" +
+                resposta.status
+            );
+
+        }
+
+
+        const json =
+            await resposta.json();
+
+
+        if(
+            !json ||
+            !json.data
+        ){
+
+            throw new Error(
+                "SEM_DADOS"
+            );
+
+        }
+
+
+        window.animeAtual =
+            json.data;
+
+
+        renderizarAnime(
+            json.data
+        );
+
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao carregar anime:",
+            erro
+        );
+
+
+        if(
+            erro.message ===
+            "RATE_LIMIT"
+        ){
+
+            mostrarErro(
+                "Servidor ocupado",
+                "A fonte de dados recebeu muitas solicitações. Tente novamente em alguns segundos."
+            );
+
+        }else{
+
+            mostrarErro(
+                "Não foi possível carregar",
+                "O anime não pôde ser carregado agora."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   ERRO
+===================================================== */
+
+function mostrarErro(
+    titulo,
+    mensagem
+){
+
+    app.innerHTML = `
+
+        <div class="error">
+
+            <strong>
+                ${escaparHTML(
+                    titulo
+                )}
+            </strong>
+
+            <p>
+                ${escaparHTML(
+                    mensagem
+                )}
+            </p>
+
+            <button
+                class="
+                    button
+                    favorite-button
+                "
+                style="margin-top:20px"
+                onclick="carregarAnime()">
+
+                Tentar novamente
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   VOLTAR
+===================================================== */
+
+function voltar(){
+
+    if(
+        document.referrer &&
+        document.referrer
+            .includes(
+                location.hostname
+            )
+    ){
+
+        history.back();
+
+    }else{
+
+        window.location.href =
+            "home.html";
+
+    }
+
+}
+
+
+/* =====================================================
+   INICIAR
+===================================================== */
+
+carregarAnime();
+
+</script>
+
+</body>
+</html>    
