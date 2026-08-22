@@ -5,9 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>PlayNime</title>
 
@@ -37,7 +36,11 @@ body{
 
 button{
     font-family:inherit;
-    border:none;
+    border:0;
+}
+
+img{
+    user-select:none;
 }
 
 
@@ -67,11 +70,9 @@ button{
         linear-gradient(
             to bottom,
             rgba(7,7,7,.98),
-            rgba(7,7,7,.92),
-            rgba(7,7,7,.60)
+            rgba(7,7,7,.88),
+            transparent
         );
-
-    backdrop-filter:blur(10px);
 }
 
 .logo{
@@ -132,10 +133,6 @@ button{
     color:#a855f7;
 }
 
-
-/* =====================================================
-   PESQUISA
-===================================================== */
 
 .header-search{
 
@@ -205,7 +202,7 @@ button{
 
 .anime-section{
 
-    margin-bottom:29px;
+    margin-bottom:27px;
 }
 
 .section-header{
@@ -235,8 +232,6 @@ button{
     color:#777;
 
     font-size:12px;
-
-    cursor:pointer;
 }
 
 
@@ -252,7 +247,7 @@ button{
 
     overflow-x:auto;
 
-    padding:0 15px 6px;
+    padding:0 15px 5px;
 
     scrollbar-width:none;
 
@@ -346,13 +341,52 @@ button{
     border-radius:5px;
 
     background:
-        rgba(0,0,0,.80);
+        rgba(0,0,0,.78);
 
     font-size:10px;
 
     color:#fff;
+}
 
-    z-index:2;
+
+/* =====================================================
+   SKELETON
+===================================================== */
+
+.skeleton{
+
+    width:108px;
+
+    height:155px;
+
+    flex:0 0 108px;
+
+    border-radius:9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #121212 25%,
+            #1d1d1d 50%,
+            #121212 75%
+        );
+
+    background-size:200% 100%;
+
+    animation:
+        skeleton 1.3s infinite;
+}
+
+@keyframes skeleton{
+
+    from{
+        background-position:200% 0;
+    }
+
+    to{
+        background-position:-200% 0;
+    }
+
 }
 
 
@@ -363,6 +397,7 @@ button{
 .feature-section{
 
     margin:5px 15px 30px;
+
 }
 
 .feature-card{
@@ -404,8 +439,8 @@ button{
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.90),
-            rgba(0,0,0,.48),
+            rgba(0,0,0,.92),
+            rgba(0,0,0,.55),
             rgba(0,0,0,.05)
         );
 }
@@ -464,47 +499,6 @@ button{
 
 
 /* =====================================================
-   SKELETON
-===================================================== */
-
-.skeleton{
-
-    width:108px;
-
-    height:155px;
-
-    flex:0 0 108px;
-
-    border-radius:9px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #121212 25%,
-            #1d1d1d 50%,
-            #121212 75%
-        );
-
-    background-size:200% 100%;
-
-    animation:
-        skeleton 1.3s infinite;
-}
-
-@keyframes skeleton{
-
-    from{
-        background-position:200% 0;
-    }
-
-    to{
-        background-position:-200% 0;
-    }
-
-}
-
-
-/* =====================================================
    VAZIO / ERRO
 ===================================================== */
 
@@ -515,6 +509,17 @@ button{
     color:#666;
 
     font-size:13px;
+}
+
+.api-error{
+
+    padding:40px 20px;
+
+    text-align:center;
+
+    color:#888;
+
+    line-height:1.6;
 }
 
 
@@ -591,12 +596,10 @@ button{
 }
 
 .nav-item.active{
-
     color:#fff;
 }
 
 .nav-item.active svg{
-
     stroke:#a855f7;
 }
 
@@ -649,10 +652,6 @@ button{
 <body>
 
 
-<!-- =====================================================
-     TOPO
-===================================================== -->
-
 <header class="header">
 
     <div class="logo">
@@ -662,7 +661,6 @@ button{
         Play<span>Nime</span>
 
     </div>
-
 
     <button
         class="header-search"
@@ -686,26 +684,15 @@ button{
 </header>
 
 
-<!-- =====================================================
-     HOME
-===================================================== -->
-
 <main id="home-content">
 
     <div class="home-loading">
-
         Carregando animes...
-
     </div>
 
 </main>
 
-<!-- =====================================================
-     NAVEGAÇÃO
-===================================================== -->
-
-<nav class="bottom-nav">
-
+  <nav class="bottom-nav">
 
     <a
         href="home.html"
@@ -799,29 +786,31 @@ button{
 </nav>
 
 
-<!-- =====================================================
-     SCRIPT
-===================================================== -->
-
 <script>
 
 /* =====================================================
-   TMDB
+   CONFIGURAÇÃO TMDB
 ===================================================== */
+
+/*
+ * COLE AQUI O SEU API READ ACCESS TOKEN DO TMDB.
+ *
+ * Não coloque o token entre espaços.
+ */
+
+const TMDB_TOKEN =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
+
 
 const TMDB_API =
     "https://api.themoviedb.org/3";
 
-/*
- * Chave TMDB fornecida por ti.
- */
-
-const TMDB_API_KEY =
-    "8e893942e01c23b312df265d558e27fc";
+const TMDB_IMAGE =
+    "https://image.tmdb.org/t/p/";
 
 
 /*
- * Idioma da informação apresentada.
+ * Idioma dos textos devolvidos pelo TMDB.
  */
 
 const TMDB_LANGUAGE =
@@ -829,14 +818,17 @@ const TMDB_LANGUAGE =
 
 
 /*
- * URL das imagens TMDB.
+ * Para anime usamos:
  *
- * O TMDB utiliza poster_path/backdrop_path
- * juntamente com o seu CDN de imagens.
+ * gênero 16 = Animation
+ * idioma original = japonês
+ *
+ * O TMDB trata anime como conteúdo de TV/animação,
+ * portanto usamos /discover/tv.
  */
 
-const TMDB_IMAGE =
-    "https://image.tmdb.org/t/p/";
+const ANIME_BASE =
+    "with_genres=16&with_original_language=ja";
 
 
 /* =====================================================
@@ -847,6 +839,14 @@ const home =
     document.getElementById(
         "home-content"
     );
+
+
+/* =====================================================
+   CACHE
+===================================================== */
+
+const cacheTMDB =
+    new Map();
 
 
 /* =====================================================
@@ -867,306 +867,280 @@ function abrirPesquisa(){
 
 function escaparHTML(texto){
 
-    if(!texto){
+    if(texto === null ||
+       texto === undefined){
+
         return "";
+
     }
 
     return String(texto)
 
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   IMAGEM POSTER
-===================================================== */
-
-function tmdbPoster(item){
-
-    if(
-        !item ||
-        !item.poster_path
-    ){
-
-        return "";
-
-    }
-
-    return (
-        TMDB_IMAGE +
-        "w500" +
-        item.poster_path
-    );
-
-}
-
-
-/* =====================================================
-   IMAGEM BANNER
-===================================================== */
-
-function tmdbBackdrop(item){
-
-    if(
-        !item ||
-        !item.backdrop_path
-    ){
-
-        return tmdbPoster(item);
-
-    }
-
-    return (
-        TMDB_IMAGE +
-        "w1280" +
-        item.backdrop_path
-    );
-
-}
-
-
-/* =====================================================
-   TÍTULO
-===================================================== */
-
-function tmdbTitulo(item){
-
-    return (
-
-        item.name ||
-
-        item.original_name ||
-
-        "Anime"
-
-    );
-
-}
-
-
-/* =====================================================
-   NOTA
-===================================================== */
-
-function tmdbNota(item){
-
-    if(
-        typeof item.vote_average !==
-        "number"
-    ){
-
-        return "N/A";
-
-    }
-
-    return item
-        .vote_average
-        .toFixed(1);
-
-}
-
-
-/* =====================================================
-   ANO
-===================================================== */
-
-function tmdbAno(item){
-
-    const data =
-        item.first_air_date || "";
-
-    if(!data){
-        return "";
-    }
-
-    return data.substring(0,4);
-
-}
-
-
-/* =====================================================
-   ABRIR ANIME
-===================================================== */
-
-function abrirAnime(id){
-
-    if(!id){
-        return;
-    }
-
-    window.location.href =
-        "detalhes.html?id=" +
-        encodeURIComponent(id);
-
-}
-
-
-/* =====================================================
-   SKELETONS
-===================================================== */
-
-function criarSkeletons(){
-
-    return Array
-
-        .from(
-            {length:6},
-            () =>
-                `<div class="skeleton"></div>`
+        .replace(
+            /&/g,
+            "&amp;"
         )
 
-        .join("");
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =====================================================
-   REQUISIÇÃO TMDB
+   URL DE IMAGEM
 ===================================================== */
 
-async function tmdbAPI(
-    endpoint,
-    tentativas = 2
+function imagemTMDB(
+    caminho,
+    tamanho="w500"
 ){
 
-    const separador =
-        endpoint.includes("?")
-            ? "&"
-            : "?";
+    if(!caminho){
+
+        return "";
+
+    }
+
+    return (
+        TMDB_IMAGE +
+        tamanho +
+        caminho
+    );
+
+}
 
 
-    const url =
-        TMDB_API +
-        endpoint +
-        separador +
-        "api_key=" +
-        encodeURIComponent(
-            TMDB_API_KEY
-        ) +
-        "&language=" +
-        encodeURIComponent(
-            TMDB_LANGUAGE
+/* =====================================================
+   PEDIDO TMDB
+===================================================== */
+
+async function tmdbFetch(
+    endpoint
+){
+
+    if(
+        cacheTMDB.has(endpoint)
+    ){
+
+        return cacheTMDB.get(
+            endpoint
+        );
+
+    }
+
+
+    const resposta =
+        await fetch(
+            TMDB_API +
+            endpoint,
+            {
+                method:"GET",
+
+                headers:{
+                    "Authorization":
+                        "Bearer " +
+                        TMDB_TOKEN,
+
+                    "accept":
+                        "application/json"
+                }
+            }
         );
 
 
-    for(
-        let tentativa = 1;
-        tentativa <= tentativas;
-        tentativa++
-    ){
+    if(!resposta.ok){
 
-        try{
-
-            const resposta =
-                await fetch(url);
-
-
-            if(
-                resposta.status === 429
-            ){
-
-                /*
-                 * Espera antes de tentar
-                 * novamente.
-                 */
-
-                await esperar(
-                    1200 * tentativa
-                );
-
-                continue;
-
-            }
-
-
-            if(
-                !resposta.ok
-            ){
-
-                throw new Error(
-                    "TMDB HTTP " +
-                    resposta.status
-                );
-
-            }
-
-
-            const json =
-                await resposta.json();
-
-
-            return (
-                Array.isArray(
-                    json.results
-                )
-                ?
-                json.results
-                :
-                []
-            );
-
-        }
-
-        catch(erro){
-
-            if(
-                tentativa ===
-                tentativas
-            ){
-
-                console.error(
-                    "TMDB:",
-                    erro
-                );
-
-                return [];
-
-            }
-
-            await esperar(700);
-
-        }
+        throw new Error(
+            "TMDB HTTP " +
+            resposta.status
+        );
 
     }
 
 
-    return [];
+    const dados =
+        await resposta.json();
+
+
+    cacheTMDB.set(
+        endpoint,
+        dados
+    );
+
+
+    return dados;
 
 }
 
 
 /* =====================================================
-   ESPERA
+   PAUSA ENTRE PEDIDOS
 ===================================================== */
 
-function esperar(ms){
+function esperar(
+    ms
+){
 
     return new Promise(
-        resolver =>
+        resolve =>
             setTimeout(
-                resolver,
+                resolve,
                 ms
             )
     );
 
 }
 
- <script>
+
+/* =====================================================
+   DISCOVER ANIME
+===================================================== */
+
+async function descobrirAnime(
+    parametros=""
+){
+
+    const separador =
+        parametros
+            ? "&"
+            : "";
+
+
+    const endpoint =
+        "/discover/tv?" +
+        ANIME_BASE +
+        separador +
+        "language=" +
+        encodeURIComponent(
+            TMDB_LANGUAGE
+        ) +
+        "&include_adult=false" +
+        "&sort_by=popularity.desc" +
+        "&vote_count.gte=10" +
+        "&page=1" +
+        parametros;
+
+
+    const dados =
+        await tmdbFetch(
+            endpoint
+        );
+
+
+    return Array.isArray(
+        dados.results
+    )
+        ? dados.results
+        : [];
+
+}
+
+
+/* =====================================================
+   NORMALIZAR ANIME
+===================================================== */
+
+function normalizarAnime(
+    anime
+){
+
+    if(!anime){
+
+        return null;
+
+    }
+
+
+    return {
+
+        id:
+            anime.id,
+
+        title:
+            anime.name ||
+            anime.original_name ||
+            "Sem título",
+
+        poster:
+            anime.poster_path,
+
+        backdrop:
+            anime.backdrop_path,
+
+        score:
+            Number(
+                anime.vote_average || 0
+            ).toFixed(1),
+
+        year:
+            anime.first_air_date
+                ?
+                anime.first_air_date
+                    .substring(0,4)
+                :
+                "",
+
+        overview:
+            anime.overview || ""
+
+    };
+
+}
+
+
+/* =====================================================
+   CRIAR SKELETONS
+===================================================== */
+
+function criarSkeletons(){
+
+    return Array
+        .from(
+            {length:6},
+            () =>
+                `<div class="skeleton"></div>`
+        )
+        .join("");
+
+}
+
 
 /* =====================================================
    CRIAR CARD
 ===================================================== */
 
-function criarCard(anime){
+function criarCard(
+    anime
+){
+
+    const item =
+        normalizarAnime(
+            anime
+        );
+
 
     if(
-        !anime ||
-        !anime.id
+        !item ||
+        !item.id ||
+        !item.poster
     ){
 
         return "";
@@ -1174,48 +1148,30 @@ function criarCard(anime){
     }
 
 
-    const imagem =
-        tmdbPoster(anime);
-
-
-    if(!imagem){
-
-        return "";
-
-    }
-
-
-    const titulo =
-        tmdbTitulo(anime);
-
-
-    const nota =
-        tmdbNota(anime);
-
-
     return `
 
         <article
             class="anime-card"
-            onclick="abrirAnime(${anime.id})">
+            onclick="abrirAnimeTMDB(${item.id})">
 
             <div class="anime-poster">
 
                 <img
-                    src="${imagem}"
-                    alt="${escaparHTML(titulo)}"
+                    src="${imagemTMDB(
+                        item.poster,
+                        "w342"
+                    )}"
+                    alt="${escaparHTML(
+                        item.title
+                    )}"
                     loading="lazy">
 
                 ${
-                    nota !== "N/A"
+                    item.score !== "0.0"
                     ?
-                    `
-                    <div class="anime-score">
-
-                        ★ ${nota}
-
-                    </div>
-                    `
+                    `<div class="anime-score">
+                        ★ ${item.score}
+                    </div>`
                     :
                     ""
                 }
@@ -1224,7 +1180,9 @@ function criarCard(anime){
 
             <div class="anime-name">
 
-                ${escaparHTML(titulo)}
+                ${escaparHTML(
+                    item.title
+                )}
 
             </div>
 
@@ -1252,11 +1210,8 @@ function criarSecao(
 
     const cards =
         animes
-
             .map(criarCard)
-
             .filter(Boolean)
-
             .join("");
 
 
@@ -1278,7 +1233,9 @@ function criarSecao(
                 <div
                     class="section-title">
 
-                    ${escaparHTML(titulo)}
+                    ${escaparHTML(
+                        titulo
+                    )}
 
                 </div>
 
@@ -1305,6 +1262,7 @@ function criarSecao(
 
 }
 
+<script>
 
 /* =====================================================
    CARREGAR SECÇÃO
@@ -1312,7 +1270,7 @@ function criarSecao(
 
 async function carregarSecao(
     titulo,
-    endpoint
+    parametros
 ){
 
     const id =
@@ -1338,7 +1296,9 @@ async function carregarSecao(
                 <div
                     class="section-title">
 
-                    ${escaparHTML(titulo)}
+                    ${escaparHTML(
+                        titulo
+                    )}
 
                 </div>
 
@@ -1360,38 +1320,65 @@ async function carregarSecao(
 
 
     const elemento =
-        document.getElementById(id);
-
-
-    const dados =
-        await tmdbAPI(endpoint);
-
-
-    if(!dados.length){
-
-        elemento.remove();
-
-        return;
-
-    }
-
-
-    const html =
-        criarSecao(
-            titulo,
-            dados
+        document.getElementById(
+            id
         );
 
 
-    if(html){
+    try{
+
+        const dados =
+            await descobrirAnime(
+                parametros
+            );
+
+
+        if(!dados.length){
+
+            elemento.innerHTML = `
+
+                <div
+                    class="section-empty">
+
+                    Nenhum anime encontrado.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
 
         elemento.outerHTML =
-            html;
+            criarSecao(
+                titulo,
+                dados
+            );
 
     }
-    else{
 
-        elemento.remove();
+    catch(erro){
+
+        console.error(
+            "Erro na secção:",
+            titulo,
+            erro
+        );
+
+
+        elemento.innerHTML = `
+
+            <div
+                class="section-empty">
+
+                Não foi possível carregar
+                esta secção.
+
+            </div>
+
+        `;
 
     }
 
@@ -1404,250 +1391,151 @@ async function carregarSecao(
 
 async function carregarDestaque(){
 
-    const dados =
-        await tmdbAPI(
+    try{
 
-            "/discover/tv" +
-            "?with_genres=16" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=20" +
-            "&page=1"
+        const dados =
+            await descobrirAnime(
+                "&vote_count.gte=100"
+            );
+
+
+        if(!dados.length){
+
+            return;
+
+        }
+
+
+        const anime =
+            normalizarAnime(
+                dados[0]
+            );
+
+
+        if(
+            !anime ||
+            !anime.backdrop
+        ){
+
+            return;
+
+        }
+
+
+        home.insertAdjacentHTML(
+
+            "afterbegin",
+
+            `
+
+            <section
+                class="feature-section">
+
+                <div
+                    class="feature-card"
+                    onclick="abrirAnimeTMDB(
+                        ${anime.id}
+                    )">
+
+                    <img
+                        src="${imagemTMDB(
+                            anime.backdrop,
+                            "w780"
+                        )}"
+                        alt="${escaparHTML(
+                            anime.title
+                        )}">
+
+                    <div
+                        class="feature-gradient">
+                    </div>
+
+
+                    <div
+                        class="feature-info">
+
+                        <div
+                            class="feature-tag">
+
+                            EM DESTAQUE
+
+                        </div>
+
+
+                        <div
+                            class="feature-title">
+
+                            ${escaparHTML(
+                                anime.title
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="feature-sub">
+
+                            ${anime.year
+                                ? anime.year
+                                : ""
+                            }
+
+                            ${
+                                anime.score !==
+                                "0.0"
+                                ?
+                                " • ★ " +
+                                anime.score
+                                :
+                                ""
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            `
 
         );
 
-
-    if(!dados.length){
-
-        return;
-
     }
 
+    catch(erro){
 
-    const anime =
-        dados.find(
-            item =>
-                item.backdrop_path &&
-                item.poster_path
-        )
-        ||
-        dados[0];
-
-
-    const imagem =
-        tmdbBackdrop(anime);
-
-
-    const titulo =
-        tmdbTitulo(anime);
-
-
-    if(!imagem){
-
-        return;
+        console.error(
+            "Erro no destaque:",
+            erro
+        );
 
     }
-
-
-    const nota =
-        tmdbNota(anime);
-
-
-    home.insertAdjacentHTML(
-
-        "afterbegin",
-
-        `
-
-        <section
-            class="feature-section">
-
-            <div
-                class="feature-card"
-                onclick="abrirAnime(${anime.id})">
-
-                <img
-                    src="${imagem}"
-                    alt="${escaparHTML(titulo)}">
-
-                <div
-                    class="feature-gradient">
-                </div>
-
-
-                <div
-                    class="feature-info">
-
-                    <div
-                        class="feature-tag">
-
-                        EM DESTAQUE
-
-                    </div>
-
-
-                    <div
-                        class="feature-title">
-
-                        ${escaparHTML(titulo)}
-
-                    </div>
-
-
-                    <div
-                        class="feature-sub">
-
-                        ${
-                            nota !== "N/A"
-                            ?
-                            "Nota " + nota + "/10"
-                            :
-                            "Descubra este anime"
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        `
-
-    );
 
 }
 
 
 /* =====================================================
-   CONFIGURAÇÃO DAS SECÇÕES
+   ABRIR DETALHES
 ===================================================== */
 
-const secoesTMDB = [
+function abrirAnimeTMDB(
+    id
+){
 
-    {
-        titulo:
-            "Em alta",
+    if(!id){
 
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=20" +
-            "&page=1"
-    },
+        return;
 
-
-    {
-        titulo:
-            "Novos episódios",
-
-        endpoint:
-            "/tv/on_the_air" +
-            "?page=1"
-    },
-
-
-    {
-        titulo:
-            "Mais bem avaliados",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16" +
-            "&with_original_language=ja" +
-            "&sort_by=vote_average.desc" +
-            "&vote_count.gte=100" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Ação",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,10759" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Aventura",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,10759" +
-            "&with_original_language=ja" +
-            "&sort_by=vote_average.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Comédia",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,35" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Fantasia",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,10765" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Drama",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,18" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
-    },
-
-
-    {
-        titulo:
-            "Mistério",
-
-        endpoint:
-            "/discover/tv" +
-            "?with_genres=16,9648" +
-            "&with_original_language=ja" +
-            "&sort_by=popularity.desc" +
-            "&vote_count.gte=10" +
-            "&page=1"
     }
 
-];
+
+    window.location.href =
+        "detalhes.html?id=" +
+        encodeURIComponent(id);
+
+}
 
 
 /* =====================================================
@@ -1660,172 +1548,201 @@ async function construirHome(){
 
 
     /*
-     * Mostra primeiro o destaque.
+     * Primeiro o destaque.
      */
 
-    carregarDestaque();
+    await carregarDestaque();
 
 
     /*
-     * Criamos todas as secções com skeletons
-     * imediatamente.
+     * EM ALTA
      */
 
-    const elementos =
-        secoesTMDB.map(
-            secao => {
+    await carregarSecao(
 
-                const id =
-                    "tmdb-" +
-                    Math.random()
-                        .toString(36)
-                        .substring(2);
+        "Em alta",
 
+        "&sort_by=popularity.desc" +
+        "&vote_count.gte=30" +
+        "&page=1"
 
-                home.insertAdjacentHTML(
-
-                    "beforeend",
-
-                    `
-
-                    <section
-                        class="anime-section"
-                        id="${id}">
-
-                        <div
-                            class="section-header">
-
-                            <div
-                                class="section-title">
-
-                                ${escaparHTML(
-                                    secao.titulo
-                                )}
-
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="anime-list">
-
-                            ${criarSkeletons()}
-
-                        </div>
-
-                    </section>
-
-                    `
-
-                );
+    );
 
 
-                return {
-                    ...secao,
-                    id
-                };
-
-            }
-        );
+    await esperar(250);
 
 
     /*
-     * Todas as requisições começam juntas,
-     * mas Promise.allSettled impede que uma falha
-     * derrube as outras.
+     * NOVOS
      */
 
-    const resultados =
-        await Promise.allSettled(
+    await carregarSecao(
 
-            elementos.map(
-                secao =>
-                    tmdbAPI(
-                        secao.endpoint
-                    )
-            )
+        "Novos episódios",
 
-        );
+        "&sort_by=first_air_date.desc" +
+        "&first_air_date.gte=2025-01-01" +
+        "&vote_count.gte=5" +
+        "&page=1"
 
-
-    resultados.forEach(
-        (
-            resultado,
-            indice
-        ) => {
-
-            const secao =
-                elementos[indice];
+    );
 
 
-            const elemento =
-                document.getElementById(
-                    secao.id
-                );
+    await esperar(250);
 
 
-            if(!elemento){
+    /*
+     * MAIS BEM AVALIADOS
+     */
 
-                return;
+    await carregarSecao(
 
-            }
+        "Mais bem avaliados",
 
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=100" +
+        "&page=1"
 
-            if(
-                resultado.status !==
-                "fulfilled"
-            ){
-
-                elemento.remove();
-
-                return;
-
-            }
+    );
 
 
-            const dados =
-                resultado.value;
+    await esperar(250);
 
 
-            if(
-                !Array.isArray(dados) ||
-                !dados.length
-            ){
+    /*
+     * AÇÃO E AVENTURA
+     *
+     * TMDB TV genre:
+     * 10759
+     */
 
-                elemento.remove();
+    await carregarSecao(
 
-                return;
+        "Ação e Aventura",
 
-            }
+        "&with_genres=16,10759" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
 
-
-            const html =
-                criarSecao(
-                    secao.titulo,
-                    dados
-                );
+    );
 
 
-            if(html){
+    await esperar(250);
 
-                elemento.outerHTML =
-                    html;
 
-            }
-            else{
+    /*
+     * COMÉDIA
+     */
 
-                elemento.remove();
+    await carregarSecao(
 
-            }
+        "Comédia",
 
-        }
+        "&with_genres=16,35" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
+
+    );
+
+
+    await esperar(250);
+
+
+    /*
+     * FANTASIA
+     */
+
+    await carregarSecao(
+
+        "Fantasia",
+
+        "&with_genres=16,10765" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
+
+    );
+
+
+    await esperar(250);
+
+
+    /*
+     * DRAMA
+     */
+
+    await carregarSecao(
+
+        "Drama",
+
+        "&with_genres=16,18" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
+
+    );
+
+
+    await esperar(250);
+
+
+    /*
+     * ROMANCE
+     */
+
+    await carregarSecao(
+
+        "Romance",
+
+        "&with_genres=16,10749" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
+
+    );
+
+
+    await esperar(250);
+
+
+    /*
+     * MISTÉRIO
+     */
+
+    await carregarSecao(
+
+        "Mistério",
+
+        "&with_genres=16,9648" +
+        "&sort_by=vote_average.desc" +
+        "&vote_count.gte=20"
+
+    );
+
+
+    await esperar(250);
+
+
+    /*
+     * SHOUNEN / POPULARIDADE
+     *
+     * O TMDB não possui um género
+     * específico "Shounen" para TV.
+     * Por isso usamos anime popular.
+     */
+
+    await carregarSecao(
+
+        "Shounen",
+
+        "&sort_by=popularity.desc" +
+        "&vote_count.gte=100" +
+        "&page=2"
+
     );
 
 }
 
 
 /* =====================================================
-   INICIAR
+   INICIALIZAÇÃO
 ===================================================== */
 
 document.addEventListener(
@@ -1834,6 +1751,29 @@ document.addEventListener(
 
     function(){
 
+        if(
+            !TMDB_TOKEN ||
+            TMDB_TOKEN ===
+            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080"
+        ){
+
+            home.innerHTML = `
+
+                <div
+                    class="api-error">
+
+                    Configure o token do TMDB
+                    no início deste código.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
         construirHome();
 
     }
@@ -1841,25 +1781,5 @@ document.addEventListener(
 );
 
 </script>
-
-    <!-- =====================================================
-     TMDB ATTRIBUTION
-===================================================== -->
-
-<footer
-    style="
-        padding:30px 20px 20px;
-        text-align:center;
-        color:#666;
-        font-size:11px;
-    ">
-
-    Este produto usa a API do TMDB,
-    mas não é endossado ou certificado pelo TMDB.
-
-</footer>
-
-
-</body>
-
+ </body>
 </html>
