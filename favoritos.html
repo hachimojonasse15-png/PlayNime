@@ -1,1 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayNime - Favoritos</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
 
+html,body{
+background:#070707;
+color:#fff;
+min-height:100vh;
+}
+
+body{
+padding-bottom:110px;
+}
+
+button{
+font-family:inherit;
+border:none;
+background:none;
+cursor:pointer;
+}
+
+/* ========== HEADER (igual ao home) ========== */
+.header{
+height:70px;
+padding:0 16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:50;
+background:linear-gradient(to bottom,rgba(7,7,7,.98),rgba(7,7,7,.85),transparent);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:9px;
+font-size:23px;
+font-weight:800;
+letter-spacing:-1px;
+}
+
+.logo-icon{
+width:38px;
+height:38px;
+border-radius:11px;
+background:linear-gradient(135deg,#8b35ff,#b66cff);
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 5px 18px rgba(139,53,255,.35);
+}
+
+.logo-icon::after{
+content:"";
+width:0;
+height:0;
+border-top:8px solid transparent;
+border-bottom:8px solid transparent;
+border-left:13px solid white;
+margin-left:3px;
+}
+
+.logo span{
+color:#a855f7;
+}
+
+.header-search{
+width:40px;
+height:40px;
+border:1px solid #292929;
+background:#151515;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+}
+
+.header-search svg{
+width:20px;
+height:20px;
+stroke:white;
+fill:none;
+stroke-width:2;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+/* ========== CONTEÚDO ========== */
+.container{
+padding:10px 14px 20px;
+}
+
+.page-title{
+font-size:22px;
+font-weight:750;
+margin-bottom:18px;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.page-title svg{
+width:24px;
+height:24px;
+fill:#a855f7;
+}
+
+/* ========== GRID ========== */
+.favorites-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+/* ========== CARD (igual ao home) ========== */
+.anime-card{
+cursor:pointer;
+position:relative;
+}
+
+.anime-poster{
+width:100%;
+aspect-ratio:2/3;
+border-radius:10px;
+overflow:hidden;
+background:#151515;
+box-shadow:0 5px 16px rgba(0,0,0,.45);
+position:relative;
+}
+
+.anime-poster img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+transition:transform .22s ease;
+}
+
+.anime-card:active .anime-poster img{
+transform:scale(.96);
+}
+
+.anime-name{
+margin-top:7px;
+font-size:12.5px;
+color:#eee;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+line-height:1.3;
+}
+
+.anime-score{
+position:absolute;
+top:6px;
+left:6px;
+padding:3px 6px;
+border-radius:5px;
+background:rgba(0,0,0,.78);
+font-size:10px;
+color:#fff;
+font-weight:600;
+}
+
+.fav-remove{
+position:absolute;
+top:6px;
+right:6px;
+width:30px;
+height:30px;
+border-radius:50%;
+background:rgba(0,0,0,.75);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:5;
+}
+
+.fav-remove svg{
+width:16px;
+height:16px;
+fill:#ff4d6d;
+}
+
+/* ========== VAZIO ========== */
+.empty{
+min-height:55vh;
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px 20px;
+color:#777;
+}
+
+.empty svg{
+width:70px;
+height:70px;
+stroke:#444;
+fill:none;
+stroke-width:1.5;
+margin-bottom:18px;
+}
+
+.empty h2{
+color:#fff;
+font-size:20px;
+margin-bottom:8px;
+}
+
+.empty p{
+font-size:14px;
+line-height:1.5;
+max-width:260px;
+}
+
+/* ========== BOTTOM NAV (igual ao home) ========== */
+.bottom-nav{
+position:fixed;
+left:14px;
+right:14px;
+bottom:12px;
+height:70px;
+background:rgba(19,19,19,.96);
+border:1px solid #292929;
+border-radius:24px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+z-index:1000;
+box-shadow:0 8px 32px rgba(0,0,0,.65);
+backdrop-filter:blur(16px);
+}
+
+.nav-item{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4px;
+color:#707070;
+text-decoration:none;
+font-size:11px;
+}
+
+.nav-item svg{
+width:21px;
+height:21px;
+stroke:currentColor;
+fill:none;
+stroke-width:2;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+.nav-item.active{
+color:#fff;
+}
+
+.nav-item.active svg{
+stroke:#a855f7;
+}
+
+/* ========== MOBILE ========== */
+@media(max-width:380px){
+.favorites-grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="logo">
+<div class="logo-icon"></div>
+Play<span>Nime</span>
+</div>
+<button class="header-search" onclick="window.location.href='pesquisar.html'" aria-label="Pesquisar">
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="6"></circle>
+<path d="M16 16l5 5"></path>
+</svg>
+</button>
+</header>
+
+<main class="container">
+<div class="page-title">
+<svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"/></svg>
+Favoritos
+</div>
+
+<div id="favorites" class="favorites-grid"></div>
+
+<div id="empty" class="empty">
+<svg viewBox="0 0 24 24">
+<path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"/>
+</svg>
+<h2>Nenhum favorito ainda</h2>
+<p>Quando clicares no coração nos detalhes de um anime, ele aparece aqui.</p>
+</div>
+</main>
+
+<nav class="bottom-nav">
+<a href="home.html" class="nav-item">
+<svg viewBox="0 0 24 24">
+<path d="M3 11l9-8 9 8"></path>
+<path d="M5 10v10h14V10"></path>
+</svg>
+<span>Início</span>
+</a>
+<a href="pesquisar.html" class="nav-item">
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="6"></circle>
+<path d="M16 16l5 5"></path>
+</svg>
+<span>Pesquisar</span>
+</a>
+<a href="favoritos.html" class="nav-item active">
+<svg viewBox="0 0 24 24">
+<path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"></path>
+</svg>
+<span>Favoritos</span>
+</a>
+<a href="mais.html" class="nav-item">
+<svg viewBox="0 0 24 24">
+<circle cx="5" cy="12" r="1"></circle>
+<circle cx="12" cy="12" r="1"></circle>
+<circle cx="19" cy="12" r="1"></circle>
+</svg>
+<span>Mais</span>
+</a>
+</nav>
+
+<script>
+const FAVORITOS_KEY = "playnime_favoritos";
+const TMDB_IMAGE = "https://image.tmdb.org/t/p/";
+
+function obterFavoritos() {
+  try {
+    const dados = localStorage.getItem(FAVORITOS_KEY);
+    if (!dados) return [];
+    const lista = JSON.parse(dados);
+    return Array.isArray(lista) ? lista : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function guardarFavoritos(lista) {
+  localStorage.setItem(FAVORITOS_KEY, JSON.stringify(lista));
+}
+
+function escaparHTML(texto) {
+  return String(texto || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function abrirAnime(id) {
+  if (!id) return;
+  window.location.href = "detalhes.html?id=" + encodeURIComponent(id);
+}
+
+function removerFavorito(id, event) {
+  if (event) event.stopPropagation();
+  let favoritos = obterFavoritos();
+  favoritos = favoritos.filter(a => String(a.id) !== String(id));
+  guardarFavoritos(favoritos);
+  carregarFavoritos();
+}
+
+function carregarFavoritos() {
+  const container = document.getElementById("favorites");
+  const empty = document.getElementById("empty");
+  const favoritos = obterFavoritos();
+
+  container.innerHTML = "";
+
+  if (favoritos.length === 0) {
+    container.style.display = "none";
+    empty.style.display = "flex";
+    return;
+  }
+
+  container.style.display = "grid";
+  empty.style.display = "none";
+
+  favoritos.forEach(anime => {
+    if (!anime || !anime.id || !anime.poster) return;
+
+    const card = document.createElement("article");
+    card.className = "anime-card";
+    card.onclick = () => abrirAnime(anime.id);
+
+    const score = anime.score && anime.score !== "0.0" ? anime.score : null;
+
+    card.innerHTML = `
+      <div class="anime-poster">
+        <img src="${TMDB_IMAGE}w342${anime.poster}" alt="${escaparHTML(anime.title)}" loading="lazy">
+        ${score ? `<div class="anime-score">★ ${score}</div>` : ""}
+        <button class="fav-remove" onclick="removerFavorito(${anime.id}, event)" title="Remover dos favoritos">
+          <svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"/></svg>
+        </button>
+      </div>
+      <div class="anime-name">${escaparHTML(anime.title)}</div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", carregarFavoritos);
+</script>
+</body>
+  </html>
