@@ -857,7 +857,9 @@ async function descobrirAnime(
     const endpoint =
         "/discover/tv?" +
 
-        ANIME_FILTER +
+        "with_genres=16" +
+
+        "&with_origin_country=JP" +
 
         "&language=" +
         encodeURIComponent(
@@ -880,7 +882,7 @@ async function descobrirAnime(
 
 
     return Array.isArray(
-        dados.results
+        dados?.results
     )
         ? dados.results
         : [];
