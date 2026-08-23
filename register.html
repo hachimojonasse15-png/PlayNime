@@ -4,108 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Criar conta — PlayNime</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
 html,body{width:100%;min-height:100%;background:#070707;color:#fff;}
-body{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding:20px 22px 40px;
-  background:radial-gradient(circle at 50% 0%,rgba(139,53,255,.15),transparent 50%),#070707;
-}
-
-.back{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  margin-bottom:30px;
-}
+body{min-height:100vh;display:flex;flex-direction:column;padding:20px 22px 40px;background:radial-gradient(circle at 50% 0%,rgba(139,53,255,.15),transparent 50%),#070707;}
+.back{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:30px;}
 .back svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
-
-.content{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  max-width:380px;
-  margin:0 auto;
-  width:100%;
-}
-
-.title{
-  font-size:28px;
-  font-weight:800;
-  margin-bottom:36px;
-  letter-spacing:-0.5px;
-  line-height:1.25;
-  text-align:center;   /* ← esta linha */
-}
-
-.field{
-  margin-bottom:16px;
-  position:relative;
-}
-.field input{
-  width:100%;
-  height:56px;
-  background:transparent;
-  border:2px solid rgba(255,255,255,.25);
-  border-radius:14px;
-  padding:0 18px;
-  color:#fff;
-  font-size:16px;
-  outline:none;
-  transition:.2s;
-}
-.field input:focus{
-  border-color:#a855f7;
-  box-shadow:0 0 0 3px rgba(168,85,247,.15);
-}
+.content{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:380px;margin:0 auto;width:100%;}
+.title{font-size:28px;font-weight:800;margin-bottom:36px;letter-spacing:-0.5px;line-height:1.25;text-align:center;}
+.field{margin-bottom:16px;position:relative;}
+.field input{width:100%;height:56px;background:transparent;border:2px solid rgba(255,255,255,.25);border-radius:14px;padding:0 18px;color:#fff;font-size:16px;outline:none;transition:.2s;}
+.field input:focus{border-color:#a855f7;box-shadow:0 0 0 3px rgba(168,85,247,.15);}
 .field input::placeholder{color:rgba(255,255,255,.45);}
-
-.toggle-pass{
-  position:absolute;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  color:rgba(255,255,255,.5);
-  cursor:pointer;
-  padding:6px;
-}
+.toggle-pass{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;padding:6px;}
 .toggle-pass svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;}
-
-.btn-register{
-  width:100%;
-  height:56px;
-  margin-top:14px;
-  background:transparent;
-  border:2px solid #a855f7;
-  border-radius:14px;
-  color:#a855f7;
-  font-size:17px;
-  font-weight:700;
-  letter-spacing:1px;
-  cursor:pointer;
-  transition:.2s;
-}
+.btn-register{width:100%;height:56px;margin-top:14px;background:transparent;border:2px solid #a855f7;border-radius:14px;color:#a855f7;font-size:17px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:.2s;}
 .btn-register:active{transform:scale(.98);background:rgba(168,85,247,.1);}
-
-.message{
-  margin-top:16px;
-  font-size:14px;
-  color:#ff6b81;
-  min-height:20px;
-  text-align:center;
-}
+.message{margin-top:16px;font-size:14px;min-height:20px;text-align:center;}
 </style>
 </head>
 <body>
@@ -119,15 +38,10 @@ body{
 
   <form id="registerForm">
     <div class="field">
-      <input type="text" id="username" placeholder="Nome de utilizador" required autocomplete="username">
+      <input type="email" id="email" placeholder="E-mail" required>
     </div>
-
     <div class="field">
-      <input type="email" id="email" placeholder="E-mail" required autocomplete="email">
-    </div>
-
-    <div class="field">
-      <input type="password" id="password" placeholder="Palavra-passe" required autocomplete="new-password">
+      <input type="password" id="password" placeholder="Palavra-passe" required>
       <button type="button" class="toggle-pass" id="togglePass">
         <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
@@ -139,37 +53,46 @@ body{
 </div>
 
 <script>
-const password = document.getElementById("password");
-const togglePass = document.getElementById("togglePass");
+const firebaseConfig = {
+  apiKey: "AIzaSyCOjDokkcdI2-upQMZa5BwOlCbCqUrtmPY",
+  authDomain: "playnime-aca11.firebaseapp.com",
+  projectId: "playnime-aca11",
+  storageBucket: "playnime-aca11.firebasestorage.app",
+  messagingSenderId: "397199669163",
+  appId: "1:397199669163:web:7273fc848f9a50aead04ee"
+};
 
-togglePass.addEventListener("click", () => {
-  password.type = password.type === "password" ? "text" : "password";
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+document.getElementById("togglePass").addEventListener("click", () => {
+  const pass = document.getElementById("password");
+  pass.type = pass.type === "password" ? "text" : "password";
 });
 
-document.getElementById("registerForm").addEventListener("submit", function(e) {
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-
-  const username = document.getElementById("username").value.trim();
   const email = document.getElementById("email").value.trim();
-  const senha = password.value;
+  const password = document.getElementById("password").value;
+  const message = document.getElementById("message");
 
-  if (!username || !email || !senha) {
-    document.getElementById("message").textContent = "Preenche todos os campos.";
-    return;
+  message.style.color = "#a855f7";
+  message.textContent = "A criar conta...";
+
+  try {
+    await auth.createUserWithEmailAndPassword(email, password);
+    message.textContent = "Conta criada com sucesso!";
+    setTimeout(() => window.location.href = "home.html", 800);
+  } catch (error) {
+    message.style.color = "#ff6b81";
+    if (error.code === "auth/email-already-in-use") {
+      message.textContent = "Este e-mail já está registado.";
+    } else if (error.code === "auth/weak-password") {
+      message.textContent = "A palavra-passe deve ter pelo menos 6 caracteres.";
+    } else {
+      message.textContent = "Erro ao criar conta.";
+    }
   }
-
-  if (senha.length < 6) {
-    document.getElementById("message").textContent = "A palavra-passe deve ter pelo menos 6 caracteres.";
-    return;
-  }
-
-  document.getElementById("message").style.color = "#a855f7";
-  document.getElementById("message").textContent = "A criar a tua conta...";
-
-  // Simulação → depois de criar vai para o home
-  setTimeout(() => {
-    window.location.href = "home.html";
-  }, 900);
 });
 </script>
 </body>
