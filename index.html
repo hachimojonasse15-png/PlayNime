@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime</title>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#070707;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+/* ========== SPLASH ========== */
+.splash{
+  width:100%;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 40%, #1a0b2e 0%, #0d0618 45%, #070707 80%);
+  position:relative;
+}
+
+/* ========== LOGO ========== */
+.logo-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
+  animation:aparecer 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.logo-icon{
+  width:110px;
+  height:110px;
+  border-radius:26px;
+  background:linear-gradient(135deg, #8b35ff, #b66cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:
+    0 0 40px rgba(139,53,255,0.45),
+    0 12px 30px rgba(0,0,0,0.4);
+  position:relative;
+}
+
+.logo-icon::after{
+  content:"";
+  width:0;
+  height:0;
+  border-top:22px solid transparent;
+  border-bottom:22px solid transparent;
+  border-left:36px solid white;
+  margin-left:6px;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,0.5));
+}
+
+/* ========== TEXTO ========== */
+.logo-text{
+  font-size:28px;
+  font-weight:800;
+  letter-spacing:-0.5px;
+  color:#fff;
+  opacity:0;
+  animation:fadeIn 0.7s ease 0.4s forwards;
+}
+
+.logo-text span{
+  color:#a855f7;
+}
+
+/* ========== ANIMAÇÕES ========== */
+@keyframes aparecer{
+  0%{
+    opacity:0;
+    transform:scale(0.7) translateY(20px);
+  }
+  70%{
+    transform:scale(1.03) translateY(-4px);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(8px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ========== MOBILE ========== */
+@media(max-width:480px){
+  .logo-icon{
+    width:100px;
+    height:100px;
+    border-radius:24px;
+  }
+  .logo-icon::after{
+    border-top:20px solid transparent;
+    border-bottom:20px solid transparent;
+    border-left:32px solid white;
+  }
+  .logo-text{
+    font-size:25px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="splash">
+  <div class="logo-box">
+    <div class="logo-icon"></div>
+    <div class="logo-text">Play<span>Nime</span></div>
+  </div>
+</div>
+
+<script>
+  // Splash de 2.8 segundos → vai para o login
+  setTimeout(function(){
+    window.location.href = "login.html";
+  }, 2800);
+</script>
+
+</body>
+  </html>
