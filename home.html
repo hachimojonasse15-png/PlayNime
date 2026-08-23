@@ -1379,7 +1379,69 @@ function abrirAnimeTMDB(
         );
 
 }
+async function criarSecaoCategoria(
+    titulo,
+    lista,
+    genero
+){
 
+    if(
+        !Array.isArray(lista)
+    ){
+
+        return;
+
+    }
+
+
+    const filtrados =
+        lista.filter(
+
+            anime => {
+
+                const generos =
+                    anime?.genre_ids || [];
+
+                return generos.includes(
+                    Number(genero)
+                );
+
+            }
+
+        );
+
+
+    if(!filtrados.length){
+
+        return;
+
+    }
+
+
+    const limitados =
+        filtrados.slice(
+            0,
+            15
+        );
+
+
+    const html =
+        criarSecao(
+            titulo,
+            limitados
+        );
+
+
+    if(html){
+
+        home.insertAdjacentHTML(
+            "beforeend",
+            html
+        );
+
+    }
+
+      }
 
 /* =====================================================
    CONSTRUIR HOME
@@ -1390,128 +1452,138 @@ async function construirHome(){
     home.innerHTML = "";
 
 
+    /* =================================================
+       DESTAQUE
+    ================================================= */
+
     await carregarDestaque();
 
 
+    /* =================================================
+       EM ALTA
+    ================================================= */
+
     await carregarSecao(
-
         "Em alta",
-
-        "&sort_by=popularity.desc" +
-        "&vote_count.gte=20"
-
+        "&sort_by=popularity.desc&vote_count.gte=20"
     );
 
 
+    /* =================================================
+       NOVOS EPISÓDIOS
+    ================================================= */
+
     await carregarSecao(
-
         "Novos episódios",
-
         "&sort_by=first_air_date.desc" +
         "&first_air_date.gte=2025-01-01" +
         "&vote_count.gte=5"
-
     );
 
 
+    /* =================================================
+       MAIS BEM AVALIADOS
+    ================================================= */
+
     await carregarSecao(
-
         "Mais bem avaliados",
-
         "&sort_by=vote_average.desc" +
         "&vote_count.gte=100"
-
     );
 
 
-    await carregarSecao(
+    /* =================================================
+       UMA ÚNICA BUSCA PARA AS CATEGORIAS
+    ================================================= */
 
-        "Ação e Aventura",
+    let todos = [];
 
-        "&with_genres=16,10759" +
-        "&sort_by=popularity.desc" +
-        "&vote_count.gte=10"
+    try{
 
+        todos =
+            await descobrirAnime(
+                "&sort_by=popularity.desc" +
+                "&vote_count.gte=5" +
+                "&page=1"
+            );
+
+    }
+
+    catch(erro){
+
+        console.error(
+            "Erro ao carregar categorias:",
+            erro
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(todos) ||
+        !todos.length
+    ){
+
+        return;
+
+    }
+
+
+    /* =================================================
+       CATEGORIAS
+    ================================================= */
+
+    await criarSecaoCategoria(
+        "Ação",
+        todos,
+        "10759"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Comédia",
-
-        "&with_genres=16,35" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "35"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Fantasia",
-
-        "&with_genres=16,10765" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "10765"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Drama",
-
-        "&with_genres=16,18" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "18"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Romance",
-
-        "&with_genres=16,10749" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "10749"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Mistério",
-
-        "&with_genres=16,9648" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "9648"
     );
 
 
-    await carregarSecao(
-
+    await criarSecaoCategoria(
         "Terror",
-
-        "&with_genres=16,27" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=10"
-
+        todos,
+        "27"
     );
 
-
-    await carregarSecao(
-
-        "Populares",
-
-        "&sort_by=popularity.desc" +
-        "&vote_count.gte=100" +
-        "&page=2"
-
-    );
-
-}
+      }
 
 
 /* =====================================================
