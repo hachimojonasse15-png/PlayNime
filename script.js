@@ -1,16 +1,29 @@
 /* =====================================================
    PlayNime - SCRIPT PRINCIPAL
+   TMDB
 ===================================================== */
 
 "use strict";
 
 
 /* =====================================================
-   CONFIGURAÇÃO
+   CONFIGURAÇÃO TMDB
 ===================================================== */
 
-const PLAYNIME_API =
-    "https://api.jikan.moe/v4";
+const PLAYNIME_TMDB_TOKEN =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
+
+
+const PLAYNIME_TMDB_API =
+    "https://api.themoviedb.org/3";
+
+
+const PLAYNIME_TMDB_IMAGE =
+    "https://image.tmdb.org/t/p/";
+
+
+const PLAYNIME_LANGUAGE =
+    "pt-BR";
 
 
 const PLAYNIME_FAVORITES_KEY =
@@ -18,7 +31,7 @@ const PLAYNIME_FAVORITES_KEY =
 
 
 /* =====================================================
-   PEDIDO À JIKAN
+   PEDIDO AO TMDB
 ===================================================== */
 
 async function playNimeAPI(endpoint){
@@ -27,14 +40,34 @@ async function playNimeAPI(endpoint){
 
         const resposta =
             await fetch(
-                PLAYNIME_API + endpoint
+
+                PLAYNIME_TMDB_API + endpoint,
+
+                {
+
+                    method:"GET",
+
+                    headers:{
+
+                        "Authorization":
+                            "Bearer " +
+                            PLAYNIME_TMDB_TOKEN,
+
+                        "accept":
+                            "application/json"
+
+                    }
+
+                }
+
             );
 
 
         if(!resposta.ok){
 
             throw new Error(
-                "HTTP " + resposta.status
+                "TMDB HTTP " +
+                resposta.status
             );
 
         }
@@ -44,14 +77,33 @@ async function playNimeAPI(endpoint){
             await resposta.json();
 
 
-        return json.data || [];
+        /*
+         * Endpoints como discover/tv
+         * devolvem results.
+         *
+         * Endpoints de detalhes
+         * devolvem o próprio objeto.
+         */
+
+        if(
+            Array.isArray(
+                json?.results
+            )
+        ){
+
+            return json.results;
+
+        }
+
+
+        return json || null;
 
     }
 
     catch(erro){
 
         console.error(
-            "PlayNime API:",
+            "PlayNime TMDB:",
             erro
         );
 
@@ -63,16 +115,80 @@ async function playNimeAPI(endpoint){
 
 
 /* =====================================================
-   IMAGEM DO ANIME
+   IMAGEM DO TMDB
 ===================================================== */
 
-function playNimeImagem(anime){
+function playNimeImagem(
+    anime,
+    tamanho="w500"
+){
+
+    if(!anime){
+
+        return "";
+
+    }
+
+
+    /*
+     * Se receber um objeto TMDB.
+     */
+
+    if(
+        anime.poster_path
+    ){
+
+        return (
+            PLAYNIME_TMDB_IMAGE +
+            tamanho +
+            anime.poster_path
+        );
+
+    }
+
+
+    /*
+     * Compatibilidade caso seja
+     * passada diretamente uma URL.
+     */
+
+    if(
+        typeof anime === "string"
+    ){
+
+        return anime;
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================================
+   BACKDROP / BANNER
+===================================================== */
+
+function playNimeBanner(
+    anime,
+    tamanho="w1280"
+){
+
+    if(
+        !anime ||
+        !anime.backdrop_path
+    ){
+
+        return "";
+
+    }
+
 
     return (
-        anime?.images?.jpg?.large_image_url ||
-        anime?.images?.jpg?.image_url ||
-        anime?.images?.jpg?.small_image_url ||
-        ""
+        PLAYNIME_TMDB_IMAGE +
+        tamanho +
+        anime.backdrop_path
     );
 
 }
@@ -82,13 +198,22 @@ function playNimeImagem(anime){
    TÍTULO
 ===================================================== */
 
-function playNimeTitulo(anime){
+function playNimeTitulo(
+    anime
+){
 
     return (
+
+        anime?.name ||
+
+        anime?.original_name ||
+
         anime?.title ||
-        anime?.title_english ||
-        anime?.title_japanese ||
+
+        anime?.original_title ||
+
         "Anime sem título"
+
     );
 
 }
@@ -116,10 +241,14 @@ function playNimeObterFavoritos(){
 
 
         const favoritos =
-            JSON.parse(dados);
+            JSON.parse(
+                dados
+            );
 
 
-        return Array.isArray(favoritos)
+        return Array.isArray(
+            favoritos
+        )
             ? favoritos
             : [];
 
@@ -143,16 +272,30 @@ function playNimeObterFavoritos(){
    VERIFICAR FAVORITO
 ===================================================== */
 
-function playNimeEhFavorito(id){
+function playNimeEhFavorito(
+    id
+){
+
+    if(!id){
+
+        return false;
+
+    }
+
 
     const favoritos =
         playNimeObterFavoritos();
 
 
     return favoritos.some(
+
         anime =>
-            String(anime?.mal_id) ===
+
+            String(
+                anime?.id
+            ) ===
             String(id)
+
     );
 
 }
@@ -162,11 +305,13 @@ function playNimeEhFavorito(id){
    ADICIONAR FAVORITO
 ===================================================== */
 
-function playNimeAdicionarFavorito(anime){
+function playNimeAdicionarFavorito(
+    anime
+){
 
     if(
         !anime ||
-        !anime.mal_id
+        !anime.id
     ){
 
         return false;
@@ -180,9 +325,16 @@ function playNimeAdicionarFavorito(anime){
 
     const existe =
         favoritos.some(
+
             item =>
-                String(item?.mal_id) ===
-                String(anime.mal_id)
+
+                String(
+                    item?.id
+                ) ===
+                String(
+                    anime.id
+                )
+
         );
 
 
@@ -193,15 +345,64 @@ function playNimeAdicionarFavorito(anime){
     }
 
 
-    favoritos.push(anime);
+    /*
+     * Guardamos somente os dados
+     * necessários para a página
+     * de favoritos.
+     */
+
+    const favorito = {
+
+        id:
+            anime.id,
+
+        name:
+            anime.name ||
+            anime.original_name ||
+            anime.title ||
+            anime.original_title ||
+            "Anime sem título",
+
+        poster_path:
+            anime.poster_path ||
+            null,
+
+        backdrop_path:
+            anime.backdrop_path ||
+            null,
+
+        vote_average:
+            anime.vote_average ||
+            0,
+
+        first_air_date:
+            anime.first_air_date ||
+            "",
+
+        overview:
+            anime.overview ||
+            ""
+
+    };
+
+
+    favoritos.push(
+        favorito
+    );
 
 
     try{
 
         localStorage.setItem(
+
             PLAYNIME_FAVORITES_KEY,
-            JSON.stringify(favoritos)
+
+            JSON.stringify(
+                favoritos
+            )
+
         );
+
 
         return true;
 
@@ -225,7 +426,16 @@ function playNimeAdicionarFavorito(anime){
    REMOVER FAVORITO
 ===================================================== */
 
-function playNimeRemoverFavorito(id){
+function playNimeRemoverFavorito(
+    id
+){
+
+    if(!id){
+
+        return false;
+
+    }
+
 
     const favoritos =
         playNimeObterFavoritos();
@@ -233,20 +443,29 @@ function playNimeRemoverFavorito(id){
 
     const novosFavoritos =
         favoritos.filter(
+
             anime =>
-                String(anime?.mal_id) !==
+
+                String(
+                    anime?.id
+                ) !==
                 String(id)
+
         );
 
 
     try{
 
         localStorage.setItem(
+
             PLAYNIME_FAVORITES_KEY,
+
             JSON.stringify(
                 novosFavoritos
             )
+
         );
+
 
         return true;
 
@@ -270,11 +489,13 @@ function playNimeRemoverFavorito(id){
    ALTERNAR FAVORITO
 ===================================================== */
 
-function playNimeAlternarFavorito(anime){
+function playNimeAlternarFavorito(
+    anime
+){
 
     if(
         !anime ||
-        !anime.mal_id
+        !anime.id
     ){
 
         return false;
@@ -284,12 +505,12 @@ function playNimeAlternarFavorito(anime){
 
     if(
         playNimeEhFavorito(
-            anime.mal_id
+            anime.id
         )
     ){
 
         playNimeRemoverFavorito(
-            anime.mal_id
+            anime.id
         );
 
         return false;
@@ -301,6 +522,7 @@ function playNimeAlternarFavorito(anime){
         anime
     );
 
+
     return true;
 
 }
@@ -310,7 +532,9 @@ function playNimeAlternarFavorito(anime){
    ABRIR DETALHES
 ===================================================== */
 
-function playNimeAbrirAnime(id){
+function playNimeAbrirAnime(
+    id
+){
 
     if(!id){
 
@@ -321,7 +545,9 @@ function playNimeAbrirAnime(id){
 
     window.location.href =
         "detalhes.html?id=" +
-        encodeURIComponent(id);
+        encodeURIComponent(
+            id
+        );
 
 }
 
@@ -334,11 +560,15 @@ function playNimeObterIdURL(){
 
     const parametros =
         new URLSearchParams(
+
             window.location.search
+
         );
 
 
-    return parametros.get("id");
+    return parametros.get(
+        "id"
+    );
 
 }
 
@@ -347,29 +577,38 @@ function playNimeObterIdURL(){
    ESCAPAR HTML
 ===================================================== */
 
-function playNimeEscaparHTML(texto){
+function playNimeEscaparHTML(
+    texto
+){
 
-    return String(texto || "")
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+    return String(
+        texto || ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -378,11 +617,15 @@ function playNimeEscaparHTML(texto){
    GÉNEROS
 ===================================================== */
 
-function playNimeGeneros(anime){
+function playNimeGeneros(
+    anime
+){
 
     if(
         !anime ||
-        !Array.isArray(anime.genres)
+        !Array.isArray(
+            anime.genres
+        )
     ){
 
         return [];
@@ -390,10 +633,14 @@ function playNimeGeneros(anime){
     }
 
 
-    return anime.genres.map(
-        genero =>
-            genero?.name
-    ).filter(Boolean);
+    return anime.genres
+
+        .map(
+            genero =>
+                genero?.name
+        )
+
+        .filter(Boolean);
 
 }
 
@@ -402,11 +649,19 @@ function playNimeGeneros(anime){
    NOTA
 ===================================================== */
 
-function playNimeNota(anime){
+function playNimeNota(
+    anime
+){
+
+    const nota =
+        Number(
+            anime?.vote_average
+        );
+
 
     if(
-        typeof anime?.score !==
-        "number"
+        !Number.isFinite(nota) ||
+        nota <= 0
     ){
 
         return "N/A";
@@ -414,7 +669,38 @@ function playNimeNota(anime){
     }
 
 
-    return anime.score.toFixed(1);
+    return nota.toFixed(1);
+
+}
+
+
+/* =====================================================
+   ANO
+===================================================== */
+
+function playNimeAno(
+    anime
+){
+
+    const data =
+        anime?.first_air_date ||
+        anime?.release_date ||
+        "";
+
+
+    if(!data){
+
+        return "Ano desconhecido";
+
+    }
+
+
+    return String(
+        data
+    ).substring(
+        0,
+        4
+    );
 
 }
 
@@ -423,38 +709,117 @@ function playNimeNota(anime){
    INFORMAÇÃO DA TEMPORADA
 ===================================================== */
 
-function playNimeTemporada(anime){
+function playNimeTemporada(
+    anime
+){
+
+    if(
+        !anime
+    ){
+
+        return "Temporada";
+
+    }
+
 
     const temporada =
-        anime?.season;
-
-    const ano =
-        anime?.year;
+        anime.season_number;
 
 
     if(
-        temporada &&
-        ano
+        temporada
     ){
 
         return (
-            temporada.charAt(0).toUpperCase() +
-            temporada.slice(1) +
-            " " +
-            ano
+            "Temporada " +
+            temporada
         );
 
     }
 
 
-    if(ano){
+    return "Temporada";
 
-        return String(ano);
+}
+
+
+/* =====================================================
+   NÚMERO DE TEMPORADAS
+===================================================== */
+
+function playNimeNumeroTemporadas(
+    anime
+){
+
+    const quantidade =
+        Number(
+            anime?.number_of_seasons
+        );
+
+
+    if(
+        !Number.isFinite(
+            quantidade
+        ) ||
+        quantidade <= 0
+    ){
+
+        return 0;
 
     }
 
 
-    return "Ano desconhecido";
+    return quantidade;
+
+}
+
+
+/* =====================================================
+   NÚMERO DE EPISÓDIOS
+===================================================== */
+
+function playNimeNumeroEpisodios(
+    anime
+){
+
+    const quantidade =
+        Number(
+            anime?.number_of_episodes
+        );
+
+
+    if(
+        !Number.isFinite(
+            quantidade
+        ) ||
+        quantidade <= 0
+    ){
+
+        return 0;
+
+    }
+
+
+    return quantidade;
+
+}
+
+
+/* =====================================================
+   SINOPSE
+===================================================== */
+
+function playNimeSinopse(
+    anime
+){
+
+    return (
+
+        anime?.overview ||
+
+        "Sinopse não disponível."
+
+    );
 
 }
 
@@ -466,41 +831,74 @@ function playNimeTemporada(anime){
 window.playNimeAPI =
     playNimeAPI;
 
+
 window.playNimeImagem =
     playNimeImagem;
+
+
+window.playNimeBanner =
+    playNimeBanner;
+
 
 window.playNimeTitulo =
     playNimeTitulo;
 
+
 window.playNimeObterFavoritos =
     playNimeObterFavoritos;
+
 
 window.playNimeEhFavorito =
     playNimeEhFavorito;
 
+
 window.playNimeAdicionarFavorito =
     playNimeAdicionarFavorito;
+
 
 window.playNimeRemoverFavorito =
     playNimeRemoverFavorito;
 
+
 window.playNimeAlternarFavorito =
     playNimeAlternarFavorito;
+
 
 window.playNimeAbrirAnime =
     playNimeAbrirAnime;
 
+
 window.playNimeObterIdURL =
     playNimeObterIdURL;
+
 
 window.playNimeEscaparHTML =
     playNimeEscaparHTML;
 
+
 window.playNimeGeneros =
     playNimeGeneros;
+
 
 window.playNimeNota =
     playNimeNota;
 
+
+window.playNimeAno =
+    playNimeAno;
+
+
 window.playNimeTemporada =
     playNimeTemporada;
+
+
+window.playNimeNumeroTemporadas =
+    playNimeNumeroTemporadas;
+
+
+window.playNimeNumeroEpisodios =
+    playNimeNumeroEpisodios;
+
+
+window.playNimeSinopse =
+    playNimeSinopse;
