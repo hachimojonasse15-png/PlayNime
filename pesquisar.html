@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pesquisar - PlayNime</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -16,8 +13,7 @@
     font-family:Arial,Helvetica,sans-serif;
 }
 
-html,
-body{
+html,body{
     background:#070707;
     color:#fff;
     min-height:100%;
@@ -27,107 +23,78 @@ body{
     padding-bottom:105px;
 }
 
-/* =====================================================
-   TOPO
-===================================================== */
-
+/* ========== TOPO ========== */
 .search-header{
-
     height:76px;
     padding:0 15px;
-
     display:flex;
     align-items:center;
     gap:12px;
-
     position:sticky;
     top:0;
     z-index:50;
-
     background:#070707;
 }
 
 .back-button{
-
     width:42px;
     height:42px;
-
     border:0;
     border-radius:50%;
-
     background:#151515;
     color:#fff;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     cursor:pointer;
+    flex-shrink:0;
 }
 
 .back-button svg{
-
     width:21px;
     height:21px;
-
     fill:none;
     stroke:currentColor;
-
     stroke-width:2;
     stroke-linecap:round;
     stroke-linejoin:round;
 }
 
-/* =====================================================
-   PESQUISA
-===================================================== */
-
+/* ========== CAMPO DE PESQUISA ========== */
 .search-box{
-
     flex:1;
-
     height:45px;
-
     display:flex;
     align-items:center;
-
     background:#151515;
-
     border:1px solid #292929;
-
     border-radius:14px;
-
     padding:0 13px;
-
     gap:9px;
+    transition:border-color .2s;
+}
+
+.search-box:focus-within{
+    border-color:#a855f7;
 }
 
 .search-box svg{
-
     width:20px;
     height:20px;
-
     flex:0 0 auto;
-
     fill:none;
     stroke:#888;
-
     stroke-width:2;
     stroke-linecap:round;
     stroke-linejoin:round;
 }
 
 #campo-pesquisa{
-
     width:100%;
-
     border:0;
     outline:0;
-
     background:transparent;
-
     color:#fff;
-
     font-size:14px;
 }
 
@@ -135,37 +102,26 @@ body{
     color:#777;
 }
 
-/* =====================================================
-   RESULTADOS
-===================================================== */
-
+/* ========== RESULTADOS ========== */
 #resultados{
-
     padding:10px 15px 30px;
 }
 
 .mensagem{
-
-    padding:45px 15px;
-
+    padding:50px 20px;
     text-align:center;
-
     color:#777;
-
     font-size:14px;
+    line-height:1.5;
 }
 
 .resultado{
-
     display:flex;
-
     gap:13px;
-
-    padding:10px 0;
-
+    padding:12px 0;
     border-bottom:1px solid #181818;
-
     cursor:pointer;
+    transition:opacity .15s;
 }
 
 .resultado:active{
@@ -173,146 +129,91 @@ body{
 }
 
 .resultado-poster{
-
     width:68px;
     height:95px;
-
     flex:0 0 68px;
-
     border-radius:8px;
-
     overflow:hidden;
-
     background:#151515;
 }
 
 .resultado-poster img{
-
     width:100%;
     height:100%;
-
     object-fit:cover;
-
     display:block;
 }
 
 .resultado-info{
-
     min-width:0;
-
-    padding-top:3px;
+    padding-top:2px;
 }
 
 .resultado-titulo{
-
     font-size:15px;
-
     font-weight:700;
-
     color:#fff;
-
     line-height:1.3;
-
-    margin-bottom:7px;
+    margin-bottom:6px;
 }
 
 .resultado-meta{
-
     display:flex;
-
     flex-wrap:wrap;
-
-    gap:7px;
-
+    gap:8px;
     color:#999;
-
     font-size:12px;
 }
 
 .resultado-nota{
-
     color:#b66cff;
 }
 
 .resultado-sinopse{
-
     color:#777;
-
     font-size:12px;
-
     line-height:1.45;
-
-    margin-top:8px;
-
+    margin-top:7px;
     display:-webkit-box;
-
     -webkit-line-clamp:2;
-
     -webkit-box-orient:vertical;
-
     overflow:hidden;
 }
 
-/* =====================================================
-   NAVEGAÇÃO
-===================================================== */
-
+/* ========== NAVEGAÇÃO INFERIOR ========== */
 .bottom-nav{
-
     position:fixed;
-
     left:15px;
     right:15px;
     bottom:13px;
-
     height:72px;
-
     background:rgba(19,19,19,.96);
-
     border:1px solid #292929;
-
     border-radius:25px;
-
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
     z-index:1000;
-
     box-shadow:0 8px 35px rgba(0,0,0,.65);
-
     backdrop-filter:blur(15px);
 }
 
 .nav-item{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     justify-content:center;
-
     gap:5px;
-
     color:#707070;
-
     text-decoration:none;
-
     font-size:11px;
 }
 
 .nav-item svg{
-
     width:22px;
     height:22px;
-
     fill:none;
     stroke:currentColor;
-
     stroke-width:2;
-
     stroke-linecap:round;
     stroke-linejoin:round;
 }
@@ -324,526 +225,243 @@ body{
 .nav-item.active svg{
     stroke:#a855f7;
 }
-
 </style>
 </head>
 
 <body>
 
 <header class="search-header">
-
-    <button
-        class="back-button"
-        onclick="history.back()"
-        aria-label="Voltar">
-
+    <button class="back-button" onclick="history.back()" aria-label="Voltar">
         <svg viewBox="0 0 24 24">
-
             <path d="M19 12H5"></path>
-
             <path d="M12 19l-7-7 7-7"></path>
-
         </svg>
-
     </button>
 
-
     <div class="search-box">
-
         <svg viewBox="0 0 24 24">
-
-            <circle
-                cx="11"
-                cy="11"
-                r="6">
-            </circle>
-
+            <circle cx="11" cy="11" r="6"></circle>
             <path d="M16 16l5 5"></path>
-
         </svg>
-
 
         <input
             id="campo-pesquisa"
             type="search"
             placeholder="Pesquisar anime..."
             autocomplete="off">
-
     </div>
-
 </header>
 
-
 <main id="resultados">
-
     <div class="mensagem">
         Pesquise pelo nome de um anime.
     </div>
-
 </main>
 
-
 <nav class="bottom-nav">
-
-    <a
-        href="home.html"
-        class="nav-item">
-
+    <a href="home.html" class="nav-item">
         <svg viewBox="0 0 24 24">
-
             <path d="M3 11l9-8 9 8"></path>
-
             <path d="M5 10v10h14V10"></path>
-
         </svg>
-
         <span>Início</span>
-
     </a>
 
-
-    <a
-        href="pesquisar.html"
-        class="nav-item active">
-
+    <a href="pesquisar.html" class="nav-item active">
         <svg viewBox="0 0 24 24">
-
-            <circle
-                cx="11"
-                cy="11"
-                r="6">
-            </circle>
-
+            <circle cx="11" cy="11" r="6"></circle>
             <path d="M16 16l5 5"></path>
-
         </svg>
-
         <span>Pesquisar</span>
-
     </a>
 
-
-    <a
-        href="favoritos.html"
-        class="nav-item">
-
+    <a href="favoritos.html" class="nav-item">
         <svg viewBox="0 0 24 24">
-
-            <path d="
-                M20.8 8.6
-                c0 5.5-8.8 11-8.8 11
-                S3.2 14.1 3.2 8.6
-                A4.6 4.6 0 0 1 12 6.4
-                a4.6 4.6 0 0 1 8.8 2.2z">
-            </path>
-
+            <path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"></path>
         </svg>
-
         <span>Favoritos</span>
-
     </a>
 
-
-    <a
-        href="mais.html"
-        class="nav-item">
-
+    <a href="mais.html" class="nav-item">
         <svg viewBox="0 0 24 24">
-
             <circle cx="5" cy="12" r="1"></circle>
-
             <circle cx="12" cy="12" r="1"></circle>
-
             <circle cx="19" cy="12" r="1"></circle>
-
         </svg>
-
         <span>Mais</span>
-
     </a>
-
 </nav>
 
-
 <script>
-
 /* =====================================================
    CONFIGURAÇÃO TMDB
 ===================================================== */
+const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
+const TMDB_API   = "https://api.themoviedb.org/3";
+const TMDB_IMAGE = "https://image.tmdb.org/t/p/w185";
 
-const TMDB_TOKEN =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
-
-const TMDB_API =
-    "https://api.themoviedb.org/3";
-
-const TMDB_IMAGE =
-    "https://image.tmdb.org/t/p/w185";
-
-const resultados =
-    document.getElementById(
-        "resultados"
-    );
-
-const campo =
-    document.getElementById(
-        "campo-pesquisa"
-    );
-
+const resultados = document.getElementById("resultados");
+const campo      = document.getElementById("campo-pesquisa");
 
 /* =====================================================
-   ESCAPAR HTML
+   ESCAPAR HTML (segurança)
 ===================================================== */
-
 function escaparHTML(texto){
-
-    return String(
-        texto || ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
+    return String(texto || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
+/* =====================================================
+   VERIFICA SE É ANIME
+   - Gênero Animation (16)
+   - Idioma original japonês OU país de origem JP
+===================================================== */
+function isAnime(item){
+    if(!item) return false;
+
+    const genres = item.genre_ids || [];
+    const isAnimation = genres.includes(16);
+
+    const lang = (item.original_language || "").toLowerCase();
+    const countries = item.origin_country || [];
+    const isJapanese = lang === "ja" || countries.includes("JP");
+
+    return isAnimation && isJapanese;
+}
 
 /* =====================================================
-   PESQUISA TMDB
+   PESQUISA TMDB (só TV + filtro de anime)
 ===================================================== */
-
-async function pesquisarTMDB(
-    consulta
-){
-
-    const url =
-        TMDB_API +
-        "/search/tv?query=" +
-        encodeURIComponent(
-            consulta
-        ) +
+async function pesquisarTMDB(consulta){
+    const url = TMDB_API +
+        "/search/tv?query=" + encodeURIComponent(consulta) +
         "&language=pt-BR" +
         "&include_adult=false" +
         "&page=1";
 
-
     try{
-
-        const resposta =
-            await fetch(
-                url,
-                {
-                    headers:{
-                        Authorization:
-                            "Bearer " +
-                            TMDB_TOKEN,
-
-                        accept:
-                            "application/json"
-                    }
-                }
-            );
-
+        const resposta = await fetch(url, {
+            headers: {
+                Authorization: "Bearer " + TMDB_TOKEN,
+                accept: "application/json"
+            }
+        });
 
         if(!resposta.ok){
-
-            throw new Error(
-                "TMDB HTTP " +
-                resposta.status
-            );
-
+            throw new Error("TMDB HTTP " + resposta.status);
         }
 
+        const dados = await resposta.json();
+        const lista = Array.isArray(dados.results) ? dados.results : [];
 
-        const dados =
-            await resposta.json();
+        // Filtra apenas animes
+        return lista.filter(isAnime);
 
-
-        return Array.isArray(
-            dados.results
-        )
-            ? dados.results
-            : [];
-
-    }
-
-    catch(erro){
-
-        console.error(
-            "Erro na pesquisa TMDB:",
-            erro
-        );
-
+    }catch(erro){
+        console.error("Erro na pesquisa TMDB:", erro);
         return [];
-
     }
-
 }
-
 
 /* =====================================================
    MOSTRAR RESULTADOS
 ===================================================== */
-
-function mostrarResultados(
-    lista
-){
-
+function mostrarResultados(lista){
     if(!lista.length){
-
         resultados.innerHTML = `
-
             <div class="mensagem">
-
                 Nenhum anime encontrado.
-
             </div>
-
         `;
-
         return;
-
     }
 
+    resultados.innerHTML = lista
+        .filter(anime => anime.poster_path)
+        .map(anime => {
+            const titulo = anime.name || anime.original_name || "Sem título";
+            const ano    = anime.first_air_date ? anime.first_air_date.substring(0,4) : "";
+            const nota   = Number(anime.vote_average || 0).toFixed(1);
+            const sinopse = anime.overview || "Sinopse não disponível.";
 
-    resultados.innerHTML =
+            return `
+                <article class="resultado" onclick="abrirAnime(${anime.id})">
+                    <div class="resultado-poster">
+                        <img src="${TMDB_IMAGE}${anime.poster_path}"
+                             alt="${escaparHTML(titulo)}"
+                             loading="lazy">
+                    </div>
 
-        lista
-
-        .filter(
-            anime =>
-                anime.poster_path
-        )
-
-        .map(
-
-            anime => {
-
-                const titulo =
-                    anime.name ||
-                    anime.original_name ||
-                    "Sem título";
-
-
-                const ano =
-                    anime.first_air_date
-                    ?
-                    anime.first_air_date
-                        .substring(0,4)
-                    :
-                    "";
-
-
-                const nota =
-                    Number(
-                        anime.vote_average || 0
-                    ).toFixed(1);
-
-
-                const sinopse =
-                    anime.overview ||
-                    "Sinopse não disponível.";
-
-
-                return `
-
-                    <article
-                        class="resultado"
-
-                        onclick="
-                            abrirAnime(
-                                ${anime.id}
-                            )
-                        ">
-
-                        <div
-                            class="resultado-poster">
-
-                            <img
-                                src="${TMDB_IMAGE}${anime.poster_path}"
-                                alt="${escaparHTML(titulo)}"
-                                loading="lazy">
-
+                    <div class="resultado-info">
+                        <div class="resultado-titulo">
+                            ${escaparHTML(titulo)}
                         </div>
 
-
-                        <div
-                            class="resultado-info">
-
-                            <div
-                                class="resultado-titulo">
-
-                                ${escaparHTML(
-                                    titulo
-                                )}
-
-                            </div>
-
-
-                            <div
-                                class="resultado-meta">
-
-                                ${
-                                    ano
-                                    ?
-                                    `<span>${ano}</span>`
-                                    :
-                                    ""
-                                }
-
-                                ${
-                                    nota !== "0.0"
-                                    ?
-                                    `
-                                    <span
-                                        class="resultado-nota">
-
-                                        ★ ${nota}
-
-                                    </span>
-                                    `
-                                    :
-                                    ""
-                                }
-
-                            </div>
-
-
-                            <div
-                                class="resultado-sinopse">
-
-                                ${escaparHTML(
-                                    sinopse
-                                )}
-
-                            </div>
-
+                        <div class="resultado-meta">
+                            ${ano ? `<span>${ano}</span>` : ""}
+                            ${nota !== "0.0" ? `<span class="resultado-nota">★ ${nota}</span>` : ""}
                         </div>
 
-                    </article>
-
-                `;
-
-            }
-
-        )
-
+                        <div class="resultado-sinopse">
+                            ${escaparHTML(sinopse)}
+                        </div>
+                    </div>
+                </article>
+            `;
+        })
         .join("");
-
 }
-
 
 /* =====================================================
    ABRIR DETALHES
 ===================================================== */
+function abrirAnime(id){
+    if(!id) return;
+    window.location.href = "detalhes.html?id=" + encodeURIComponent(id);
+}
 
-function abrirAnime(
-    id
-){
+/* =====================================================
+   DEBOUNCE DA PESQUISA
+===================================================== */
+let temporizador = null;
 
-    if(!id){
+campo.addEventListener("input", function(){
+    const consulta = campo.value.trim();
+
+    clearTimeout(temporizador);
+
+    if(!consulta){
+        resultados.innerHTML = `
+            <div class="mensagem">
+                Pesquise pelo nome de um anime.
+            </div>
+        `;
         return;
     }
 
+    resultados.innerHTML = `
+        <div class="mensagem">
+            Pesquisando...
+        </div>
+    `;
 
-    window.location.href =
-        "detalhes.html?id=" +
-        encodeURIComponent(
-            id
-        );
-
-}
-
-
-/* =====================================================
-   DEBOUNCE
-===================================================== */
-
-let temporizador = null;
-
-
-campo.addEventListener(
-    "input",
-    function(){
-
-        const consulta =
-            campo.value.trim();
-
-
-        clearTimeout(
-            temporizador
-        );
-
-
-        if(!consulta){
-
-            resultados.innerHTML = `
-
-                <div class="mensagem">
-
-                    Pesquise pelo nome
-                    de um anime.
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        resultados.innerHTML = `
-
-            <div class="mensagem">
-
-                Pesquisando...
-
-            </div>
-
-        `;
-
-
-        temporizador =
-            setTimeout(
-
-                async function(){
-
-                    const lista =
-                        await pesquisarTMDB(
-                            consulta
-                        );
-
-
-                    mostrarResultados(
-                        lista
-                    );
-
-                },
-
-                450
-
-            );
-
-    }
-);
-
+    temporizador = setTimeout(async function(){
+        const lista = await pesquisarTMDB(consulta);
+        mostrarResultados(lista);
+    }, 450);
+});
 
 /* =====================================================
    FOCO AUTOMÁTICO
 ===================================================== */
-
-window.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        campo.focus();
-
-    }
-);
-
+window.addEventListener("DOMContentLoaded", function(){
+    campo.focus();
+});
 </script>
 
 </body>
-    </html>
+                </html>
