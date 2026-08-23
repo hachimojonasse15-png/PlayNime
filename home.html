@@ -5,8 +5,9 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>PlayNime</title>
 
@@ -133,7 +134,6 @@ img{
     color:#a855f7;
 }
 
-
 .header-search{
 
     width:42px;
@@ -201,7 +201,6 @@ img{
 ===================================================== */
 
 .anime-section{
-
     margin-bottom:27px;
 }
 
@@ -236,7 +235,7 @@ img{
 
 
 /* =====================================================
-   LISTA HORIZONTAL
+   LISTA
 ===================================================== */
 
 .anime-list{
@@ -309,7 +308,6 @@ img{
 
 .anime-card:active
 .anime-poster img{
-
     transform:scale(.96);
 }
 
@@ -397,7 +395,6 @@ img{
 .feature-section{
 
     margin:5px 15px 30px;
-
 }
 
 .feature-card{
@@ -499,17 +496,8 @@ img{
 
 
 /* =====================================================
-   VAZIO / ERRO
+   ERRO
 ===================================================== */
-
-.section-empty{
-
-    padding:10px 15px;
-
-    color:#666;
-
-    font-size:13px;
-}
 
 .api-error{
 
@@ -520,6 +508,15 @@ img{
     color:#888;
 
     line-height:1.6;
+}
+
+.section-empty{
+
+    padding:10px 15px;
+
+    color:#666;
+
+    font-size:13px;
 }
 
 
@@ -662,6 +659,7 @@ img{
 
     </div>
 
+
     <button
         class="header-search"
         onclick="abrirPesquisa()"
@@ -687,12 +685,14 @@ img{
 <main id="home-content">
 
     <div class="home-loading">
+
         Carregando animes...
+
     </div>
 
-</main>
+              </main>
 
-  <nav class="bottom-nav">
+      <nav class="bottom-nav">
 
     <a
         href="home.html"
@@ -789,14 +789,8 @@ img{
 <script>
 
 /* =====================================================
-   CONFIGURAÇÃO TMDB
+   TMDB
 ===================================================== */
-
-/*
- * COLE AQUI O SEU API READ ACCESS TOKEN DO TMDB.
- *
- * Não coloque o token entre espaços.
- */
 
 const TMDB_TOKEN =
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
@@ -805,45 +799,34 @@ const TMDB_TOKEN =
 const TMDB_API =
     "https://api.themoviedb.org/3";
 
+
 const TMDB_IMAGE =
     "https://image.tmdb.org/t/p/";
 
-
-/*
- * Idioma dos textos devolvidos pelo TMDB.
- */
 
 const TMDB_LANGUAGE =
     "pt-BR";
 
 
 /*
- * Para anime usamos:
+ * TMDB:
  *
- * gênero 16 = Animation
- * idioma original = japonês
- *
- * O TMDB trata anime como conteúdo de TV/animação,
- * portanto usamos /discover/tv.
+ * 16 = Animation
+ * ja = idioma original japonês
+ * JP = país de origem
  */
 
-const ANIME_BASE =
-    "with_genres=16&with_original_language=ja";
+const ANIME_FILTER =
+    "with_genres=16" +
+    "&with_original_language=ja" +
+    "&with_origin_country=JP";
 
-
-/* =====================================================
-   ELEMENTO PRINCIPAL
-===================================================== */
 
 const home =
     document.getElementById(
         "home-content"
     );
 
-
-/* =====================================================
-   CACHE
-===================================================== */
 
 const cacheTMDB =
     new Map();
@@ -865,14 +848,19 @@ function abrirPesquisa(){
    ESCAPAR HTML
 ===================================================== */
 
-function escaparHTML(texto){
+function escaparHTML(
+    texto
+){
 
-    if(texto === null ||
-       texto === undefined){
+    if(
+        texto === null ||
+        texto === undefined
+    ){
 
         return "";
 
     }
+
 
     return String(texto)
 
@@ -905,7 +893,7 @@ function escaparHTML(texto){
 
 
 /* =====================================================
-   URL DE IMAGEM
+   IMAGEM TMDB
 ===================================================== */
 
 function imagemTMDB(
@@ -919,6 +907,7 @@ function imagemTMDB(
 
     }
 
+
     return (
         TMDB_IMAGE +
         tamanho +
@@ -929,7 +918,7 @@ function imagemTMDB(
 
 
 /* =====================================================
-   PEDIDO TMDB
+   FETCH TMDB
 ===================================================== */
 
 async function tmdbFetch(
@@ -949,28 +938,40 @@ async function tmdbFetch(
 
     const resposta =
         await fetch(
+
             TMDB_API +
             endpoint,
+
             {
                 method:"GET",
 
                 headers:{
+
                     "Authorization":
                         "Bearer " +
                         TMDB_TOKEN,
 
                     "accept":
                         "application/json"
+
                 }
+
             }
+
         );
 
 
     if(!resposta.ok){
 
+        const texto =
+            await resposta.text();
+
+
         throw new Error(
-            "TMDB HTTP " +
-            resposta.status
+            "TMDB " +
+            resposta.status +
+            ": " +
+            texto
         );
 
     }
@@ -992,7 +993,7 @@ async function tmdbFetch(
 
 
 /* =====================================================
-   PAUSA ENTRE PEDIDOS
+   ESPERA
 ===================================================== */
 
 function esperar(
@@ -1011,32 +1012,30 @@ function esperar(
 
 
 /* =====================================================
-   DISCOVER ANIME
+   DISCOVER
 ===================================================== */
 
 async function descobrirAnime(
-    parametros=""
+    opcoes=""
 ){
-
-    const separador =
-        parametros
-            ? "&"
-            : "";
-
 
     const endpoint =
         "/discover/tv?" +
-        ANIME_BASE +
-        separador +
-        "language=" +
+
+        ANIME_FILTER +
+
+        "&language=" +
         encodeURIComponent(
             TMDB_LANGUAGE
         ) +
+
         "&include_adult=false" +
-        "&sort_by=popularity.desc" +
-        "&vote_count.gte=10" +
+
+        "&include_null_first_air_dates=false" +
+
         "&page=1" +
-        parametros;
+
+        opcoes;
 
 
     const dados =
@@ -1055,7 +1054,7 @@ async function descobrirAnime(
 
 
 /* =====================================================
-   NORMALIZAR ANIME
+   NORMALIZAR
 ===================================================== */
 
 function normalizarAnime(
@@ -1107,7 +1106,7 @@ function normalizarAnime(
 
 
 /* =====================================================
-   CRIAR SKELETONS
+   SKELETON
 ===================================================== */
 
 function criarSkeletons(){
@@ -1124,7 +1123,7 @@ function criarSkeletons(){
 
 
 /* =====================================================
-   CRIAR CARD
+   CARD
 ===================================================== */
 
 function criarCard(
@@ -1161,9 +1160,11 @@ function criarCard(
                         item.poster,
                         "w342"
                     )}"
+
                     alt="${escaparHTML(
                         item.title
                     )}"
+
                     loading="lazy">
 
                 ${
@@ -1177,6 +1178,7 @@ function criarCard(
                 }
 
             </div>
+
 
             <div class="anime-name">
 
@@ -1194,7 +1196,7 @@ function criarCard(
 
 
 /* =====================================================
-   CRIAR SECÇÃO
+   SECÇÃO
 ===================================================== */
 
 function criarSecao(
@@ -1202,15 +1204,11 @@ function criarSecao(
     lista
 ){
 
-    const animes =
-        Array.isArray(lista)
-            ? lista
-            : [];
-
-
     const cards =
-        animes
-            .map(criarCard)
+        lista
+            .map(
+                criarCard
+            )
             .filter(Boolean)
             .join("");
 
@@ -1239,6 +1237,7 @@ function criarSecao(
 
                 </div>
 
+
                 <div
                     class="section-more">
 
@@ -1262,7 +1261,7 @@ function criarSecao(
 
 }
 
-<script>
+ <script>
 
 /* =====================================================
    CARREGAR SECÇÃO
@@ -1270,7 +1269,7 @@ function criarSecao(
 
 async function carregarSecao(
     titulo,
-    parametros
+    opcoes=""
 ){
 
     const id =
@@ -1329,22 +1328,13 @@ async function carregarSecao(
 
         const dados =
             await descobrirAnime(
-                parametros
+                opcoes
             );
 
 
         if(!dados.length){
 
-            elemento.innerHTML = `
-
-                <div
-                    class="section-empty">
-
-                    Nenhum anime encontrado.
-
-                </div>
-
-            `;
+            elemento.remove();
 
             return;
 
@@ -1362,7 +1352,6 @@ async function carregarSecao(
     catch(erro){
 
         console.error(
-            "Erro na secção:",
             titulo,
             erro
         );
@@ -1395,15 +1384,12 @@ async function carregarDestaque(){
 
         const dados =
             await descobrirAnime(
-                "&vote_count.gte=100"
+
+                "&sort_by=popularity.desc" +
+
+                "&vote_count.gte=50"
+
             );
-
-
-        if(!dados.length){
-
-            return;
-
-        }
 
 
         const anime =
@@ -1433,18 +1419,23 @@ async function carregarDestaque(){
 
                 <div
                     class="feature-card"
-                    onclick="abrirAnimeTMDB(
-                        ${anime.id}
-                    )">
+
+                    onclick="
+                        abrirAnimeTMDB(
+                            ${anime.id}
+                        )
+                    ">
 
                     <img
                         src="${imagemTMDB(
                             anime.backdrop,
                             "w780"
                         )}"
+
                         alt="${escaparHTML(
                             anime.title
                         )}">
+
 
                     <div
                         class="feature-gradient">
@@ -1475,17 +1466,22 @@ async function carregarDestaque(){
                         <div
                             class="feature-sub">
 
-                            ${anime.year
-                                ? anime.year
-                                : ""
+                            ${
+                                anime.year
+                                    ?
+                                    anime.year
+                                    :
+                                    ""
                             }
 
                             ${
                                 anime.score !==
                                 "0.0"
+
                                 ?
                                 " • ★ " +
                                 anime.score
+
                                 :
                                 ""
                             }
@@ -1507,7 +1503,7 @@ async function carregarDestaque(){
     catch(erro){
 
         console.error(
-            "Erro no destaque:",
+            "Destaque:",
             erro
         );
 
@@ -1533,13 +1529,15 @@ function abrirAnimeTMDB(
 
     window.location.href =
         "detalhes.html?id=" +
-        encodeURIComponent(id);
+        encodeURIComponent(
+            id
+        );
 
 }
 
 
 /* =====================================================
-   CONSTRUIR HOME
+   HOME
 ===================================================== */
 
 async function construirHome(){
@@ -1547,193 +1545,197 @@ async function construirHome(){
     home.innerHTML = "";
 
 
-    /*
-     * Primeiro o destaque.
-     */
+    /* DESTAQUE */
 
     await carregarDestaque();
 
 
-    /*
-     * EM ALTA
-     */
+    /* EM ALTA */
 
     await carregarSecao(
 
         "Em alta",
 
         "&sort_by=popularity.desc" +
-        "&vote_count.gte=30" +
-        "&page=1"
+
+        "&vote_count.gte=20"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * NOVOS
-     */
+    /* NOVOS EPISÓDIOS */
 
     await carregarSecao(
 
         "Novos episódios",
 
         "&sort_by=first_air_date.desc" +
+
         "&first_air_date.gte=2025-01-01" +
-        "&vote_count.gte=5" +
-        "&page=1"
+
+        "&vote_count.gte=5"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * MAIS BEM AVALIADOS
-     */
+    /* MAIS BEM AVALIADOS */
 
     await carregarSecao(
 
         "Mais bem avaliados",
 
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=100" +
-        "&page=1"
+
+        "&vote_count.gte=100"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * AÇÃO E AVENTURA
-     *
-     * TMDB TV genre:
-     * 10759
-     */
+    /* AÇÃO E AVENTURA */
 
     await carregarSecao(
 
         "Ação e Aventura",
 
         "&with_genres=16,10759" +
-        "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&sort_by=popularity.desc" +
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * COMÉDIA
-     */
+    /* COMÉDIA */
 
     await carregarSecao(
 
         "Comédia",
 
         "&with_genres=16,35" +
+
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * FANTASIA
-     */
+    /* FANTASIA */
 
     await carregarSecao(
 
         "Fantasia",
 
         "&with_genres=16,10765" +
+
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * DRAMA
-     */
+    /* DRAMA */
 
     await carregarSecao(
 
         "Drama",
 
         "&with_genres=16,18" +
+
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * ROMANCE
-     */
+    /* ROMANCE */
 
     await carregarSecao(
 
         "Romance",
 
         "&with_genres=16,10749" +
+
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * MISTÉRIO
-     */
+    /* MISTÉRIO */
 
     await carregarSecao(
 
         "Mistério",
 
         "&with_genres=16,9648" +
+
         "&sort_by=vote_average.desc" +
-        "&vote_count.gte=20"
+
+        "&vote_count.gte=10"
 
     );
 
 
-    await esperar(250);
+    await esperar(200);
 
 
-    /*
-     * SHOUNEN / POPULARIDADE
-     *
-     * O TMDB não possui um género
-     * específico "Shounen" para TV.
-     * Por isso usamos anime popular.
-     */
+    /* TERROR */
 
     await carregarSecao(
 
-        "Shounen",
+        "Terror",
+
+        "&with_genres=16,27" +
+
+        "&sort_by=vote_average.desc" +
+
+        "&vote_count.gte=10"
+
+    );
+
+
+    await esperar(200);
+
+
+    /* POPULARES */
+
+    await carregarSecao(
+
+        "Populares",
 
         "&sort_by=popularity.desc" +
+
         "&vote_count.gte=100" +
+
         "&page=2"
 
     );
@@ -1742,7 +1744,7 @@ async function construirHome(){
 
 
 /* =====================================================
-   INICIALIZAÇÃO
+   INICIAR
 ===================================================== */
 
 document.addEventListener(
@@ -1752,9 +1754,12 @@ document.addEventListener(
     function(){
 
         if(
+
             !TMDB_TOKEN ||
+
             TMDB_TOKEN ===
-            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080"
+            "COLE_SEU_TOKEN_TMDB_AQUI"
+
         ){
 
             home.innerHTML = `
@@ -1762,8 +1767,8 @@ document.addEventListener(
                 <div
                     class="api-error">
 
-                    Configure o token do TMDB
-                    no início deste código.
+                    O token do TMDB
+                    ainda não foi configurado.
 
                 </div>
 
@@ -1782,4 +1787,4 @@ document.addEventListener(
 
 </script>
  </body>
-</html>
+</html>     
