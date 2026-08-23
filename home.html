@@ -448,7 +448,7 @@ Play<span>Nime</span>
 </nav>
 
 <script>
-const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080"; // ← coloca o teu token real aqui
+const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
 const TMDB_API = "https://api.themoviedb.org/3";
 const TMDB_IMAGE = "https://image.tmdb.org/t/p/";
 const TMDB_LANGUAGE = "pt-BR";
@@ -476,7 +476,8 @@ const FEATURE_TAGS = [
 "LANÇAMENTO",
 "EM ALTA",
 "RECÉM ADICIONADO",
-"NOVA SÉRIE"
+"NOVA SÉRIE",
+"QUARTA TEMPORADA"
 ];
 
 function abrirPesquisa() {
@@ -662,11 +663,11 @@ alt="${escaparHTML(anime.title)}">
 <div class="feature-tag">${tag}</div>
 <div class="feature-title">${escaparHTML(anime.title)}</div>
 <div class="feature-meta">
-\( {anime.year ? `<span> \){anime.year}</span>` : ""}
+${anime.year ? `<span>${anime.year}</span>` : ""}
 ${anime.score !== "0.0" ? `<span>• ★ ${anime.score}</span>` : ""}
 ${anime.genres ? `<span>• ${escaparHTML(anime.genres)}</span>` : ""}
 </div>
-\( {desc ? `<div class="feature-desc"> \){escaparHTML(desc)}</div>` : ""}
+${desc ? `<div class="feature-desc">${escaparHTML(desc)}</div>` : ""}
 </div>
 <div class="feature-actions">
 <div class="feature-btn play">
@@ -690,11 +691,13 @@ home.innerHTML = "";
 
 await carregarDestaque();
 
-// Secções principais (8 cards)
+// 8 cards
 await carregarSecao("Em alta", "&sort_by=popularity.desc&vote_count.gte=30", 8);
 await carregarSecao("Novos episódios", "&sort_by=first_air_date.desc&first_air_date.gte=2024-01-01&vote_count.gte=1", 8);
 
-// Restantes (15-16 cards)
+// 15-16 cards
+await carregarSecao("Recém adicionados", "&sort_by=first_air_date.desc&vote_count.gte=5", 16);
+await carregarSecao("Semanais", "&sort_by=popularity.desc&vote_count.gte=20", 16);
 await carregarSecao("Mais bem avaliados", "&sort_by=vote_average.desc&vote_count.gte=80", 16);
 await carregarSecao("Ação", "&with_genres=16,10759&sort_by=popularity.desc&vote_count.gte=10", 16);
 await carregarSecao("Aventura", "&with_genres=16,10759&sort_by=vote_average.desc&vote_count.gte=15", 16);
@@ -702,16 +705,11 @@ await carregarSecao("Comédia", "&with_genres=16,35&sort_by=popularity.desc&vote
 await carregarSecao("Fantasia", "&with_genres=16,10765&sort_by=popularity.desc&vote_count.gte=10", 16);
 await carregarSecao("Drama", "&with_genres=16,18&sort_by=popularity.desc&vote_count.gte=15", 16);
 await carregarSecao("Romance", "&with_genres=16,10749&sort_by=popularity.desc&vote_count.gte=10", 16);
-await carregarSecao("Mistério", "&with_genres=16,9648&sort_by=popularity.desc&vote_count.gte=8", 16);
-await carregarSecao("Terror", "&with_genres=16,27&sort_by=popularity.desc&vote_count.gte=5", 16);
-await carregarSecao("Slice of Life", "&with_genres=16,18&sort_by=vote_average.desc&vote_count.gte=20", 16);
+await carregarSecao("Slice Of Life", "&with_genres=16,18&sort_by=vote_average.desc&vote_count.gte=20", 16);
+await carregarSecao("Talvez você goste", "&sort_by=popularity.desc&vote_count.gte=15", 16);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-if (!TMDB_TOKEN || TMDB_TOKEN === "SEU_TOKEN_READ_ACCESS_AQUI") {
-home.innerHTML = `<div class="home-loading">Configure o token Read Access do TMDB.</div>`;
-return;
-}
 construirHome();
 });
 </script>
