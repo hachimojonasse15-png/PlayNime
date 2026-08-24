@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime - Configurações</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#000;color:#fff;min-height:100vh}
+.header{height:56px;display:flex;align-items:center;padding:0 16px;gap:16px;position:sticky;top:0;background:#000;z-index:10}
+.back{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none}
+.back svg{width:24px;height:24px}
+.title{font-size:20px;font-weight:600}
+.content{padding:8px 0 40px}
+.section-header{display:flex;align-items:center;gap:14px;padding:20px 20px 12px}
+.section-header svg{width:22px;height:22px;color:#aaa}
+.section-header span{font-size:16px;font-weight:500;color:#aaa}
+.item{display:flex;align-items:center;padding:16px 20px;gap:16px}
+.item-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.item-icon svg{width:22px;height:22px;color:#fff}
+.item-text{flex:1}
+.item-title{font-size:16px;font-weight:500;margin-bottom:3px}
+.item-sub{font-size:13px;color:#888;line-height:1.3}
+.toggle{position:relative;width:46px;height:28px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#333;border-radius:28px;transition:.25s}
+.slider:before{position:absolute;content:"";height:22px;width:22px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+input:checked + .slider{background:#9b4dff}
+input:checked + .slider:before{transform:translateX(18px)}
+</style>
+</head>
+<body>
+<header class="header">
+    <a href="mais.html" class="back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
+    <div class="title">Configurações</div>
+</header>
+<main class="content">
+    <div class="section-header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>Player settings</span>
+    </div>
 
+    <div class="item">
+        <div class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0"></path></svg></div>
+        <div class="item-text">
+            <div class="item-title">Ativar gestos no Player</div>
+            <div class="item-sub">Gestos de brilho e volume estão ativos</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+    </div>
+
+    <div class="item">
+        <div class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></div>
+        <div class="item-text">
+            <div class="item-title">Salvar brilho dos gestos</div>
+            <div class="item-sub">Brilho não será salvo</div>
+        </div>
+        <label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+    </div>
+
+    <div class="item">
+        <div class="item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+        <div class="item-text">
+            <div class="item-title">Próximo episódio automático</div>
+            <div class="item-sub">O próximo episódio será reproduzido automaticamente</div>
+        </div>
+        <label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+    </div>
+</main>
+</body>
+  </html>
