@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime - Termos e Privacidade</title>
+<style>
+:root{--bg:#000;--text:#fff;--sub:#aaa;--title:#c9a0ff}
+body.light{--bg:#f2f2f7;--text:#000;--sub:#555;--title:#6b2fd9}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s}
+.header{height:56px;display:flex;align-items:center;padding:0 16px;gap:16px;position:sticky;top:0;background:var(--bg);z-index:10}
+.back{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--text);text-decoration:none}
+.back svg{width:24px;height:24px}
+.title{font-size:18px;font-weight:600}
+.content{padding:20px 18px 50px;line-height:1.7}
+h1{font-size:22px;margin-bottom:18px;color:var(--title)}
+h2{font-size:16px;margin:28px 0 12px;color:var(--title)}
+p{color:var(--sub);font-size:14.5px;margin-bottom:14px}
+ul{color:var(--sub);font-size:14.5px;padding-left:18px;margin-bottom:14px}
+li{margin-bottom:8px}
+</style>
+</head>
+<body>
 
+<header class="header">
+    <a href="mais.html" class="back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+    </a>
+    <div class="title">Privacy Policy </div>
+</header>
+
+<main class="content">
+    <h1>Política de Privacidade do PlayNime</h1>
+
+    <p>A sua privacidade é importante para nós. Esta política explica como o PlayNime coleta, usa e protege as suas informações quando você utiliza nosso aplicativo.</p>
+
+    <p>Coletamos apenas as informações necessárias para oferecer uma boa experiência. Isso pode incluir dados de conta (como e-mail e nome de usuário) e preferências do aplicativo (tema, idioma e favoritos).</p>
+
+    <p>Não vendemos seus dados. Também não compartilhamos informações pessoais com terceiros, exceto quando exigido por lei ou quando necessário para o funcionamento básico do serviço.</p>
+
+    <h2>Dados que podemos coletar</h2>
+    <p>• Informações de conta (e-mail, nome de usuário)<br>
+    • Preferências do aplicativo (tema, idioma, notificações)<br>
+    • Lista de animes favoritos<br>
+    • Dados técnicos básicos para melhorar o desempenho do app</p>
+
+    <h2>Foto de perfil e imagens</h2>
+    <p>Você pode enviar uma foto de perfil. Essa imagem fica armazenada de forma segura e pode ser removida a qualquer momento. Não utilizamos suas imagens para outros fins e não as compartilhamos com terceiros.</p>
+
+    <h2>Conteúdo de terceiros</h2>
+    <p>O PlayNime pode conter links ou conteúdos de sites e serviços externos. Não temos controle sobre as práticas de privacidade desses serviços e recomendamos que você leia as políticas deles.</p>
+
+    <h2>Compromisso do usuário</h2>
+    <p>Ao usar o PlayNime, você se compromete a:</p>
+    <ul>
+        <li>Não utilizar o aplicativo para atividades ilegais</li>
+        <li>Não enviar conteúdo ofensivo, discriminatório ou que viole direitos de terceiros</li>
+        <li>Não tentar prejudicar o funcionamento do aplicativo ou de outros usuários</li>
+    </ul>
+
+    <h2>Alterações nesta política</h2>
+    <p>Podemos atualizar esta política de tempos em tempos. A versão mais recente estará sempre disponível dentro do aplicativo.</p>
+
+    <h2>Contato</h2>
+    <p>Se tiver dúvidas sobre privacidade ou sobre o uso dos seus dados, entre em contato conosco pelo e-mail: suporte@playnime.app</p>
+
+    <p>Esta política é válida a partir de 2024.</p>
+</main>
+
+<script>
+function safeGet(key, fallback) {
+    try {
+        return localStorage.getItem(key) || fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+if (safeGet('playnime-theme', 'dark') === 'light') {
+    document.body.classList.add('light');
+}
+</script>
+</body>
+  </html>
