@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime - Mais</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#070707;color:#fff;min-height:100vh;padding-bottom:110px}
+.header{height:72px;padding:0 22px;display:flex;align-items:center;position:sticky;top:0;background:rgba(7,7,7,0.92);backdrop-filter:blur(12px);z-index:100}
+.logo{font-size:26px;font-weight:800;letter-spacing:-0.5px}
+.logo span{color:#9b4dff}
+.content{padding:8px 18px 30px}
+.title{font-size:32px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px}
+.subtitle{color:#888;font-size:14px;margin-bottom:28px;line-height:1.4}
+.profile-card{background:linear-gradient(145deg,#161616,#111);border:1px solid #2a2a2a;border-radius:22px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:28px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(155,77,255,.4),transparent)}
+.profile-card:active{transform:scale(.985);background:#1a1a1a}
+.avatar{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#9b4dff,#6b2fd9);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 20px rgba(155,77,255,.35)}
+.avatar svg{width:28px;height:28px;color:#fff}
+.profile-info{flex:1}
+.profile-info h2{font-size:18px;font-weight:700;margin-bottom:3px}
+.profile-info p{color:#888;font-size:13px}
+.profile-arrow{color:#555;font-size:24px;font-weight:300}
+.section{margin-bottom:26px}
+.section-title{font-size:13px;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-left:4px}
+.menu-list{display:flex;flex-direction:column;gap:8px}
+.option{width:100%;min-height:64px;background:#121212;border:1px solid #232323;border-radius:18px;display:flex;align-items:center;padding:0 16px;color:#fff;text-decoration:none;transition:all .18s;cursor:pointer}
+.option:active{transform:scale(.98);background:#1a1a1a;border-color:#333}
+.option-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-right:14px;flex-shrink:0;background:rgba(155,77,255,0.22)}
+.option-icon svg{width:20px;height:20px;color:#c9a0ff}
+.option-text{flex:1}
+.option-title{font-size:15.5px;font-weight:600}
+.option-sub{color:#777;font-size:12.5px;margin-top:2px}
+.arrow{color:#444;font-size:22px;font-weight:300}
+.bottom-nav{position:fixed;left:16px;right:16px;bottom:18px;height:72px;background:rgba(18,18,18,0.95);border:1px solid #2a2a2a;border-radius:36px;display:grid;grid-template-columns:repeat(4,1fr);z-index:999;box-shadow:0 10px 40px rgba(0,0,0,.7);backdrop-filter:blur(16px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#666;text-decoration:none;font-size:11px;font-weight:500}
+.nav-icon{font-size:22px;line-height:1}
+.nav-item.active{color:#fff}
+.nav-item.active .nav-icon{color:#9b4dff}
+</style>
+</head>
+<body>
 
+<header class="header">
+    <div class="logo">Play<span>Nime</span></div>
+</header>
+
+<main class="content">
+    <h1 class="title">Mais</h1>
+    <p class="subtitle">Gerencie a sua conta, preferências e informações do aplicativo</p>
+
+    <div class="profile-card" onclick="location.href='perfil.html'">
+        <div class="avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div class="profile-info">
+            <h2>Meu Perfil</h2>
+            <p>Gerir conta e preferências</p>
+        </div>
+        <div class="profile-arrow">›</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Conta</div>
+        <div class="menu-list">
+            <a href="perfil.html" class="option">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+                <div class="option-text">
+                    <div class="option-title">Perfil</div>
+                    <div class="option-sub">Ver e editar informações</div>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+            <a href="configuracoes.html" class="option">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </div>
+                <div class="option-text">
+                    <div class="option-title">Configurações</div>
+                    <div class="option-sub">Aparência, idioma e mais</div>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Suporte</div>
+        <div class="menu-list">
+            <a href="ajuda.html" class="option">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div class="option-text">
+                    <div class="option-title">Ajuda</div>
+                    <div class="option-sub">Dúvidas e suporte</div>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+            <a href="termos.html" class="option">
+                <div class="option-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="option-text">
+                    <div class="option-title">Termos e Privacidade</div>
+                    <div class="option-sub">Política de privacidade</div>
+                </div>
+                <div class="arrow">›</div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<nav class="bottom-nav">
+    <a href="home.html" class="nav-item"><span class="nav-icon">⌂</span><span>Início</span></a>
+    <a href="pesquisar.html" class="nav-item"><span class="nav-icon">⌕</span><span>Pesquisar</span></a>
+    <a href="favoritos.html" class="nav-item"><span class="nav-icon">♡</span><span>Favoritos</span></a>
+    <a href="mais.html" class="nav-item active"><span class="nav-icon">•••</span><span>Mais</span></a>
+</nav>
+
+</body>
+                                                                                                                                                             </html>
