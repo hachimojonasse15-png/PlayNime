@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime - Idioma</title>
+<style>
+:root{--bg:#000;--card:#121212;--border:#222;--text:#fff;--sub:#888}
+body.light{--bg:#f2f2f7;--card:#fff;--border:#e5e5ea;--text:#000;--sub:#666}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s}
+.header{height:56px;display:flex;align-items:center;padding:0 16px;gap:16px;position:sticky;top:0;background:var(--bg);z-index:10}
+.back{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--text);text-decoration:none}
+.back svg{width:24px;height:24px}
+.title{font-size:20px;font-weight:600}
+.content{padding:16px 18px 40px}
+.lang{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s}
+.lang.active{border-color:#9b4dff;background:rgba(155,77,255,0.08)}
+.flag{font-size:26px;line-height:1}
+.lang-name{flex:1;font-size:16px;font-weight:500}
+.check{width:22px;height:22px;border-radius:50%;border:2px solid #555}
+.lang.active .check{background:#9b4dff;border-color:#9b4dff}
+</style>
+</head>
+<body>
 
+<header class="header">
+    <a href="configuracoes.html" class="back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+    </a>
+    <div class="title">Idioma</div>
+</header>
+
+<main class="content" id="lista"></main>
+
+<script>
+function safeGet(key, fallback) {
+    try {
+        return localStorage.getItem(key) || fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
+function safeSet(key, value) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (e) {}
+}
+
+const idiomas = [
+    {code: 'pt-BR', name: 'Português (Brasil)', flag: '🇧🇷'},
+    {code: 'pt-PT', name: 'Português (Portugal)', flag: '🇵🇹'},
+    {code: 'en', name: 'English', flag: '🇺🇸'},
+    {code: 'es', name: 'Español', flag: '🇪🇸'},
+    {code: 'ja', name: '日本語', flag: '🇯🇵'},
+    {code: 'ko', name: '한국어', flag: '🇰🇷'},
+    {code: 'fr', name: 'Français', flag: '🇫🇷'},
+    {code: 'de', name: 'Deutsch', flag: '🇩🇪'},
+    {code: 'it', name: 'Italiano', flag: '🇮🇹'},
+    {code: 'ru', name: 'Русский', flag: '🇷🇺'},
+    {code: 'zh', name: '中文', flag: '🇨🇳'}
+];
+
+function carregarIdiomas() {
+    const atual = safeGet('playnime-lang', 'pt-BR');
+    const lista = document.getElementById('lista');
+    lista.innerHTML = '';
+
+    idiomas.forEach(idioma => {
+        const div = document.createElement('div');
+        div.className = 'lang' + (idioma.code === atual ? ' active' : '');
+        div.innerHTML = `
+            <div class="flag">${idioma.flag}</div>
+            <div class="lang-name">${idioma.name}</div>
+            <div class="check"></div>
+        `;
+        div.onclick = () => {
+            safeSet('playnime-lang', idioma.code);
+            carregarIdiomas();
+        };
+        lista.appendChild(div);
+    });
+}
+
+// aplica tema se existir
+if (safeGet('playnime-theme', 'dark') === 'light') {
+    document.body.classList.add('light');
+}
+
+carregarIdiomas();
+</script>
+</body>
+</html>
