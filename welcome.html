@@ -5,179 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>PlayNime</title>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  background:#070707;
-  color:#fff;
-  overflow:hidden;
-}
-
-body{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:30px 20px;
-  background:radial-gradient(circle at 50% 20%, rgba(139,53,255,.12), transparent 50%), #070707;
-}
-
-.login-box{
-  width:100%;
-  max-width:340px;
-  text-align:center;
-}
-
-.logo-icon{
-  width:110px;
-  height:110px;
-  margin:0 auto 28px;
-  border-radius:28px;
-  background:linear-gradient(135deg,#8b35ff,#b66cff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 40px rgba(139,53,255,.45);
-  animation:aparecer 0.8s cubic-bezier(.2,.8,.2,1);
-}
-
-.logo-icon::after{
-  content:"";
-  width:0;
-  height:0;
-  border-top:24px solid transparent;
-  border-bottom:24px solid transparent;
-  border-left:40px solid white;
-  margin-left:7px;
-  filter:drop-shadow(0 0 6px rgba(255,255,255,.5));
-}
-
-.app-name{
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:-1px;
-  margin-bottom:50px;
-  animation:fadeIn 0.7s ease 0.2s both;
-}
-
-.app-name span{
-  color:#a855f7;
-}
-
-.btn{
-  width:100%;
-  height:54px;
-  border-radius:14px;
-  font-size:16px;
-  font-weight:700;
-  letter-spacing:0.5px;
-  cursor:pointer;
-  transition:all .2s ease;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-
-.btn:active{
-  transform:scale(.97);
-}
-
-.btn-login{
-  background:transparent;
-  border:2px solid #a855f7;
-  color:#a855f7;
-  margin-bottom:18px;
-}
-
-.btn-login:hover{
-  background:rgba(168,85,247,.1);
-}
-
-.btn-register{
-  background:linear-gradient(135deg,#a855f7,#7c3aed);
-  border:none;
-  color:white;
-  box-shadow:0 8px 25px rgba(124,58,237,.3);
-  margin-top:18px;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin:6px 0;
-  color:#555;
-  font-size:13px;
-  font-weight:600;
-}
-
-.divider::before,
-.divider::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:#2a2a2a;
-}
-
-.btn-google{
-  margin-top:32px;
-  background:#fff;
-  border:none;
-  color:#222;
-  font-weight:600;
-  box-shadow:0 4px 15px rgba(0,0,0,.2);
-}
-
-@keyframes aparecer{
-  from{opacity:0;transform:scale(0.7) translateY(15px);}
-  to{opacity:1;transform:scale(1) translateY(0);}
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@media(max-width:380px){
-  .logo-icon{width:96px;height:96px;border-radius:24px;}
-  .logo-icon::after{border-top:20px solid transparent;border-bottom:20px solid transparent;border-left:34px solid white;}
-  .app-name{font-size:30px;margin-bottom:42px;}
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+html,body{width:100%;height:100%;background:#070707;color:#fff;overflow:hidden}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px 20px;background:radial-gradient(circle at 50% 20%,rgba(139,53,255,.12),transparent 50%),#070707}
+.login-box{width:100%;max-width:340px;text-align:center}
+.logo-icon{width:110px;height:110px;margin:0 auto 28px;border-radius:28px;background:linear-gradient(135deg,#8b35ff,#b66cff);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(139,53,255,.45)}
+.logo-icon::after{content:"";width:0;height:0;border-top:24px solid transparent;border-bottom:24px solid transparent;border-left:40px solid white;margin-left:7px}
+.app-name{font-size:34px;font-weight:800;letter-spacing:-1px;margin-bottom:50px}
+.app-name span{color:#a855f7}
+.btn{width:100%;height:54px;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:.2s}
+.btn:active{transform:scale(.97)}
+.btn-login{background:transparent;border:2px solid #a855f7;color:#a855f7;margin-bottom:18px}
+.btn-register{background:linear-gradient(135deg,#a855f7,#7c3aed);border:none;color:white;margin-top:18px}
+.divider{display:flex;align-items:center;gap:14px;margin:6px 0;color:#555;font-size:13px;font-weight:600}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:#2a2a2a}
+.btn-google{margin-top:32px;background:#fff;border:none;color:#222;font-weight:600}
 </style>
 </head>
 <body>
 
 <div class="login-box">
-
   <div class="logo-icon"></div>
   <div class="app-name">Play<span>Nime</span></div>
 
-  <!-- ENTRAR → vai para login.html -->
-  <button class="btn btn-login" onclick="window.location.href='login.html'">
-    ENTRAR
-  </button>
-
+  <button class="btn btn-login" onclick="location.href='login.html'">ENTRAR</button>
   <div class="divider">OU</div>
+  <button class="btn btn-register" onclick="location.href='register.html'">CRIAR CONTA</button>
 
-  <!-- CRIAR CONTA → vai para register.html -->
-  <button class="btn btn-register" onclick="window.location.href='register.html'">
-    CRIAR CONTA
-  </button>
-
-  <!-- GOOGLE (agora a funcionar) -->
   <button class="btn btn-google" id="googleBtn">
     <svg width="20" height="20" viewBox="0 0 48 48">
       <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
@@ -187,7 +45,6 @@ body{
     </svg>
     Entrar com Google
   </button>
-
 </div>
 
 <script>
@@ -203,19 +60,28 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
+// Se já estiver logado, vai direto pro home
+auth.onAuthStateChanged(user => {
+  if (user) {
+    location.href = "home.html";
+  }
+});
+
 document.getElementById("googleBtn").addEventListener("click", async () => {
   const provider = new firebase.auth.GoogleAuthProvider();
-
   try {
     await auth.signInWithPopup(provider);
-    // Se o login for bem sucedido, vai para o home
-    window.location.href = "home.html";
+    location.href = "home.html";
   } catch (error) {
-    console.error("Erro no Google Login:", error);
-    alert("Erro ao entrar com Google. Tenta novamente.");
+    console.error(error);
+    // Fallback para redirect (melhor em celular)
+    try {
+      await auth.signInWithRedirect(provider);
+    } catch (e) {
+      alert("Erro ao entrar com Google: " + e.message);
+    }
   }
 });
 </script>
-
 </body>
-  </html>
+</html>
