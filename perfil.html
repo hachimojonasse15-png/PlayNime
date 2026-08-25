@@ -1,71 +1,122 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PlayNime - Perfil</title>
+<title>PlayNime - Profile</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
-body{background:#070707;color:#fff;min-height:100vh;padding-bottom:40px}
-.header{height:56px;display:flex;align-items:center;padding:0 16px;gap:16px;position:sticky;top:0;background:#070707;z-index:10}
-.back{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none}
-.back svg{width:24px;height:24px}
-.title{font-size:20px;font-weight:600}
-.content{padding:20px 18px}
-.avatar-box{text-align:center;margin-bottom:30px}
-.avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#9b4dff,#6b2fd9);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid #9b4dff;position:relative}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.avatar-placeholder{font-size:42px;color:#fff}
-.change-photo{margin-top:10px;font-size:14px;color:#a855f7;cursor:pointer;display:inline-block}
-.name{font-size:22px;font-weight:700;margin-bottom:4px}
-.email{color:#888;font-size:14px}
-.section{margin-top:28px}
-.section-title{font-size:13px;color:#666;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.card{background:#121212;border:1px solid #232323;border-radius:16px;padding:16px;margin-bottom:12px}
-.card label{display:block;font-size:13px;color:#888;margin-bottom:6px}
-.card input{width:100%;height:48px;background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:0 14px;color:#fff;font-size:15px;outline:none}
-.card input:focus{border-color:#9b4dff}
-.btn{width:100%;height:52px;border-radius:14px;font-size:16px;font-weight:600;border:none;cursor:pointer;margin-top:10px}
-.btn-save{background:linear-gradient(135deg,#9b4dff,#7c3aed);color:#fff}
-.btn-logout{background:transparent;border:1px solid #ff4d6d;color:#ff4d6d;margin-top:24px}
-.message{text-align:center;margin-top:12px;font-size:14px;min-height:20px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#070707;color:#fff;min-height:100vh}
+.header{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;background:#070707;z-index:10}
+.back,.share{width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:#fff;background:none;border:none;cursor:pointer}
+.back svg,.share svg{width:24px;height:24px}
+.content{padding:10px 20px 40px}
+.profile-top{display:flex;align-items:center;gap:18px;margin-bottom:24px}
+.big-avatar{width:90px;height:90px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.big-avatar img{width:100%;height:100%;object-fit:cover}
+.big-avatar svg{width:40px;height:40px;color:#666}
+.profile-info h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.bio{font-size:14px;color:#888;line-height:1.4}
+.stats-row{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.stat{font-size:13px;color:#888}
+.stat strong{color:#fff;font-weight:600}
+.edit-btn{margin-left:auto;background:#fff;color:#000;border:none;padding:10px 22px;border-radius:24px;font-size:14px;font-weight:600;cursor:pointer}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px}
+.card{background:#141414;border:1px solid #252525;border-radius:16px;padding:16px}
+.card-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.card-sub{font-size:12px;color:#777}
+.section-title{font-size:16px;font-weight:600;margin-bottom:14px}
+.empty{text-align:center;color:#555;padding:30px 0;font-size:14px}
+
+/* EDIT MODE */
+.edit-screen{display:none;padding:10px 20px 40px}
+.edit-screen.active{display:block}
+.view-screen.hidden{display:none}
+.edit-avatar-box{text-align:center;margin:20px 0 30px}
+.edit-avatar{width:100px;height:100px;border-radius:50%;background:#2a2a2a;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.edit-avatar img{width:100%;height:100%;object-fit:cover}
+.change-photo{color:#a855f7;font-size:14px;cursor:pointer}
+.field{margin-bottom:24px}
+.field label{display:block;font-size:13px;color:#888;margin-bottom:8px}
+.field input,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid #333;padding:10px 0;color:#fff;font-size:16px;outline:none}
+.field input:focus,.field textarea:focus{border-bottom-color:#9b4dff}
+.field textarea{resize:none;min-height:60px}
+.save-btn{position:fixed;bottom:30px;left:20px;right:20px;height:52px;background:#fff;color:#000;border:none;border-radius:28px;font-size:15px;font-weight:700;cursor:pointer}
 #fileInput{display:none}
 </style>
 </head>
 <body>
 
 <header class="header">
-  <a href="mais.html" class="back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-  </a>
-  <div class="title">Meu Perfil</div>
+  <button class="back" onclick="goBack()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  </button>
+  <button class="share" style="opacity:0.5">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+  </button>
 </header>
 
-<main class="content">
-  <div class="avatar-box">
-    <div class="avatar" id="avatar">
-      <span class="avatar-placeholder">👤</span>
+<!-- VIEW MODE -->
+<div class="view-screen" id="viewScreen">
+  <div class="content">
+    <div class="profile-top">
+      <div class="big-avatar" id="bigAvatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="profile-info">
+        <h1 id="profileName">Loading...</h1>
+        <div class="bio" id="profileBio">No bio yet.</div>
+      </div>
     </div>
-    <div class="change-photo" onclick="document.getElementById('fileInput').click()">Mudar foto</div>
+
+    <div class="stats-row">
+      <div class="stat"><strong>0</strong> followers</div>
+      <div class="stat"><strong>0</strong> following</div>
+      <button class="edit-btn" onclick="openEdit()">Edit</button>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">Favorites</div>
+        <div class="card-sub">0 items</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Member since</div>
+        <div class="card-sub" id="memberSince">—</div>
+      </div>
+    </div>
+
+    <div class="section-title">Watching now</div>
+    <div class="empty">Nothing yet</div>
+  </div>
+</div>
+
+<!-- EDIT MODE -->
+<div class="edit-screen" id="editScreen">
+  <div style="padding:0 4px 20px;font-size:18px;font-weight:600">Edit profile</div>
+
+  <div class="edit-avatar-box">
+    <div class="edit-avatar" id="editAvatar">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="change-photo" onclick="document.getElementById('fileInput').click()">Change profile photo</div>
     <input type="file" id="fileInput" accept="image/*">
-    <div class="name" id="displayName">Carregando...</div>
-    <div class="email" id="userEmail"></div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Editar perfil</div>
-    <div class="card">
-      <label>Username</label>
-      <input type="text" id="nomeInput" placeholder="Seu nome de usuário">
-    </div>
-    <button class="btn btn-save" onclick="salvarPerfil()">Salvar alterações</button>
-    <div class="message" id="message"></div>
+  <div class="field">
+    <label>Name</label>
+    <input type="text" id="editName" placeholder="Your name">
   </div>
 
-  <button class="btn btn-logout" onclick="sair()">Terminar sessão</button>
-</main>
+  <div class="field">
+    <label>Biography</label>
+    <textarea id="editBio" placeholder="Change your bio, be creative!"></textarea>
+  </div>
+
+  <button class="save-btn" onclick="saveProfile()">SAVE CHANGES</button>
+</div>
 
 <script>
 const firebaseConfig = {
@@ -76,75 +127,93 @@ const firebaseConfig = {
   messagingSenderId: "397199669163",
   appId: "1:397199669163:web:7273fc848f9a50aead04ee"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-let novaFotoBase64 = null;
+let currentUser = null;
+let newPhoto = null;
 
 auth.onAuthStateChanged(user => {
   if (!user) {
     location.href = "welcome.html";
     return;
   }
+  currentUser = user;
 
-  document.getElementById("displayName").textContent = user.displayName || "Utilizador";
-  document.getElementById("userEmail").textContent = user.email || "";
-  document.getElementById("nomeInput").value = user.displayName || "";
+  document.getElementById("profileName").textContent = user.displayName || "User";
+  document.getElementById("editName").value = user.displayName || "";
+
+  // Bio (guardamos no localStorage por enquanto)
+  const bio = localStorage.getItem("playnime-bio-" + user.uid) || "No bio yet.";
+  document.getElementById("profileBio").textContent = bio;
+  document.getElementById("editBio").value = bio === "No bio yet." ? "" : bio;
+
+  // Member since
+  if (user.metadata && user.metadata.creationTime) {
+    const date = new Date(user.metadata.creationTime);
+    document.getElementById("memberSince").textContent = date.toLocaleDateString("en-GB");
+  }
 
   if (user.photoURL) {
-    document.getElementById("avatar").innerHTML = `<img src="${user.photoURL}" alt="foto">`;
+    const img = `<img src="${user.photoURL}" alt="avatar">`;
+    document.getElementById("bigAvatar").innerHTML = img;
+    document.getElementById("editAvatar").innerHTML = img;
   }
 });
 
-// Mudar foto (preview local)
-document.getElementById("fileInput").addEventListener("change", function(e) {
+document.getElementById("fileInput").addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
-
   const reader = new FileReader();
-  reader.onload = function(event) {
-    novaFotoBase64 = event.target.result;
-    document.getElementById("avatar").innerHTML = `<img src="${novaFotoBase64}" alt="foto">`;
+  reader.onload = ev => {
+    newPhoto = ev.target.result;
+    document.getElementById("editAvatar").innerHTML = `<img src="${newPhoto}" alt="avatar">`;
   };
   reader.readAsDataURL(file);
 });
 
-async function salvarPerfil() {
-  const user = auth.currentUser;
-  if (!user) return;
+function openEdit() {
+  document.getElementById("viewScreen").classList.add("hidden");
+  document.getElementById("editScreen").classList.add("active");
+}
 
-  const nome = document.getElementById("nomeInput").value.trim();
-  const message = document.getElementById("message");
-
-  message.style.color = "#a855f7";
-  message.textContent = "A guardar...";
-
-  try {
-    const updates = { displayName: nome || null };
-    
-    // Se escolheu nova foto, usa o base64 (funciona como preview)
-    // Nota: para produção o ideal é Firebase Storage
-    if (novaFotoBase64) {
-      updates.photoURL = novaFotoBase64;
-    }
-
-    await user.updateProfile(updates);
-
-    document.getElementById("displayName").textContent = nome || "Utilizador";
-    message.style.color = "#4ade80";
-    message.textContent = "Perfil atualizado!";
-  } catch (error) {
-    message.style.color = "#ff6b81";
-    message.textContent = "Erro: " + error.message;
+function goBack() {
+  if (document.getElementById("editScreen").classList.contains("active")) {
+    document.getElementById("editScreen").classList.remove("active");
+    document.getElementById("viewScreen").classList.remove("hidden");
+  } else {
+    location.href = "mais.html";
   }
 }
 
-function sair() {
-  auth.signOut().then(() => {
-    location.href = "welcome.html";
-  });
+async function saveProfile() {
+  if (!currentUser) return;
+
+  const name = document.getElementById("editName").value.trim();
+  const bio = document.getElementById("editBio").value.trim();
+
+  try {
+    const updates = { displayName: name || null };
+    if (newPhoto) updates.photoURL = newPhoto;
+
+    await currentUser.updateProfile(updates);
+
+    // Salva bio localmente
+    localStorage.setItem("playnime-bio-" + currentUser.uid, bio || "No bio yet.");
+
+    // Atualiza a tela
+    document.getElementById("profileName").textContent = name || "User";
+    document.getElementById("profileBio").textContent = bio || "No bio yet.";
+    if (newPhoto) {
+      document.getElementById("bigAvatar").innerHTML = `<img src="${newPhoto}" alt="avatar">`;
+    }
+
+    // Volta para visualização
+    goBack();
+  } catch (err) {
+    alert("Error saving: " + err.message);
+  }
 }
 </script>
 </body>
-  </html>
+</html>
