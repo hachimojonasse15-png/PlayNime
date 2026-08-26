@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PlayNime - Assistir</title>
+
+<!-- Plyr CSS -->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+  transition: opacity 0.3s;
+}
+
+.header.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.back-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+.back-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+}
+
+.header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.anime-title {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.episode-info {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 1px;
+}
+
+/* ===== PLAYER CONTAINER ===== */
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.plyr {
+  height: 100% !important;
+}
+
+.plyr__video-wrapper {
+  height: 100% !important;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ===== GESTURE ZONES ===== */
+.gesture-left, .gesture-right {
+  position: absolute;
+  top: 0;
+  bottom: 80px;
+  width: 40%;
+  z-index: 40;
+}
+
+.gesture-left { left: 0; }
+.gesture-right { right: 0; }
+
+/* Feedback de seek */
+.seek-feedback {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seek-feedback.show {
+  opacity: 1;
+}
+
+.seek-left { left: 20px; }
+.seek-right { right: 20px; }
+
+/* Brilho / Volume overlay */
+.gesture-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  padding: 14px 22px;
+  border-radius: 16px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  z-index: 70;
+  min-width: 140px;
+}
+
+.gesture-overlay.show {
+  display: flex;
+}
+
+.gesture-overlay svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+
+.gesture-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.gesture-bar-fill {
+  height: 100%;
+  background: #9b4dff;
+  width: 50%;
+  border-radius: 4px;
+  transition: width 0.05s linear;
+}
+
+/* ===== BOTTOM CONTROLS ===== */
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 16px 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  z-index: 50;
+  transition: opacity 0.3s;
+}
+
+.bottom-bar.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.control-btn {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.control-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.control-btn.primary {
+  background: #9b4dff;
+}
+
+.control-btn:active {
+  transform: scale(0.96);
+}
+
+/* Quality menu */
+.quality-menu {
+  position: absolute;
+  bottom: 90px;
+  right: 16px;
+  background: #1c1c1e;
+  border-radius: 14px;
+  overflow: hidden;
+  display: none;
+  z-index: 80;
+  min-width: 130px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.quality-menu.show {
+  display: block;
+}
+
+.quality-option {
+  padding: 14px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #2c2c2e;
+}
+
+.quality-option:last-child {
+  border-bottom: none;
+}
+
+.quality-option.active {
+  color: #9b4dff;
+  font-weight: 600;
+}
+
+.quality-option:active {
+  background: #2c2c2e;
+}
+
+/* Center play button when paused */
+.center-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(0,0,0,0.55);
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.center-play.show {
+  display: flex;
+}
+
+.center-play svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  margin-left: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="player-wrapper" id="playerWrapper">
+
+  <!-- HEADER -->
+  <div class="header" id="header">
+    <button class="back-btn" onclick="history.back()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </button>
+    <div class="header-info">
+      <div class="anime-title" id="animeTitle">Carregando...</div>
+      <div class="episode-info" id="episodeInfo">Episódio —</div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <video id="player" playsinline controls crossorigin>
+    <!-- Fontes de exemplo (substitua pelos links reais depois) -->
+    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" size="576">
+    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4" size="720">
+    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4" type="video/mp4" size="1080">
+  </video>
+
+  <!-- Gesture zones -->
+  <div class="gesture-left" id="gestureLeft"></div>
+  <div class="gesture-right" id="gestureRight"></div>
+
+  <!-- Seek feedback -->
+  <div class="seek-feedback seek-left" id="seekLeft">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+    -10s
+  </div>
+  <div class="seek-feedback seek-right" id="seekRight">
+    +10s
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+  </div>
+
+  <!-- Brightness / Volume overlay -->
+  <div class="gesture-overlay" id="gestureOverlay">
+    <svg id="gestureIcon" viewBox="0 0 24 24"></svg>
+    <div class="gesture-bar">
+      <div class="gesture-bar-fill" id="gestureFill"></div>
+    </div>
+  </div>
+
+  <!-- Center play icon -->
+  <div class="center-play" id="centerPlay">
+    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar" id="bottomBar">
+    <div class="controls-row">
+      <button class="control-btn" onclick="previousEpisode()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Anterior
+      </button>
+
+      <button class="control-btn" id="qualityBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Qualidade
+      </button>
+
+      <button class="control-btn primary" onclick="nextEpisode()">
+        Próximo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Quality Menu -->
+  <div class="quality-menu" id="qualityMenu">
+    <div class="quality-option" data-quality="576">576p</div>
+    <div class="quality-option active" data-quality="720">720p</div>
+    <div class="quality-option" data-quality="1080">1080p</div>
+  </div>
+
+</div>
+
+<!-- Plyr JS -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+<script>
+// ========== CONFIGURAÇÃO ==========
+const urlParams = new URLSearchParams(window.location.search);
+const animeName = urlParams.get('anime') || 'Anime de Exemplo';
+const currentEp = parseInt(urlParams.get('ep')) || 1;
+
+// Atualiza título
+document.getElementById('animeTitle').textContent = animeName;
+document.getElementById('episodeInfo').textContent = `Episódio ${currentEp}`;
+
+// ========== PLYR ==========
+const player = new Plyr('#player', {
+  controls: [
+    'play-large',
+    'play',
+    'progress',
+    'current-time',
+    'mute',
+    'volume',
+    'settings',
+    'fullscreen'
+  ],
+  settings: ['quality', 'speed'],
+  quality: {
+    default: 720,
+    options: [1080, 720, 576]
+  },
+  speed: {
+    selected: 1,
+    options: [0.5, 0.75, 1, 1.25, 1.5, 2]
+  },
+  keyboard: { focused: true, global: true },
+  tooltips: { controls: true, seek: true },
+  i18n: {
+    play: 'Reproduzir',
+    pause: 'Pausar',
+    mute: 'Mudo',
+    unmute: 'Ativar som',
+    enterFullscreen: 'Tela cheia',
+    exitFullscreen: 'Sair da tela cheia',
+    settings: 'Configurações',
+    speed: 'Velocidade',
+    normal: 'Normal',
+    quality: 'Qualidade'
+  }
+});
+
+// ========== CONTROLES DE INTERFACE ==========
+const header = document.getElementById('header');
+const bottomBar = document.getElementById('bottomBar');
+const centerPlay = document.getElementById('centerPlay');
+let controlsTimeout;
+
+function showControls() {
+  header.classList.remove('hidden');
+  bottomBar.classList.remove('hidden');
+  clearTimeout(controlsTimeout);
+  controlsTimeout = setTimeout(hideControls, 3500);
+}
+
+function hideControls() {
+  if (!player.paused) {
+    header.classList.add('hidden');
+    bottomBar.classList.add('hidden');
+    document.getElementById('qualityMenu').classList.remove('show');
+  }
+}
+
+player.on('play', () => {
+  centerPlay.classList.remove('show');
+  showControls();
+});
+
+player.on('pause', () => {
+  centerPlay.classList.add('show');
+  showControls();
+});
+
+player.on('click', showControls);
+
+// ========== DOUBLE TAP SEEK ==========
+let lastTapLeft = 0;
+let lastTapRight = 0;
+
+document.getElementById('gestureLeft').addEventListener('click', (e) => {
+  const now = Date.now();
+  if (now - lastTapLeft < 300) {
+    // Double tap
+    player.currentTime = Math.max(0, player.currentTime - 10);
+    showSeekFeedback('left');
+  }
+  lastTapLeft = now;
+  showControls();
+});
+
+document.getElementById('gestureRight').addEventListener('click', (e) => {
+  const now = Date.now();
+  if (now - lastTapRight < 300) {
+    player.currentTime = Math.min(player.duration, player.currentTime + 10);
+    showSeekFeedback('right');
+  }
+  lastTapRight = now;
+  showControls();
+});
+
+function showSeekFeedback(side) {
+  const el = document.getElementById(side === 'left' ? 'seekLeft' : 'seekRight');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 600);
+}
+
+// ========== GESTOS DE VOLUME E BRILHO ==========
+let touchStartY = 0;
+let touchStartX = 0;
+let isGesture = false;
+let currentVolume = 1;
+let currentBrightness = 1;
+
+const gestureOverlay = document.getElementById('gestureOverlay');
+const gestureFill = document.getElementById('gestureFill');
+const gestureIcon = document.getElementById('gestureIcon');
+
+function startGesture(e, side) {
+  if (e.touches.length !== 1) return;
+  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX;
+  isGesture = false;
+  currentVolume = player.volume;
+}
+
+function moveGesture(e, side) {
+  if (e.touches.length !== 1) return;
+  const deltaY = touchStartY - e.touches[0].clientY;
+  
+  if (Math.abs(deltaY) > 12) {
+    isGesture = true;
+    e.preventDefault();
+
+    if (side === 'right') {
+      // Volume
+      let newVol = currentVolume + (deltaY / 200);
+      newVol = Math.max(0, Math.min(1, newVol));
+      player.volume = newVol;
+      player.muted = newVol === 0;
+
+      gestureIcon.innerHTML = newVol === 0 
+        ? '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>'
+        : '<path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>';
+      
+      gestureFill.style.width = (newVol * 100) + '%';
+    } else {
+      // Brilho (simulado com overlay)
+      let newBright = currentBrightness + (deltaY / 200);
+      newBright = Math.max(0.2, Math.min(1, newBright));
+      currentBrightness = newBright;
+
+      // Aplica um filtro no vídeo para simular brilho
+      document.querySelector('video').style.filter = `brightness(${newBright})`;
+
+      gestureIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+      gestureFill.style.width = (newBright * 100) + '%';
+    }
+
+    gestureOverlay.classList.add('show');
+  }
+}
+
+function endGesture() {
+  gestureOverlay.classList.remove('show');
+  isGesture = false;
+}
+
+const leftZone = document.getElementById('gestureLeft');
+const rightZone = document.getElementById('gestureRight');
+
+leftZone.addEventListener('touchstart', e => startGesture(e, 'left'), {passive: false});
+leftZone.addEventListener('touchmove', e => moveGesture(e, 'left'), {passive: false});
+leftZone.addEventListener('touchend', endGesture);
+
+rightZone.addEventListener('touchstart', e => startGesture(e, 'right'), {passive: false});
+rightZone.addEventListener('touchmove', e => moveGesture(e, 'right'), {passive: false});
+rightZone.addEventListener('touchend', endGesture);
+
+// ========== QUALITY MENU ==========
+document.getElementById('qualityBtn').addEventListener('click', () => {
+  document.getElementById('qualityMenu').classList.toggle('show');
+});
+
+document.querySelectorAll('.quality-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.quality-option').forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    
+    // Aqui você pode trocar a source do vídeo
+    // player.source = { type: 'video', sources: [{ src: 'url-da-qualidade', type: 'video/mp4', size: opt.dataset.quality }] };
+    
+    document.getElementById('qualityMenu').classList.remove('show');
+  });
+});
+
+// ========== PRÓXIMO / ANTERIOR ==========
+function nextEpisode() {
+  const next = currentEp + 1;
+  // Exemplo: redireciona para o próximo episódio
+  // location.href = `watch.html?anime=${encodeURIComponent(animeName)}&ep=${next}`;
+  alert(`Próximo episódio: ${next}\n\n(Depois ligamos isto aos teus dados reais)`);
+}
+
+function previousEpisode() {
+  if (currentEp <= 1) return;
+  const prev = currentEp - 1;
+  // location.href = `watch.html?anime=${encodeURIComponent(animeName)}&ep=${prev}`;
+  alert(`Episódio anterior: ${prev}`);
+}
+
+// Mostrar controles no início
+showControls();
+</script>
+</body>
+  </html>
