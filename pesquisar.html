@@ -4,464 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pesquisar - PlayNime</title>
-
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-html,body{
-    background:#070707;
-    color:#fff;
-    min-height:100%;
-}
-
-body{
-    padding-bottom:105px;
-}
-
-/* ========== TOPO ========== */
-.search-header{
-    height:76px;
-    padding:0 15px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:#070707;
-}
-
-.back-button{
-    width:42px;
-    height:42px;
-    border:0;
-    border-radius:50%;
-    background:#151515;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    flex-shrink:0;
-}
-
-.back-button svg{
-    width:21px;
-    height:21px;
-    fill:none;
-    stroke:currentColor;
-    stroke-width:2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-/* ========== CAMPO DE PESQUISA ========== */
-.search-box{
-    flex:1;
-    height:45px;
-    display:flex;
-    align-items:center;
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:14px;
-    padding:0 13px;
-    gap:9px;
-    transition:border-color .2s;
-}
-
-.search-box:focus-within{
-    border-color:#a855f7;
-}
-
-.search-box svg{
-    width:20px;
-    height:20px;
-    flex:0 0 auto;
-    fill:none;
-    stroke:#888;
-    stroke-width:2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-#campo-pesquisa{
-    width:100%;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:#fff;
-    font-size:14px;
-}
-
-#campo-pesquisa::placeholder{
-    color:#777;
-}
-
-/* ========== RESULTADOS ========== */
-#resultados{
-    padding:10px 15px 30px;
-}
-
-.mensagem{
-    padding:50px 20px;
-    text-align:center;
-    color:#777;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.resultado{
-    display:flex;
-    gap:13px;
-    padding:12px 0;
-    border-bottom:1px solid #181818;
-    cursor:pointer;
-    transition:opacity .15s;
-}
-
-.resultado:active{
-    opacity:.7;
-}
-
-.resultado-poster{
-    width:68px;
-    height:95px;
-    flex:0 0 68px;
-    border-radius:8px;
-    overflow:hidden;
-    background:#151515;
-}
-
-.resultado-poster img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.resultado-info{
-    min-width:0;
-    padding-top:2px;
-}
-
-.resultado-titulo{
-    font-size:15px;
-    font-weight:700;
-    color:#fff;
-    line-height:1.3;
-    margin-bottom:6px;
-}
-
-.resultado-meta{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    color:#999;
-    font-size:12px;
-}
-
-.resultado-nota{
-    color:#b66cff;
-}
-
-.resultado-sinopse{
-    color:#777;
-    font-size:12px;
-    line-height:1.45;
-    margin-top:7px;
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-}
-
-/* ========== NAVEGAÇÃO INFERIOR ========== */
-.bottom-nav{
-    position:fixed;
-    left:15px;
-    right:15px;
-    bottom:13px;
-    height:72px;
-    background:rgba(19,19,19,.96);
-    border:1px solid #292929;
-    border-radius:25px;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    z-index:1000;
-    box-shadow:0 8px 35px rgba(0,0,0,.65);
-    backdrop-filter:blur(15px);
-}
-
-.nav-item{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:5px;
-    color:#707070;
-    text-decoration:none;
-    font-size:11px;
-}
-
-.nav-item svg{
-    width:22px;
-    height:22px;
-    fill:none;
-    stroke:currentColor;
-    stroke-width:2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-
-.nav-item.active{
-    color:#fff;
-}
-
-.nav-item.active svg{
-    stroke:#a855f7;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{background:#070707;color:#fff;min-height:100%}
+body{padding-bottom:20px}
+.search-header{height:58px;padding:0 12px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;background:#070707}
+.back-button{width:34px;height:34px;border:0;border-radius:50%;background:#151515;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.search-box{flex:1;height:36px;display:flex;align-items:center;background:#151515;border:1px solid #292929;border-radius:12px;padding:0 10px;gap:7px}
+.search-box:focus-within{border-color:#a855f7}
+.search-box svg{width:15px;height:15px;flex:0 0 auto;fill:none;stroke:#888;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#campo-pesquisa{width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:13px}
+#campo-pesquisa::placeholder{color:#777}
+.chips{display:flex;gap:8px;align-items:center;padding:0 14px 8px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:0;background:transparent;color:#9a9a9a;font-size:12px;font-weight:600;padding:4px 10px;border-radius:14px;cursor:pointer;white-space:nowrap}
+.chip.active{background:#f3f3f3;color:#111}
+.secao-titulo{font-size:16px;font-weight:700;padding:2px 14px 10px}
+.categorias{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 20px}
+.cat-card{position:relative;height:50px;border:0;border-radius:10px;overflow:hidden;cursor:pointer;text-align:left;color:#fff;padding:0 10px;display:flex;align-items:center}
+.cat-card span{position:relative;z-index:2;font-size:13px;font-weight:700;max-width:62%}
+.cat-card img{position:absolute;right:6px;top:50%;width:36px;height:52px;object-fit:cover;border-radius:5px;transform:translateY(-50%) rotate(8deg);box-shadow:0 3px 8px rgba(0,0,0,.35);pointer-events:none}
+#resultados{padding:0 14px 24px}
+.mensagem{padding:40px 16px;text-align:center;color:#777;font-size:13px;line-height:1.5}
+.resultado{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #181818;cursor:pointer}
+.resultado:active{opacity:.75}
+.resultado-poster{width:48px;height:68px;flex:0 0 48px;border-radius:6px;overflow:hidden;background:#151515}
+.resultado-poster img{width:100%;height:100%;object-fit:cover;display:block}
+.resultado-info{min-width:0;flex:1;padding-top:1px}
+.resultado-titulo{font-size:13px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.resultado-ano,.resultado-eps{color:#a3a3a3;font-size:11px;line-height:1.35}
+.tag-anime{display:inline-block;margin-top:4px;background:#6d4aff;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
+.loader-wrap{display:flex;justify-content:center;padding:40px 0}
+.loader{width:24px;height:24px;border:3px solid #2a2a2a;border-top-color:#a855f7;border-radius:50%;animation:girar .7s linear infinite}
+@keyframes girar{to{transform:rotate(360deg)}}
 </style>
 </head>
-
 <body>
-
 <header class="search-header">
-    <button class="back-button" onclick="history.back()" aria-label="Voltar">
-        <svg viewBox="0 0 24 24">
-            <path d="M19 12H5"></path>
-            <path d="M12 19l-7-7 7-7"></path>
-        </svg>
+    <button class="back-button" id="btn-voltar" aria-label="Voltar">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
     </button>
-
     <div class="search-box">
-        <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="6"></circle>
-            <path d="M16 16l5 5"></path>
-        </svg>
-
-        <input
-            id="campo-pesquisa"
-            type="search"
-            placeholder="Pesquisar anime..."
-            autocomplete="off">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path></svg>
+        <input id="campo-pesquisa" type="search" placeholder="O que está procurando?" autocomplete="off">
     </div>
 </header>
-
-<main id="resultados">
-    <div class="mensagem">
-        Pesquise pelo nome de um anime.
-    </div>
-</main>
-
-<nav class="bottom-nav">
-    <a href="home.html" class="nav-item">
-        <svg viewBox="0 0 24 24">
-            <path d="M3 11l9-8 9 8"></path>
-            <path d="M5 10v10h14V10"></path>
-        </svg>
-        <span>Início</span>
-    </a>
-
-    <a href="pesquisar.html" class="nav-item active">
-        <svg viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="6"></circle>
-            <path d="M16 16l5 5"></path>
-        </svg>
-        <span>Pesquisar</span>
-    </a>
-
-    <a href="favoritos.html" class="nav-item">
-        <svg viewBox="0 0 24 24">
-            <path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"></path>
-        </svg>
-        <span>Favoritos</span>
-    </a>
-
-    <a href="mais.html" class="nav-item">
-        <svg viewBox="0 0 24 24">
-            <circle cx="5" cy="12" r="1"></circle>
-            <circle cx="12" cy="12" r="1"></circle>
-            <circle cx="19" cy="12" r="1"></circle>
-        </svg>
-        <span>Mais</span>
-    </a>
-</nav>
-
+<div class="chips" id="chips">
+    <button class="chip active" data-modo="tudo" type="button">Tudo</button>
+</div>
+<section id="painel-categorias">
+    <h1 class="secao-titulo">Categorias</h1>
+    <div class="categorias" id="lista-categorias"></div>
+</section>
+<main id="resultados" hidden></main>
 <script>
-/* =====================================================
-   CONFIGURAÇÃO TMDB
-===================================================== */
-const TMDB_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTg5Mzk0MmUwMWMyM2IzMTJkZjI2NWQ1NThlMjdmYyIsIm5iZiI6MTc4MTI0MDM4Ni41NzIsInN1YiI6IjZhMmI5MjQyOGQ2YWJiNWQyNWUzYjk5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dbWkox1kPJDn85ah8IcU-ut5CotlJjPSFsYPEoJi080";
-const TMDB_API   = "https://api.themoviedb.org/3";
-const TMDB_IMAGE = "https://image.tmdb.org/t/p/w185";
-
+const JIKAN = "https://api.jikan.moe/v4";
+const ANILIST = "https://graphql.anilist.co";
+const BLOQUEADOS = ["pokemon","pokémon","pocket monsters","transformers","transformer","beast wars"];
+const CATEGORIAS = [
+    {id:"aventura",nome:"Aventura",cor:"#4aa3d8",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21202-mPOr80AEjUcZ.png",jikan:2,alGenero:"Adventure"},
+    {id:"acao",nome:"Ação",cor:"#3d7c86",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx16498-buvcRTBx4NSm.jpg",jikan:1,alGenero:"Action"},
+    {id:"comedia",nome:"Comédia",cor:"#c44b32",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx223-scE5uJfXqqj8.png",jikan:4,alGenero:"Comedy"},
+    {id:"dublado",nome:"Dublado",cor:"#3e8f55",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1735-kGfVm0YqCPcu.png",topo:true},
+    {id:"drama",nome:"Drama",cor:"#2c3544",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101922-WBsBl0ClmgYL.jpg",jikan:8,alGenero:"Drama"},
+    {id:"escolar",nome:"Escolar",cor:"#6d7178",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21459-nYh85uj2Fuwr.jpg",jikan:23,alTag:"School"},
+    {id:"fantasia",nome:"Fantasia",cor:"#e07a32",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154587-qQTzQnEJJ3oB.jpg",jikan:10,alGenero:"Fantasy"},
+    {id:"romance",nome:"Romance",cor:"#7d7d8f",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx124080-3i22mRVPBS0T.jpg",jikan:22,alGenero:"Romance"},
+    {id:"slice",nome:"Slice Of Life",cor:"#e089b0",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx140960-Kb6R5nYQfjmP.jpg",jikan:36,alGenero:"Slice of Life"},
+    {id:"sobrenatural",nome:"Sobrenatural",cor:"#8b86c2",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx113415-LHBAeoZDIsnF.jpg",jikan:37,alGenero:"Supernatural"},
+    {id:"scifi",nome:"Sci-Fi",cor:"#c4b89a",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx105333-GybuoSoOZfpH.jpg",jikan:24,alGenero:"Sci-Fi"},
+    {id:"shounen",nome:"Shounen",cor:"#355f9a",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21-ELSYx3yMPcKM.jpg",jikan:27,alTag:"Shounen"}
+];
+const campo = document.getElementById("campo-pesquisa");
+const chips = document.getElementById("chips");
+const painelCategorias = document.getElementById("painel-categorias");
+const listaCategorias = document.getElementById("lista-categorias");
 const resultados = document.getElementById("resultados");
-const campo      = document.getElementById("campo-pesquisa");
-
-/* =====================================================
-   ESCAPAR HTML (segurança)
-===================================================== */
-function escaparHTML(texto){
-    return String(texto || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-/* =====================================================
-   VERIFICA SE É ANIME
-   - Gênero Animation (16)
-   - Idioma original japonês OU país de origem JP
-===================================================== */
-function isAnime(item){
-    if(!item) return false;
-
-    const genres = item.genre_ids || [];
-    const isAnimation = genres.includes(16);
-
-    const lang = (item.original_language || "").toLowerCase();
-    const countries = item.origin_country || [];
-    const isJapanese = lang === "ja" || countries.includes("JP");
-
-    return isAnimation && isJapanese;
-}
-
-/* =====================================================
-   PESQUISA TMDB (só TV + filtro de anime)
-===================================================== */
-async function pesquisarTMDB(consulta){
-    const url = TMDB_API +
-        "/search/tv?query=" + encodeURIComponent(consulta) +
-        "&language=pt-BR" +
-        "&include_adult=false" +
-        "&page=1";
-
-    try{
-        const resposta = await fetch(url, {
-            headers: {
-                Authorization: "Bearer " + TMDB_TOKEN,
-                accept: "application/json"
-            }
-        });
-
-        if(!resposta.ok){
-            throw new Error("TMDB HTTP " + resposta.status);
-        }
-
-        const dados = await resposta.json();
-        const lista = Array.isArray(dados.results) ? dados.results : [];
-
-        // Filtra apenas animes
-        return lista.filter(isAnime);
-
-    }catch(erro){
-        console.error("Erro na pesquisa TMDB:", erro);
-        return [];
-    }
-}
-
-/* =====================================================
-   MOSTRAR RESULTADOS
-===================================================== */
-function mostrarResultados(lista){
-    if(!lista.length){
-        resultados.innerHTML = `
-            <div class="mensagem">
-                Nenhum anime encontrado.
-            </div>
-        `;
-        return;
-    }
-
-    resultados.innerHTML = lista
-        .filter(anime => anime.poster_path)
-        .map(anime => {
-            const titulo = anime.name || anime.original_name || "Sem título";
-            const ano    = anime.first_air_date ? anime.first_air_date.substring(0,4) : "";
-            const nota   = Number(anime.vote_average || 0).toFixed(1);
-            const sinopse = anime.overview || "Sinopse não disponível.";
-
-            return `
-                <article class="resultado" onclick="abrirAnime(${anime.id})">
-                    <div class="resultado-poster">
-                        <img src="${TMDB_IMAGE}${anime.poster_path}"
-                             alt="${escaparHTML(titulo)}"
-                             loading="lazy">
-                    </div>
-
-                    <div class="resultado-info">
-                        <div class="resultado-titulo">
-                            ${escaparHTML(titulo)}
-                        </div>
-
-                        <div class="resultado-meta">
-                            ${ano ? `<span>${ano}</span>` : ""}
-                            ${nota !== "0.0" ? `<span class="resultado-nota">★ ${nota}</span>` : ""}
-                        </div>
-
-                        <div class="resultado-sinopse">
-                            ${escaparHTML(sinopse)}
-                        </div>
-                    </div>
-                </article>
-            `;
-        })
-        .join("");
-}
-
-/* =====================================================
-   ABRIR DETALHES
-===================================================== */
-function abrirAnime(id){
-    if(!id) return;
-    window.location.href = "detalhes.html?id=" + encodeURIComponent(id);
-}
-
-/* =====================================================
-   DEBOUNCE DA PESQUISA
-===================================================== */
+let modo = "categorias";
+let categoriaAtual = null;
+let paginaAtual = 1;
+let temMais = false;
+let carregando = false;
 let temporizador = null;
-
-campo.addEventListener("input", function(){
-    const consulta = campo.value.trim();
-
-    clearTimeout(temporizador);
-
-    if(!consulta){
-        resultados.innerHTML = `
-            <div class="mensagem">
-                Pesquise pelo nome de um anime.
-            </div>
-        `;
-        return;
-    }
-
-    resultados.innerHTML = `
-        <div class="mensagem">
-            Pesquisando...
-        </div>
-    `;
-
-    temporizador = setTimeout(async function(){
-        const lista = await pesquisarTMDB(consulta);
-        mostrarResultados(lista);
-    }, 450);
-});
-
-/* =====================================================
-   FOCO AUTOMÁTICO
-===================================================== */
-window.addEventListener("DOMContentLoaded", function(){
-    campo.focus();
-});
+let idsMostrados = new Set();
+let seriesMostradas = {};
+let idsPorCategoria = {};
+let pedidoAtual = 0;
+function escaparHTML(t){return String(t||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");}
+function limpar(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
+function bloqueado(titulo){var t=limpar(titulo);return BLOQUEADOS.some(function(p){return t.indexOf(limpar(p))!==-1;});}
+function mostrarLoader(){resultados.hidden=false;painelCategorias.hidden=true;resultados.innerHTML='<div class="loader-wrap"><div class="loader"></div></div>';}
+function atualizarChips(){var html='<button class="chip'+(!categoriaAtual?" active":"")+'" data-modo="tudo" type="button">Tudo</button>';if(categoriaAtual)html+='<button class="chip active" data-modo="categoria" type="button">'+escaparHTML(categoriaAtual.nome)+'</button>';chips.innerHTML=html;}
+function mostrarCategorias(){modo="categorias";categoriaAtual=null;paginaAtual=1;temMais=false;idsMostrados=new Set();seriesMostradas={};campo.value="";painelCategorias.hidden=false;resultados.hidden=true;resultados.innerHTML="";atualizarChips();}
+function nomeAnime(item){var ro=item.title||"",en=item.title_english||"",ja=item.title_japanese||"";if(!en&&!ro)return ja||"Sem título";if(!en)return ro||ja;if(!ro)return en;if(limpar(en)===limpar(ro))return en;var o=String(item.origemPais||"").toUpperCase();if(o==="KR"||o==="CN"||o==="TW")return en;if(en.length<=34)return en;if(/\b(no|ni|wa|wo|ga|to|sama|kun|chan|san)\b/i.test(ro)&&en.length>42)return ro;if(en.length+10<ro.length&&en.length<=40)return en;return ro;}
+function anoAnime(item){if(item.year)return String(item.year);if(item.aired&&item.aired.from)return String(item.aired.from).substring(0,4);return "";}
+function posterAnime(item){if(item.images&&item.images.jpg)return item.images.jpg.image_url||item.images.jpg.large_image_url||"";return "";}
+function chaveSerie(item){var t=(item.title_english||item.title||"").replace(/[:\-–]\s*(season|temporada|part|cour|arc)\s*\d+.*\( /i,"");t=t.replace(/\s*\(?\d+(st|nd|rd|th)\s*(season|cour)\)?.* \)/i,"");t=t.replace(/\s*(final season|2nd season|3rd season|season\s*\d+|part\s*\d+|cour\s*\d+).*$/i,"");return limpar(t);}
+function eAnime(item){var tipo=String(item.type||"").toLowerCase().replace(/_/g," ");if(["manga","manhwa","manhua","novel","light novel","one shot","doujinshi","music"].indexOf(tipo)!==-1)return false;if(/manga|manhwa|manhua|novel|doujin/.test(tipo))return false;return true;}
+function valido(item){if(!item||!eAnime(item))return false;if(/rx|hentai/i.test(String(item.rating||"")))return false;if(bloqueado(nomeAnime(item))||bloqueado(item.title||"")||bloqueado(item.title_english||""))return false;return true;}
+function distancia(a,b){if(a===b)return 0;if(!a.length)return b.length;if(!b.length)return a.length;if(Math.abs(a.length-b.length)>4)return 99;var ant=[],i,j;for(j=0;j<=b.length;j++)ant[j]=j;for(i=1;i<=a.length;i++){var atual=[i];for(j=1;j<=b.length;j++)atual[j]=Math.min(ant[j]+1,atual[j-1]+1,ant[j-1]+(a.charAt(i-1)===b.charAt(j-1)?0:1));ant=atual;}return ant[b.length];}
+function tokenParecido(a,b){if(!a||!b)return false;if(a===b||a.indexOf(b)!==-1||b.indexOf(a)!==-1)return true;var n=Math.max(a.length,b.length);if(n<=2)return a===b;var d=distancia(a,b);if(n<=4)return d<=1;return d<=Math.max(1,Math.floor(n/3));}
+function relevancia(item,consulta){var q=limpar(consulta);if(!q)return 50;var titulos=[item.title,item.title_japanese,item.title_english,nomeAnime(item)].concat(item.title_synonyms||[]);var qPartes=q.split(" ").filter(Boolean);var melhor=0;titulos.forEach(function(nome){var t=limpar(nome);if(!t)return;if(t===q)melhor=Math.max(melhor,100);else if(t.indexOf(q)===0)melhor=Math.max(melhor,92);else if((" "+t+" ").indexOf(" "+q+" ")!==-1)melhor=Math.max(melhor,88);else if(t.indexOf(q)!==-1)melhor=Math.max(melhor,78);var tPartes=t.split(" ").filter(Boolean);var acertos=0;qPartes.forEach(function(qp){if(tPartes.some(function(tp){return tokenParecido(tp,qp);}))acertos+=1;});if(qPartes.length&&acertos===qPartes.length)melhor=Math.max(melhor,84);else if(qPartes.length&&acertos>=Math.ceil(qPartes.length*0.6))melhor=Math.max(melhor,60);else if(acertos)melhor=Math.max(melhor,30);if(q.length>=5&&distancia(t.replace(/ /g,""),q.replace(/ /g,""))<=3)melhor=Math.max(melhor,80);});return melhor;}
+function idsDeOutrasCategorias(){var ids=new Set();var atual=categoriaAtual&&categoriaAtual.id;Object.keys(idsPorCategoria).forEach(function(cat){if(cat===atual)return;idsPorCategoria[cat].forEach(function(id){ids.add(id);});});return ids;}
+function cartaoHTML(item){var titulo=nomeAnime(item);var ano=anoAnime(item);var eps=item.episodes?item.episodes+" Episódios":"Episódios —";var poster=posterAnime(item);return '<article class="resultado" data-id="'+item.mal_id+'"><div class="resultado-poster">'+(poster?'<img src="'+poster+'" alt="'+escaparHTML(titulo)+'" loading="lazy">':'')+'</div><div class="resultado-info"><div class="resultado-titulo">'+escaparHTML(titulo)+'</div>'+(ano?'<div class="resultado-ano">'+ano+'</div>':'')+'<div class="resultado-eps">'+eps+'</div><span class="tag-anime">Anime</span></div></article>';}
+function acrescentar(lista,consulta,resetar){var filtrados=lista.filter(valido);if(consulta){filtrados=filtrados.map(function(item){item._score=relevancia(item,consulta);return item;}).sort(function(a,b){return b._score-a._score;});}if(categoriaAtual){var outros=idsDeOutrasCategorias();filtrados=filtrados.filter(function(item){return !outros.has(item.mal_id);});}var novos=[];filtrados.forEach(function(item){if(idsMostrados.has(item.mal_id)||!posterAnime(item))return;var chave=chaveSerie(item);var qtd=seriesMostradas[chave]||0;if(qtd>=2)return;idsMostrados.add(item.mal_id);seriesMostradas[chave]=qtd+1;if(categoriaAtual){if(!idsPorCategoria[categoriaAtual.id])idsPorCategoria[categoriaAtual.id]=[];idsPorCategoria[categoriaAtual.id].push(item.mal_id);}novos.push(item);});if(resetar||resultados.querySelector(".loader-wrap"))resultados.innerHTML="";if(!novos.length&&!resultados.querySelector(".resultado")){resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';return;}resultados.insertAdjacentHTML("beforeend",novos.map(cartaoHTML).join(""));}
+function normalizarAniList(item){if(!item)return null;return{mal_id:item.idMal||item.id,title:(item.title&&(item.title.romaji||item.title.native||item.title.english))||"Sem título",title_japanese:item.title&&item.title.native,title_english:item.title&&item.title.english,year:item.seasonYear||(item.startDate&&item.startDate.year)||"",episodes:item.episodes||0,type:String(item.format||"TV").toLowerCase().replace(/_/g," "),origemPais:item.countryOfOrigin||"",images:{jpg:{image_url:item.coverImage&&(item.coverImage.large||item.coverImage.medium)}}};}
+async function buscarJikan(caminho){try{var r=await fetch(JIKAN+caminho);if(r.status===429){await new Promise(function(ok){setTimeout(ok,1000);});r=await fetch(JIKAN+caminho);}if(!r.ok)return null;var d=await r.json();return{lista:d.data||[],mais:!!(d.pagination&&d.pagination.has_next_page)};}catch(e){return null;}}
+async function buscarAniList(consulta,cat,pagina){var filtros="type: ANIME, isAdult: false, sort: POPULARITY_DESC";if(consulta)filtros+=', search: "'+consulta.replace(/"/g,"")+'"';if(cat&&cat.alGenero)filtros+=', genre: "'+cat.alGenero+'"';if(cat&&cat.alTag)filtros+=', tag: "'+cat.alTag+'"';var query="query { Page(page:"+pagina+", perPage:50){ pageInfo{ hasNextPage } media("+filtros+"){ id idMal seasonYear episodes format countryOfOrigin startDate{year} title{romaji english native} coverImage{large medium} } } }";try{var r=await fetch(ANILIST,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({query:query})});if(!r.ok)return null;var d=await r.json();var page=d.data&&d.data.Page;if(!page)return null;return{lista:(page.media||[]).map(normalizarAniList).filter(Boolean),mais:!!(page.pageInfo&&page.pageInfo.hasNextPage)};}catch(e){return null;}}
+async function buscarPagina(resetar){
+    if(carregando)return;
+    var consulta=campo.value.trim();
+    var meuPedido=++pedidoAtual;
+    carregando=true;
+    if(resetar){paginaAtual=1;idsMostrados=new Set();seriesMostradas={};if(categoriaAtual)idsPorCategoria[categoriaAtual.id]=[];mostrarLoader();atualizarChips();}
+    try{
+        var resultado=null;
+        if(consulta){
+            var lista=[], mais=true;
+            if(paginaAtual===1){
+                var consultaLimpa=limpar(consulta);
+                var pedidos=[buscarJikan("/anime?q="+encodeURIComponent(consulta)+"&sfw=true&limit=25&page=1"),buscarAniList(consulta,null,1),buscarAniList("",null,1),buscarAniList("",null,2)];
+                if(consultaLimpa!==consulta.toLowerCase())pedidos.push(buscarAniList(consultaLimpa,null,1));
+                (await Promise.all(pedidos)).forEach(function(r){if(r&&r.lista&&r.lista.length)lista=lista.concat(r.lista);});
+            }else{
+                var extra=await Promise.all([buscarAniList("",null,paginaAtual+1),buscarJikan("/top/anime?filter=bypopularity&type=tv&page="+paginaAtual)]);
+                extra.forEach(function(r){if(r&&r.lista&&r.lista.length)lista=lista.concat(r.lista);});
+                mais=!!lista.length;
+            }
+            resultado={lista:lista,mais:mais};
+        }else if(categoriaAtual&&categoriaAtual.topo){
+            resultado=await buscarJikan("/top/anime?filter=bypopularity&type=tv&page="+paginaAtual);
+        }else if(categoriaAtual){
+            resultado=await buscarJikan("/anime?sfw=true&limit=25&page="+paginaAtual+"&type=tv&genres="+categoriaAtual.jikan+"&order_by=members&sort=desc");
+        }
+        if((!resultado||!resultado.lista.length)&&(consulta||categoriaAtual))resultado=await buscarAniList(consulta,categoriaAtual,paginaAtual);
+        if(meuPedido!==pedidoAtual)return;
+        if(!resultado||!resultado.lista.length){if(resetar||!resultados.querySelector(".resultado"))resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';temMais=false;return;}
+        temMais=consulta?true:!!resultado.mais;
+        acrescentar(resultado.lista,consulta,resetar);
+    }catch(e){
+        if(meuPedido!==pedidoAtual)return;
+        if(!resultados.querySelector(".resultado"))resultados.innerHTML='<div class="mensagem">Não foi possível carregar os animes.</div>';
+    }finally{if(meuPedido===pedidoAtual)carregando=false;}
+}
+function abrirCategoria(id){var cat=CATEGORIAS.find(function(c){return c.id===id;});if(!cat)return;modo="categoria";categoriaAtual=cat;campo.value="";buscarPagina(true);}
+listaCategorias.innerHTML=CATEGORIAS.map(function(cat){return '<button class="cat-card" type="button" data-id="'+cat.id+'" style="background:'+cat.cor+'"><span>'+escaparHTML(cat.nome)+'</span><img src="'+cat.poster+'" alt=""></button>';}).join("");
+campo.addEventListener("input",function(){var consulta=campo.value.trim();clearTimeout(temporizador);if(!consulta){if(categoriaAtual)buscarPagina(true);else mostrarCategorias();return;}categoriaAtual=null;modo="pesquisa";mostrarLoader();atualizarChips();temporizador=setTimeout(function(){buscarPagina(true);},350);});
+chips.addEventListener("click",function(e){var botao=e.target.closest(".chip");if(botao&&botao.getAttribute("data-modo")==="tudo")mostrarCategorias();});
+listaCategorias.addEventListener("click",function(e){var card=e.target.closest(".cat-card");if(card)abrirCategoria(card.getAttribute("data-id"));});
+resultados.addEventListener("click",function(e){var item=e.target.closest(".resultado");if(!item)return;window.location.href="detalhes.html?mal="+encodeURIComponent(item.getAttribute("data-id"));});
+document.getElementById("btn-voltar").addEventListener("click",function(){if(modo!=="categorias")mostrarCategorias();else history.back();});
+window.addEventListener("scroll",function(){if(resultados.hidden||carregando||!temMais)return;if(window.innerHeight+window.scrollY>=document.body.offsetHeight-160){paginaAtual+=1;buscarPagina(false);}});
+mostrarCategorias();
+campo.focus();
 </script>
-
 </body>
-                </html>
+    </html>
