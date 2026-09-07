@@ -10,8 +10,6 @@
 html,body{background:#080808;color:#fff;min-height:100%;overflow-x:hidden}
 button{font:inherit;color:inherit;border:0;background:0;cursor:pointer}
 img{display:block}
-
-/* TOPO */
 .top{position:fixed;top:0;left:0;right:0;height:54px;z-index:80;padding:0 6px;display:flex;align-items:center;gap:4px;background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent);transition:.2s}
 .top.s{background:#080808;box-shadow:0 2px 12px #000}
 .ht{flex:1;min-width:0;font-size:14px;font-weight:800;opacity:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:.2s}
@@ -22,28 +20,20 @@ img{display:block}
 .ib svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
 .ib.back svg{width:24px;height:24px;stroke-width:2}
 .ib.on svg{fill:#fff}
-
-/* BANNER VERTICAL (key visual) — arte alta a toda a largura, título por cima */
 .hero{position:relative;width:100%;aspect-ratio:9/10;max-height:68vh;min-height:300px;overflow:hidden;background:#080808}
 .hero img.ban{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center top;image-rendering:auto;filter:contrast(1.03) saturate(1.04)}
 .hero .blur{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32);transform:scale(1.02)}
 .grad{position:absolute;left:0;right:0;bottom:0;height:45%;pointer-events:none;background:linear-gradient(to bottom,transparent,rgba(8,8,8,.75) 62%,#080808)}
-/* logo oficial: lugar próprio no topo da arte, centrado, sem tapar personagens */
 .alogo{position:absolute;bottom:84px;left:50%;transform:translateX(-50%);z-index:5;max-width:48%;max-height:13%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 4px 16px #000)}
 .spacer{display:none}
-
-/* INFO sobre o banner */
 .lift{position:absolute;left:0;right:0;bottom:10px;z-index:6;padding:0 16px}
 .title{font-size:17px;font-weight:800;line-height:1.25;margin-bottom:7px;text-shadow:0 2px 14px #000}
-.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:#c9c9c9;font-size:12.5px}
-.rate{min-width:24px;height:22px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;border-radius:5px;background:#e2691f;color:#fff}
-.day{height:22px;padding:0 8px;display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;border-radius:5px;background:#1e7fd6;color:#fff}
-.day svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2}
+.meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;color:#c9c9c9;font-size:10.5px}
+.rate{min-width:16px;height:15px;padding:0 4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;border-radius:3px;background:#e2691f;color:#fff}
+.day{height:15px;padding:0 5px;display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;border-radius:3px;background:#1e7fd6;color:#fff}
+.day svg{width:10px;height:10px;fill:none;stroke:#fff;stroke-width:2}
 .dot{opacity:.5}
 .info{position:relative;z-index:2;background:#080808;padding:4px 16px 32px}
-
-
-/* AÇÕES */
 .actions{display:flex;justify-content:center;gap:18px;padding:10px 0 8px}
 .act{position:relative;min-width:56px;display:flex;flex-direction:column;align-items:center;gap:4px}
 .act svg{width:21px;height:21px;fill:none;stroke:#dcdcdc;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:.15s}
@@ -51,23 +41,17 @@ img{display:block}
 .act.on svg{stroke:#ff3155;fill:#ff3155}
 .act:active svg{transform:scale(.9)}
 .count{position:absolute;top:-6px;left:50%;transform:translateX(2px);background:#ff3155;color:#fff;font-size:10px;font-weight:800;padding:1px 5px;border-radius:8px}
-
-/* SINOPSE */
 .syn p{font-size:14.5px;line-height:1.6;color:#fff}
 .clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .more{width:100%;padding:8px;display:none;justify-content:center}
 .more.show{display:flex}
 .more svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:.25s}
 .more.open svg{transform:rotate(180deg)}
-
-/* TEMPORADAS */
 .seasonbar{margin:2px 0 4px}
 .flag{display:inline-block;width:17px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:7px;overflow:hidden}
-.sel{background:#161616;border:1px solid #232323;border-radius:7px;min-height:27px;padding:0 9px;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;max-width:100%}
+.sel{background:#161616;border:1px solid #232323;border-radius:6px;min-height:22px;padding:0 7px;display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;max-width:100%}
 .sel span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sel svg{width:11px;height:11px;fill:none;stroke:#bbb;stroke-width:2;flex:0 0 11px}
-
-/* EPISÓDIOS */
+.sel svg{width:9px;height:9px;fill:none;stroke:#bbb;stroke-width:2;flex:0 0 9px}
 .eps{border-top:1px solid #161616}
 .ep{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #161616;align-items:center;width:100%;text-align:left}
 .epimg{width:124px;height:70px;flex:0 0 124px;border-radius:10px;overflow:hidden;background:#141414}
@@ -75,23 +59,20 @@ img{display:block}
 .ept{min-width:0}
 .ept .name{font-size:12px;font-weight:600;line-height:1.3}
 .ept .run{font-size:12px;color:#9d9d9d;margin-top:4px}
-.moreeps{width:100%;padding:16px;color:#ccc;font-size:12.5px;font-weight:700}
-
-/* SHEET */
+.moreeps{width:100%;padding:10px;color:#ccc;display:flex;justify-content:center;align-items:center}
+.moreeps svg{width:22px;height:22px;fill:none;stroke:#ccc;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eps-load{display:flex;justify-content:center;padding:20px 0}
 .overlay{position:fixed;inset:0;background:#000000b8;z-index:70;display:none}
 .overlay.show{display:block}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:71;background:#121212;border-radius:20px 20px 0 0;padding:16px 16px 26px;max-height:72vh;overflow:auto;display:none}
 .sheet.show{display:block}
 .sheethead{position:relative;display:flex;align-items:center;justify-content:center;padding:6px 0 16px}
-.sheethead b{font-size:17px;font-weight:800;color:#fff}
+.sheethead b{font-size:15px;font-weight:800;color:#fff}
 .close{position:absolute;right:2px;top:0;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
 .close svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round}
 .opt{width:100%;background:#1c1c1c;border-radius:9px;padding:11px;margin-bottom:8px;text-align:center;font-size:12.5px;font-weight:600;color:#fff}
 .opt.on{background:linear-gradient(90deg,#7c3aed,#3b82f6);color:#fff}
 .opt.filme{color:#fff}
-
-
-/* COMENTÁRIOS */
 .comments{position:fixed;inset:0;background:#0b0b10;z-index:90;transform:translateX(100%);visibility:hidden;transition:.25s}
 .comments.open{transform:translateX(0);visibility:visible}
 .cb{height:3px;width:100%;background:linear-gradient(90deg,#a855f7,#7c5cff,#3b82f6,#22d3ee,#a855f7);background-size:240% 100%;animation:bm .9s linear}
@@ -116,10 +97,10 @@ img{display:block}
 .cform input{flex:1;height:40px;border:0;border-radius:20px;background:#1b1726;color:#fff;padding:0 14px;outline:0}
 .cform button.send{width:38px;height:38px;border-radius:50%;background:#a855f7;display:flex;align-items:center;justify-content:center}
 .cform button.send svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
 .load{position:fixed;inset:0;background:#080808;z-index:200;display:flex;align-items:center;justify-content:center}
 .load.hide{display:none}
 .spin{width:32px;height:32px;border:3px solid #2a2a2a;border-top-color:#a855f7;border-radius:50%;animation:sp .7s linear infinite}
+.spin.sm{width:18px;height:18px;border-width:2px}
 @keyframes sp{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);opacity:0;background:#252525;padding:9px 14px;border-radius:9px;font-size:12px;z-index:120;transition:.2s;pointer-events:none}
 .toast.show{opacity:1}
@@ -129,7 +110,6 @@ img{display:block}
 </style>
 </head>
 <body>
-
 <header class="top" id="top">
   <button class="ib back" type="button" onclick="back()" aria-label="Voltar">
     <svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
@@ -144,13 +124,10 @@ img{display:block}
     </button>
   </div>
 </header>
-
 <div class="hero" id="hero"></div>
 <main id="page"></main>
-
 <div class="overlay" id="ov" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet"></div>
-
 <section class="comments" id="comments">
   <div class="cb"></div>
   <div class="chead">
@@ -170,12 +147,11 @@ img{display:block}
     </button>
   </form>
 </section>
-
 <div class="load" id="load"><div class="spin"></div></div>
 <div class="toast" id="toast"></div>
-
 <script>
   var AL="https://graphql.anilist.co";
+var TENRAI="https://api.tenrai.org/v1";
 var JK="https://api.jikan.moe/v4";
 var TM="https://api.themoviedb.org/3";
 var TK="8265bd1679663a7ea12ac168da84d2e8";
@@ -185,9 +161,8 @@ var P=new URLSearchParams((location.search||"")+"&"+(location.hash||"").replace(
 var ID=P.get("id")||P.get("mal")||P.get("aid")||P.get("anilist")||P.get("mal_id")||"";
 var cur=null,seasons=[],season=null,episodes=[];
 var shown=20,liked=0,notified=0,tt=0;
-var GPT={Action:"Ação",Adventure:"Aventura",Comedy:"Comédia",Drama:"Drama",Fantasy:"Fantasia",Romance:"Romance","Sci-Fi":"Ficção científica",Supernatural:"Sobrenatural",Mystery:"Mistério",Horror:"Terror",Sports:"Desporto",Ecchi:"Ecchi",Psychological:"Psicológico",Thriller:"Suspense",Music:"Música",Mecha:"Mecha","Slice of Life":"Cotidiano",Shounen:"Shounen",Isekai:"Isekai"};
+var GPT={Action:"Ação",Adventure:"Aventura",Comedy:"Comédia",Drama:"Drama",Fantasy:"Fantasia",Romance:"Romance","Sci-Fi":"Ficção científica",Supernatural:"Sobrenatural",Mystery:"Mistério",Horror:"Terror",Sports:"Desporto",Psychological:"Psicológico",Thriller:"Suspense",Music:"Música",Mecha:"Mecha","Slice of Life":"Cotidiano",Shounen:"Shounen",Isekai:"Isekai"};
 
-/* ---------- utils ---------- */
 function hideLoad(){var el=document.getElementById("load");if(el)el.classList.add("hide")}
 function toast(x){var t=document.getElementById("toast");if(!t)return;t.textContent=x;t.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("show")},1800)}
 function back(){if(document.getElementById("comments").classList.contains("open")){closeComments();return}if(history.length>1)history.back();else location.href="home.html"}
@@ -195,15 +170,18 @@ function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"
 function lim(x){return String(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function img(x,s){if(!x)return"";x=String(x);if(/^https?:/i.test(x))return x;return TI+(s||"w1280")+x}
 function genPT(x){return GPT[x]||x}
-function age(g){var x=lim((g||[]).join(" "));if(/horror|terror|ecchi|seinen/.test(x))return"16";if(/action|acao|shounen|supernatural/.test(x))return"14";return"12"}
+function okGenre(x){x=lim(x);return x&&!/award|winning|premiad|vencedor/.test(x)}
+function age(g){var x=lim((g||[]).join(" "));if(/horror|terror|seinen/.test(x))return"16";if(/action|acao|shounen|supernatural/.test(x))return"14";return"12"}
 function wrapTitle(t){return esc(String(t||"Anime").replace(/\s+season\s+\d+$/i,"").trim())}
 function prettyEp(s){s=String(s||"").replace(/\s+/g," ").trim();if(!s)return"";if(s===s.toUpperCase()&&/[A-Z]/.test(s)&&s.length>3){s=s.toLowerCase().replace(/\b([a-z])/g,function(m){return m.toUpperCase()})}return s}
 function timeLabel(n,movie){n=Math.max(0,parseInt(n,10)||0);if(!movie)return n+" min";var h=Math.floor(n/60),m=n%60;return(h?h+" h":"")+(h&&m?" ":"")+(m?m+" min":"")}
 function ago(ms){if(!ms)return"Agora";var d=Math.max(1,Math.floor((Date.now()-ms)/1000));if(d<60)return"Agora";if(d<3600)return Math.floor(d/60)+" min atrás";if(d<86400)return Math.floor(d/3600)+" h atrás";return Math.floor(d/86400)+" dia(s) atrás"}
 function race(p,ms){return Promise.race([Promise.resolve(p).catch(function(){return 0}),new Promise(function(ok){setTimeout(function(){ok(0)},ms||9000)})])}
 function isMovie(a){if(!a)return 0;var f=String(a.format||"").toUpperCase();if(f==="MOVIE"||f==="FILME")return 1;if(a.tmdbMovie)return 1;if(a.episodes===1&&(a.duration||0)>=60)return 1;return 0}
+function isAnim(r){return ((r&&r.genre_ids)||[]).indexOf(16)>=0}
+function jaLancou(data){if(!data)return 1;var t=Date.parse(data);if(!t)return 1;return t<=Date.now()+12*3600*1000}
+function epsLoader(){return '<div class="eps-load"><div class="spin sm"></div></div>'}
 
-/* ---------- storage ---------- */
 function profile(){try{var u=JSON.parse(localStorage.getItem("playnime_perfil")||"{}");return{nome:u.nome||u.name||"Você",avatar:u.avatar||u.foto||""}}catch(e){return{nome:"Você",avatar:""}}}
 function ck(){return "playnime_comments_"+String((cur&&cur.id)||ID||"x")}
 function getComments(){try{return JSON.parse(localStorage.getItem(ck())||"[]")}catch(e){return[]}}
@@ -214,9 +192,15 @@ function saveCache(a){try{localStorage.setItem("playnime_atual",JSON.stringify(a
 function readCache(){try{var u=JSON.parse(localStorage.getItem("playnime_atual")||"null");return u&&u.name?u:null}catch(e){return null}}
 function likeKey(){return "playnime_like_"+String((cur&&cur.id)||ID||"x")}
 
-/* ---------- APIs ---------- */
 async function gql(q,v){var r=await race(fetch(AL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q,variables:v||{}})}),9000);if(!r||!r.ok)return null;var d=await r.json();return d&&d.data?d.data:null}
-async function jikan(u){var r=await race(fetch(JK+u),9000);if(!r||!r.ok)return null;return r.json()}
+async function jikan(u){
+  var bases=[TENRAI,JK],i,r;
+  for(i=0;i<bases.length;i++){
+    r=await race(fetch(bases[i]+u),9000);
+    if(r&&r.ok)return r.json();
+  }
+  return null;
+}
 async function tm(u,lang){var s=u.indexOf("?")>=0?"&":"?";var r=await race(fetch(TM+u+s+"api_key="+TK+"&language="+(lang||"pt-BR")),9000);if(!r||!r.ok)return null;return r.json()}
 
 var AQ="id idMal isAdult format bannerImage episodes duration seasonYear genres description(asHtml:false) coverImage{extraLarge large} title{romaji english native} startDate{year} nextAiringEpisode{airingAt}";
@@ -230,76 +214,109 @@ async function loadAni(n){n=+(n||ID||DEF);var it=null;
   return it||readCache()}
 
 function scoreName(a,b){a=lim(a);b=lim(b);if(!a||!b)return 0;if(a===b)return 100;if(a.indexOf(b)>=0||b.indexOf(a)>=0)return 80;var aw=a.split(/\s+/),i,n=0;for(i=0;i<aw.length;i++)if(aw[i].length>2&&b.indexOf(aw[i])>=0)n++;return n*12}
-function pickBest(rows,names){if(!rows||!rows.length)return null;var best=null,sc=-1,i,j,r,t,s;for(i=0;i<rows.length;i++){r=rows[i];t=(r.name||r.title||"")+" "+(r.original_name||r.original_title||"");s=0;for(j=0;j<names.length;j++)s=Math.max(s,scoreName(names[j],t));if((r.genre_ids||[]).indexOf(16)>=0)s+=25;if(s>sc){sc=s;best=r}}return sc>=30?best:null}
-async function searchKind(kind,names){var i,s,rows,z;for(i=0;i<names.length;i++){s=await tm("/search/"+kind+"?query="+encodeURIComponent(names[i]),"en-US");rows=(s&&s.results)||[];z=pickBest(rows,names);if(z)return z}return null}
+function pickBest(rows,names,opt){
+  opt=opt||{};
+  var mustAnim=!!opt.mustAnim;
+  var min=opt.min!=null?opt.min:30;
+  if(!rows||!rows.length)return null;
+  var best=null,sc=-1,i,j,r,t,nomeSc;
+  for(i=0;i<rows.length;i++){
+    r=rows[i];
+    if(mustAnim&&!isAnim(r))continue;
+    t=(r.name||r.title||"")+" "+(r.original_name||r.original_title||"");
+    nomeSc=0;
+    for(j=0;j<names.length;j++)nomeSc=Math.max(nomeSc,scoreName(names[j],t));
+    if(nomeSc<min)continue;
+    if(nomeSc>sc){sc=nomeSc;best=r}
+  }
+  return best;
+}
+async function searchKind(kind,names,opt){
+  var i,s,rows,z,q;
+  opt=opt||{};
+  for(i=0;i<names.length;i++){
+    q="/search/"+kind+"?query="+encodeURIComponent(names[i]);
+    if(opt.mustAnim)q+="&with_genres=16";
+    s=await tm(q,"en-US");
+    rows=(s&&s.results)||[];
+    z=pickBest(rows,names,opt);
+    if(z)return z;
+  }
+  return null;
+}
 
 async function addTM(a){try{
   var names=[a.name,a.original_name].filter(Boolean);var movie=isMovie(a);var z=null;
-  if(movie)z=await searchKind("movie",names);
-  if(!z)z=await searchKind("tv",names);
-  if(!z&&!movie)z=await searchKind("movie",names);
+  if(movie)z=await searchKind("movie",names,{mustAnim:1,min:70});
+  if(!z)z=await searchKind("tv",names,{mustAnim:1,min:40});
+  if(!z&&!movie)z=await searchKind("tv",names,{min:50});
   if(!z)return a;
   if(z.title&&!z.name){
+    if(!isAnim(z))return a;
     a.tmdbMovie=1;a.tmdbId=z.id;
     a.tmdbBackdrop=z.backdrop_path?img(z.backdrop_path,"original"):"";
     a.tmdbPoster=z.poster_path?img(z.poster_path,"original"):"";
-    var md=await tm("/movie/"+z.id,"pt-BR"),me=await tm("/movie/"+z.id,"en-US"),mi=await tm("/movie/"+z.id+"/images?include_image_language=en,null,ja","en-US");
+    var md=await tm("/movie/"+z.id,"pt-BR"),me=await tm("/movie/"+z.id,"en-US"),mi=await tm("/movie/"+z.id+"/images?include_image_language=en,null","en-US");
     if(md&&md.backdrop_path)a.tmdbBackdrop=img(md.backdrop_path,"original");
     if(md&&md.poster_path)a.tmdbPoster=img(md.poster_path,"original");
     if(md&&md.runtime)a.duration=md.runtime;
     if(md&&md.overview)a.synopsis=md.overview;
     if(me&&me.title)a.name=me.title;
-    var lo=((mi&&mi.logos)||[]).filter(function(x){return x.file_path});
-    var enl=lo.filter(function(x){return x.iso_639_1==="en"});
-    if(enl[0]||lo[0])a.logo=img((enl[0]||lo[0]).file_path,"w500");
+    var lo=((mi&&mi.logos)||[]).filter(function(x){return x.file_path&&x.iso_639_1==="en"});
+    if(lo[0])a.logo=img(lo[0].file_path,"w500");
     a.tmdbSeasons=[];return a}
   a.tmdbId=z.id;
-  var d=await tm("/tv/"+z.id,"pt-BR"),en=await tm("/tv/"+z.id,"en-US"),im=await tm("/tv/"+z.id+"/images?include_image_language=en,null,ja","en-US");
+  var d=await tm("/tv/"+z.id,"pt-BR"),en=await tm("/tv/"+z.id,"en-US"),im=await tm("/tv/"+z.id+"/images?include_image_language=en,null","en-US");
   a.tmdbBackdrop=(d&&d.backdrop_path)?img(d.backdrop_path,"original"):(z.backdrop_path?img(z.backdrop_path,"original"):"");
   a.tmdbPoster=(d&&d.poster_path)?img(d.poster_path,"original"):(z.poster_path?img(z.poster_path,"original"):"");
   a.tmdbSeasons=((d&&d.seasons)||[]).filter(function(x){return +x.season_number>0&&(+x.episode_count||0)>0});
   if(d&&d.overview)a.synopsis=d.overview;
   if(en&&en.name)a.name=en.name.replace(/\s+season\s+\d+$/i,"");
   if(d&&d.first_air_date)a.year=String(d.first_air_date).slice(0,4);
-  var lg=((im&&im.logos)||[]).filter(function(x){return x.file_path});
-  var elg=lg.filter(function(x){return x.iso_639_1==="en"});
-  if(elg[0]||lg[0])a.logo=img((elg[0]||lg[0]).file_path,"w500");
-  /* procura o filme do anime (ex.: "Code: White") e junta no fim das temporadas */
+  var lg=((im&&im.logos)||[]).filter(function(x){return x.file_path&&x.iso_639_1==="en"});
+  if(lg[0])a.logo=img(lg[0].file_path,"w500");
   try{
-    var mv=await searchKind("movie",names);
-    if(mv){
+    var mv=await searchKind("movie",names,{mustAnim:1,min:70});
+    if(mv&&isAnim(mv)){
       var mp=await tm("/movie/"+mv.id,"pt-BR"),men=await tm("/movie/"+mv.id,"en-US");
       var mscore=Math.max(scoreName(names[0]||"",mv.title||""),scoreName(names[0]||"",mv.original_title||""));
-      if((mv.genre_ids||[]).indexOf(16)>=0)mscore+=25;
-      if(mscore>=55){
+      if(names[1])mscore=Math.max(mscore,scoreName(names[1],mv.title||""),scoreName(names[1],mv.original_title||""));
+      if(mscore>=70){
         a.movieData={
           id:mv.id,
           title:(men&&men.title)||mv.title||(mp&&mp.title)||"Filme",
           runtime:(mp&&mp.runtime)||(men&&men.runtime)||90,
           backdrop:mv.backdrop_path?img(mv.backdrop_path,"w780"):(mv.poster_path?img(mv.poster_path,"w780"):"")
-        }}}
+        }
+      }
+    }
   }catch(e){}
 }catch(e){}return a}
 
-/* ---------- temporadas ---------- */
 function rom(n){var r=["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV"];return r[n-1]||String(n)}
 function buildSeasons(a){
   if(isMovie(a)){seasons=[];season=null;return}
-  var ss=a.tmdbSeasons||[],out=[],i,n;
-  if(!ss.length)ss=[{season_number:1,episode_count:a.episodes||0}];
+  var ss=a.tmdbSeasons||[],out=[],i,n,keep=season&&season.n,keepDub=season&&season.dub,keepMovie=season&&season.movie;
+  if(!ss.length)ss=[{season_number:1,episode_count:0}];
   for(i=0;i<ss.length;i++){n=+ss[i].season_number;
     out.push({label:"Season "+rom(n),n:n,dub:0,eps:+ss[i].episode_count||0});
     out.push({label:"(Dublado) Season "+rom(n),n:n,dub:1,eps:+ss[i].episode_count||0})}
   if(a.movieData)out.push({label:a.movieData.title||"Filme",n:0,dub:0,movie:1,eps:1});
-  seasons=out;season=seasons[0]}
+  seasons=out;
+  season=out[0];
+  if(keepMovie){for(i=0;i<out.length;i++)if(out[i].movie)season=out[i]}
+  else if(keep){for(i=0;i<out.length;i++)if(out[i].n===keep&&!!out[i].dub===!!keepDub)season=out[i]}
+}
 
-/* imagem própria de cada episódio (TMDB still) + fallback anilist/jikan */
 async function loadEpisodes(){
   episodes=[];
   var a=cur;if(!a)return;
   if(isMovie(a))return;
-  if(season&&season.movie){var mv=a.movieData||{};
-    episodes=[{n:1,name:mv.title||((a.title||"")+" - Filme"),run:mv.runtime||a.duration||90,img:mv.backdrop||""}];return}
+  if(season&&season.movie){
+    var mv=a.movieData||{};
+    if(mv.id||mv.title)episodes=[{n:1,name:mv.title||"Filme",run:mv.runtime||a.duration||90,img:mv.backdrop||""}];
+    return;
+  }
   var n=(season&&season.n)||1,i,list=[];
   if(a.tmdbId){
     var d=await tm("/tv/"+a.tmdbId+"/season/"+n,"pt-BR");
@@ -308,19 +325,26 @@ async function loadEpisodes(){
     var dub=season&&season.dub;
     for(i=0;i<arr.length;i++){
       var ep=arr[i],alt=ar2[i]||{};
+      if(!jaLancou(ep.air_date||alt.air_date))continue;
+      if(!(ep.episode_number||alt.episode_number))continue;
       var nm=dub?(prettyEp(ep.name)||prettyEp(alt.name)):(prettyEp(alt.name)||prettyEp(ep.name));
-      list.push({n:ep.episode_number||i+1,name:nm,run:ep.runtime||alt.runtime||a.duration||24,img:ep.still_path?img(ep.still_path,"w300"):(alt.still_path?img(alt.still_path,"w300"):"")})}}
+      list.push({n:ep.episode_number||alt.episode_number||i+1,name:nm,run:ep.runtime||alt.runtime||a.duration||24,img:ep.still_path?img(ep.still_path,"w300"):(alt.still_path?img(alt.still_path,"w300"):"")});
+    }
+  }
   if(!list.length){
-    try{var j=await jikan("/anime/"+a.id+"/episodes");var rows=(j&&j.data)||[];
-      for(i=0;i<rows.length;i++)list.push({n:rows[i].mal_id||i+1,name:prettyEp(rows[i].title),run:a.duration||24,img:""})}catch(e){}}
-  if(!list.length){var total=a.episodes||12;for(i=1;i<=total;i++)list.push({n:i,name:"",run:a.duration||24,img:""})}
-  episodes=list}
-  /* ---------- render ---------- */
-function artOf(a){return a.tmdbPoster||a.poster||a.tmdbBackdrop||a.banner||""}
-function fitHero(el){
-  if(!el)return;
-  el.style.objectFit="cover";
-  el.style.objectPosition="center 22%"}
+    try{
+      var j=await jikan("/anime/"+a.id+"/episodes");
+      var rows=(j&&j.data)||[];
+      for(i=0;i<rows.length;i++){
+        if(!rows[i])continue;
+        list.push({n:rows[i].mal_id||rows[i].episode||i+1,name:prettyEp(rows[i].title),run:a.duration||24,img:""});
+      }
+    }catch(e){}
+  }
+  episodes=list;
+  }
+  function artOf(a){return a.tmdbPoster||a.poster||a.tmdbBackdrop||a.banner||""}
+function fitHero(el){if(!el)return;el.style.objectFit="cover";el.style.objectPosition="center 22%"}
 
 function epsHTML(){
   if(!episodes.length)return '<div class="moreeps" style="text-align:center">Nenhum episódio disponível.</div>';
@@ -332,19 +356,18 @@ function epsHTML(){
        (e.img?'<img loading="lazy" src="'+esc(e.img)+'" alt="">':'<div class="sk" style="width:100%;height:100%"></div>')+
        '</div><div class="ept"><div class="name">'+nm+'</div><div class="run">'+timeLabel(e.run||24,!!(season&&season.movie))+'</div></div></button>'}
   h+="</div>";
-  if(episodes.length>shown)h+='<button class="moreeps" type="button" onclick="moreEps()">Ver mais episódios</button>';
+  if(episodes.length>shown)h+='<button class="moreeps" type="button" onclick="moreEps()" aria-label="Mais episódios"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>';
   return h}
 
 function render(a){
   cur=a;saveCache(a);
   try{liked=localStorage.getItem(likeKey())==="1"?1:0}catch(e){}
   var count=getComments().length;
-  var g=(a.genres||[]).slice(0,4).map(genPT).join(", ");
+  var g=(a.genres||[]).filter(okGenre).slice(0,4).map(genPT).join(", ");
   var banner=artOf(a);
   var movie=isMovie(a);
   var favOn=isFav();
   document.getElementById("ht").textContent=a.name||"";
-
   var lift='<div class="lift"><h1 class="title">'+wrapTitle(a.name)+'</h1>';
   lift+='<div class="meta"><span class="rate">'+age(a.genres||[])+'</span>';
   if(a.airDay)lift+='<span class="day"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>'+esc(a.airDay)+'</span>';
@@ -352,47 +375,33 @@ function render(a){
   if(a.year)lift+='<span class="dot">•</span><span>'+esc(String(a.year))+'</span>';
   if(movie&&a.duration)lift+='<span class="dot">•</span><span>'+timeLabel(a.duration,1)+'</span>';
   lift+='</div></div>';
-
   document.getElementById("hero").innerHTML=
     (banner?'<div class="blur" style="background-image:url('+JSON.stringify(banner)+')"></div><img class="ban" src="'+esc(banner)+'" alt="'+esc(a.name)+'" onload="fitHero(this)">':"")+
     '<div class="grad"></div>'+(a.logo?'<img class="alogo" src="'+esc(a.logo)+'" alt="'+esc(a.name)+'">':"")+lift;
-
-  var h='';
-
-
-  h+='<section class="info"><div class="actions">';
+  var h='<section class="info"><div class="actions">';
   h+='<button class="act" type="button" onclick="openComments()"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8.5 8L8 21l1.2-3A8 8 0 1 1 21 12z"/></svg>'+(count?'<span class="count">'+count+'</span>':'')+'<span>Comentários</span></button>';
   h+='<button class="act'+(liked?" on":"")+'" id="like" type="button" onclick="like()"><svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3L7 11v11h10.3a2 2 0 0 0 2-1.7l1.4-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg><span id="likt">'+(liked?"Curtido":"Curtir")+'</span></button>';
   h+='<button class="act'+(favOn?" on":"")+'" id="fav" type="button" onclick="favorite()"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"/></svg><span id="favt">'+(favOn?"Favoritado":"Favoritar")+'</span></button></div>';
-
   h+='<div class="syn"><p id="syn" class="clamp">'+esc(a.synopsis||"Sinopse indisponível.")+'</p><button id="more" class="more" type="button" onclick="toggleSyn()" aria-label="Expandir sinopse"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>';
-
   if(!movie){
     h+='<div class="seasonbar"><button class="sel" type="button" onclick="seasonMenu()"><span id="seasonName">'+esc((season&&season.label)||"Season I")+'</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>';
-    h+='<div id="epsWrap">'+epsHTML()+'</div>'}
+    h+='<div id="epsWrap">'+(episodes.length?epsHTML():epsLoader())+'</div>';
+  }
   h+='</section>';
-
   document.getElementById("page").innerHTML=h;
   setTimeout(checkClamp,60);
-  hideLoad()}
+  hideLoad();
+}
 
-function checkClamp(){
-  var p=document.getElementById("syn"),b=document.getElementById("more");
-  if(!p||!b)return;
-  if(p.scrollHeight-p.clientHeight>4||p.classList.contains("clamp")===false)b.classList.add("show")}
-
-function toggleSyn(){
-  var p=document.getElementById("syn"),b=document.getElementById("more");
-  p.classList.toggle("clamp");b.classList.toggle("open")}
-
+function checkClamp(){var p=document.getElementById("syn"),b=document.getElementById("more");if(!p||!b)return;if(p.scrollHeight-p.clientHeight>4||p.classList.contains("clamp")===false)b.classList.add("show")}
+function toggleSyn(){var p=document.getElementById("syn"),b=document.getElementById("more");p.classList.toggle("clamp");b.classList.toggle("open")}
 function moreEps(){shown+=20;document.getElementById("epsWrap").innerHTML=epsHTML()}
 function playEp(n){try{localStorage.setItem("playnime_ep",JSON.stringify({id:cur&&cur.id,season:(season&&season.n)||1,ep:n}))}catch(e){}
   location.href="player.html?id="+encodeURIComponent((cur&&cur.id)||"")+"&s="+((season&&season.n)||1)+"&ep="+n}
 
-/* ---------- sheet temporadas ---------- */
 function seasonMenu(){
   if(!seasons.length)return;
-  var h='<div class="sheethead"><b>Selecione a temporada</b><button class="close" type="button" onclick="closeSheet()" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>',i;
+  var h='<div class="sheethead"><b>Select the season</b><button class="close" type="button" onclick="closeSheet()" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>',i;
   var FLAG='<svg class="flag" viewBox="0 0 20 14"><rect width="20" height="14" fill="#009c3b"/><polygon points="10,1.6 18.4,7 10,12.4 1.6,7" fill="#ffdf00"/><circle cx="10" cy="7" r="2.4" fill="#002776"/></svg>';
   for(i=0;i<seasons.length;i++){var s2=seasons[i];
     h+='<button class="opt'+(s2.movie?" filme":"")+(season===s2?" on":"")+'" type="button" onclick="pickSeason('+i+')">'+(s2.dub?FLAG:"")+esc(s2.label)+'</button>'}
@@ -401,25 +410,26 @@ function closeSheet(){document.getElementById("sheet").classList.remove("show");
 async function pickSeason(i){
   season=seasons[i];closeSheet();shown=20;
   var nm=document.getElementById("seasonName");if(nm)nm.textContent=season.label;
-  var w=document.getElementById("epsWrap");if(w)w.innerHTML='<div class="moreeps" style="text-align:center">Carregando...</div>';
+  var w=document.getElementById("epsWrap");if(w)w.innerHTML=epsLoader();
   await loadEpisodes();
   if(w)w.innerHTML=epsHTML()}
 
-/* ---------- ações ---------- */
-function like(){
-  liked=liked?0:1;
-  try{localStorage.setItem(likeKey(),liked?"1":"0")}catch(e){}
+function like(){liked=liked?0:1;try{localStorage.setItem(likeKey(),liked?"1":"0")}catch(e){}
   var b=document.getElementById("like");if(b)b.classList.toggle("on",!!liked);var lt=document.getElementById("likt");if(lt)lt.textContent=liked?"Curtido":"Curtir";
   toast(liked?"Curtido":"Curtida removida")}
 function favorite(){
-  if(!cur)return;
-  var list=favs(),i=-1,k;
-  for(k=0;k<list.length;k++)if(String(list[k].id)===String(cur.id))i=k;
-  if(i>=0)list.splice(i,1);
-  else list.unshift({id:cur.id,name:cur.name,poster:cur.poster,year:cur.year});
+  if(!cur||cur.id==null||cur.id==="")return;
+  var list=favs(),id=String(cur.id),i=-1,k,on;
+  for(k=0;k<list.length;k++)if(String(list[k].id)===id)i=k;
+  if(i>=0){list.splice(i,1);on=0}
+  else{list.unshift({id:cur.id,name:cur.name,poster:cur.poster||cur.tmdbPoster||"",year:cur.year});on=1}
   try{localStorage.setItem("playnime_favoritos",JSON.stringify(list))}catch(e){}
-  var b=document.getElementById("fav");if(b)b.classList.toggle("on",i<0);var ft=document.getElementById("favt");if(ft)ft.textContent=i<0?"Favoritado":"Favoritar";
-  toast(i<0?"Adicionado aos favoritos":"Removido dos favoritos")}
+  var b=document.getElementById("fav");
+  if(b){if(on)b.classList.add("on");else b.classList.remove("on")}
+  var ft=document.getElementById("favt");
+  if(ft)ft.textContent=on?"Favoritado":"Favoritar";
+  toast(on?"Adicionado aos favoritos":"Removido dos favoritos");
+}
 function bell(){notified=notified?0:1;document.getElementById("bell").classList.toggle("on",!!notified);toast(notified?"Notificações ativadas":"Notificações desativadas")}
 function sharePage(){
   var d={title:(cur&&cur.name)||"PlayNime",text:"Assiste "+((cur&&cur.name)||"")+" no PlayNime",url:location.href};
@@ -427,7 +437,6 @@ function sharePage(){
   else if(navigator.clipboard){navigator.clipboard.writeText(location.href);toast("Link copiado")}
   else toast("Partilha indisponível")}
 
-/* ---------- comentários ---------- */
 function openComments(){document.getElementById("comments").classList.add("open");drawComments()}
 function closeComments(){document.getElementById("comments").classList.remove("open");var b=document.querySelector(".count");var n=getComments().length;if(b)b.textContent=n}
 function drawComments(){
@@ -440,28 +449,17 @@ function drawComments(){
     h+='<div class="comment"><div class="avatar">'+(c.avatar?'<img src="'+esc(c.avatar)+'" alt="">':'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#737373" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3.1 4-4.6 7-4.6s5.6 1.5 7 4.6"/></svg>')+'</div><div class="cbody"><div class="cname">'+esc(c.nome)+'</div><div class="ctext">'+esc(c.text)+'</div><div class="ctime">'+ago(c.ts)+'</div></div>'+
     '<button class="clike'+(mine?" on":"")+'" type="button" onclick="likeComment('+i+')" aria-label="Gostar"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11S3.2 14.1 3.2 8.6A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.2z"/></svg>'+(lk?'<span>'+lk+'</span>':'<span></span>')+'</button></div>'}
   document.getElementById("clist").innerHTML=h}
-function likeComment(i){
-  var list=getComments(),c=list[i];if(!c)return;
-  if(c.liked){c.liked=0;c.likes=Math.max(0,(c.likes||0)-1)}
-  else{c.liked=1;c.likes=(c.likes||0)+1}
-  saveComments(list);drawComments()}
-function sendComment(ev){
-  ev.preventDefault();
-  var inp=document.getElementById("commentInput"),v=(inp.value||"").trim();
-  if(!v)return;
-  var me=profile(),list=getComments();
-  list.unshift({nome:me.nome,avatar:me.avatar,text:v,ts:Date.now(),likes:0,liked:0});
-  saveComments(list);inp.value="";drawComments()}
+function likeComment(i){var list=getComments(),c=list[i];if(!c)return;if(c.liked){c.liked=0;c.likes=Math.max(0,(c.likes||0)-1)}else{c.liked=1;c.likes=(c.likes||0)+1}saveComments(list);drawComments()}
+function sendComment(ev){ev.preventDefault();var inp=document.getElementById("commentInput"),v=(inp.value||"").trim();if(!v)return;var me=profile(),list=getComments();list.unshift({nome:me.nome,avatar:me.avatar,text:v,ts:Date.now(),likes:0,liked:0});saveComments(list);inp.value="";drawComments()}
 
-/* ---------- topo ---------- */
-window.addEventListener("scroll",function(){
-  document.getElementById("top").classList.toggle("s",window.scrollY>120)},{passive:true});
+window.addEventListener("scroll",function(){document.getElementById("top").classList.toggle("s",window.scrollY>120)},{passive:true});
 
-/* ---------- boot ---------- */
 (async function(){
   try{
     var a=await loadAni(ID);
     if(!a){document.getElementById("page").innerHTML='<div class="err">Não foi possível carregar este anime.</div>';hideLoad();return}
+    buildSeasons(a);
+    render(a);
     a=await addTM(a);
     buildSeasons(a);
     render(a);
