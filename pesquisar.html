@@ -2,181 +2,559 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#070707">
 <title>Pesquisar - PlayNime</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;-webkit-tap-highlight-color:transparent}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
 html,body{background:#070707;color:#fff;min-height:100%}
-body{padding-bottom:20px}
-.search-header{height:58px;padding:0 12px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;background:#070707}
-.back-button{width:34px;height:34px;border:0;border-radius:50%;background:#151515;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.back-button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.search-box{flex:1;height:36px;display:flex;align-items:center;background:#151515;border:1px solid #292929;border-radius:12px;padding:0 10px;gap:7px}
+body{padding-bottom:30px}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.search-header{height:70px;padding:8px 14px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;background:#070707}
+.back-button{width:42px;height:42px;min-width:42px;border-radius:50%;background:#151515;display:flex;align-items:center;justify-content:center}
+.back-button svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.search-box{flex:1;height:42px;display:flex;align-items:center;background:#151515;border:1px solid #292929;border-radius:22px;padding:0 14px;gap:8px}
 .search-box:focus-within{border-color:#a855f7}
-.search-box svg{width:15px;height:15px;flex:0 0 auto;fill:none;stroke:#888;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#campo-pesquisa{width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:13px}
+.search-box svg{width:18px;height:18px;flex:none;fill:none;stroke:#888;stroke-width:2}
+#campo-pesquisa{width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:14px}
 #campo-pesquisa::placeholder{color:#777}
-.chips{display:flex;gap:8px;align-items:center;padding:0 14px 8px;overflow-x:auto;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{border:0;background:transparent;color:#9a9a9a;font-size:12px;font-weight:600;padding:4px 10px;border-radius:14px;cursor:pointer;white-space:nowrap}
-.chip.active{background:#f3f3f3;color:#111}
-.secao-titulo{font-size:16px;font-weight:700;padding:2px 14px 10px}
-.categorias{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 20px}
-.cat-card{position:relative;height:50px;border:0;border-radius:10px;overflow:hidden;cursor:pointer;text-align:left;color:#fff;padding:0 10px;display:flex;align-items:center}
-.cat-card span{position:relative;z-index:2;font-size:13px;font-weight:700;max-width:62%}
-.cat-card img{position:absolute;right:6px;top:50%;width:36px;height:52px;object-fit:cover;border-radius:5px;transform:translateY(-50%) rotate(8deg);box-shadow:0 3px 8px rgba(0,0,0,.35);pointer-events:none}
-#resultados{padding:0 14px 24px}
-.mensagem{padding:40px 16px;text-align:center;color:#777;font-size:13px;line-height:1.5}
-.resultado{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #181818;cursor:pointer}
-.resultado:active{opacity:.75}
-.resultado-poster{width:48px;height:68px;flex:0 0 48px;border-radius:6px;overflow:hidden;background:#151515;position:relative}
-.resultado-poster img{width:100%;height:100%;object-fit:cover;display:block}
-.card-logo{position:absolute;bottom:0;left:0;right:0;max-height:16px;width:100%;object-fit:contain;display:none}
-.resultado-poster:has(.card-logo) img:first-of-type{max-height:calc(100% - 16px)}
-.resultado-info{min-width:0;flex:1;padding-top:1px}
-.resultado-titulo{font-size:13px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.resultado-ano,.resultado-eps{color:#a3a3a3;font-size:11px;line-height:1.35}
-.tag-anime{display:inline-block;margin-top:4px;background:#6d4aff;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
-.loader-wrap{display:flex;justify-content:center;padding:40px 0}
-.loader{width:24px;height:24px;border:3px solid #2a2a2a;border-top-color:#a855f7;border-radius:50%;animation:girar .7s linear infinite}
+.chips{display:flex;gap:8px;align-items:center;padding:4px 14px 12px;overflow-x:auto}
+.chip{color:#aaa;font-size:12px;font-weight:700;padding:7px 13px;border-radius:18px;background:#151515;border:1px solid #292929;white-space:nowrap}
+.chip.active{color:#fff;border-color:#a855f7;background:#1a1024}
+#painel-categorias{display:block;padding:12px 14px 25px}
+.cats-title{font-size:18px;font-weight:800;margin:5px 0 14px}
+#lista-categorias{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat-card{position:relative;height:90px;border-radius:14px;overflow:hidden;text-align:left;padding:14px;border:1px solid rgba(255,255,255,.06)}
+.cat-card span{position:relative;z-index:3;font-size:14px;font-weight:800;text-shadow:0 2px 5px #000}
+.cat-card::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.08));z-index:1}
+.cat-card img{position:absolute;right:-8px;bottom:-12px;height:100px;max-width:70%;object-fit:cover;opacity:.85;z-index:0}
+#resultados{padding:0 14px 30px}
+.loader-wrap{display:flex;justify-content:center;align-items:center;padding:45px 0}
+.loader{width:30px;height:30px;border:3px solid #292929;border-top-color:#a855f7;border-radius:50%;animation:girar .7s linear infinite}
 @keyframes girar{to{transform:rotate(360deg)}}
+.mensagem{text-align:center;color:#888;padding:45px 15px;font-size:14px}
+.resultado{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid #1c1c1c;align-items:center}
+.resultado-poster{position:relative;width:82px;height:115px;flex:0 0 82px;border-radius:10px;overflow:hidden;background:#151515}
+.resultado-poster .capa{width:100%;height:100%;object-fit:cover;display:block}
+.card-logo{position:absolute;left:6px;right:6px;bottom:8px;width:calc(100% - 12px);max-height:26px;height:auto;object-fit:contain;z-index:2;filter:drop-shadow(0 2px 4px #000);pointer-events:none}
+.resultado-poster .card-logo ~ .card-logo{display:none}
+.resultado-info{min-width:0;flex:1}
+.resultado-titulo{font-size:14px;font-weight:750;line-height:1.3}
+.resultado-ano{color:#888;font-size:12px;margin-top:5px}
+.tag-anime{display:inline-block;margin-top:8px;font-size:10px;color:#d7c4ff;background:#a855f733;border:1px solid #a855f755;padding:3px 8px;border-radius:8px}
 </style>
 </head>
 <body>
 <header class="search-header">
-    <button class="back-button" id="btn-voltar" aria-label="Voltar">
-        <svg viewBox="0 0 24 24"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
-    </button>
-    <div class="search-box">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l5 5"></path></svg>
-        <input id="campo-pesquisa" type="search" placeholder="O que está procurando?" autocomplete="off">
-    </div>
+  <button class="back-button" id="btn-voltar" type="button">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+  </button>
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l5 5"/></svg>
+    <input id="campo-pesquisa" type="search" placeholder="Pesquisar anime" autocomplete="off">
+  </div>
 </header>
-<div class="chips" id="chips">
-    <button class="chip active" data-modo="tudo" type="button">Tudo</button>
-</div>
+<div class="chips" id="chips"></div>
 <section id="painel-categorias">
-    <h1 class="secao-titulo">Categorias</h1>
-    <div class="categorias" id="lista-categorias"></div>
+  <div class="cats-title">Categorias</div>
+  <div id="lista-categorias"></div>
 </section>
-<main id="resultados" hidden></main>
-<script>
-const JIKAN = "https://api.jikan.moe/v4";
-const ANILIST = "https://graphql.anilist.co";
-const TM = "https://api.themoviedb.org/3";
-const TK = "8265bd1679663a7ea12ac168da84d2e8";
-const TI = "https://image.tmdb.org/t/p/";
-const FANART = "https://webservice.fanart.tv/v3";
-const FK = "9ad9e0de52d215ef3f05e123d63fbcbc";
+<section id="resultados" hidden></section><script>
+const TENRAI="https://api.tenrai.org/v1";
+const JIKAN="https://api.jikan.moe/v4";
+const ANILIST="https://graphql.anilist.co";
+const TM="https://api.themoviedb.org/3";
+const TK="8265bd1679663a7ea12ac168da84d2e8";
+const TI="https://image.tmdb.org/t/p/";
+const FANART="https://webservice.fanart.tv/v3";
+const FK="9ad9e0de52d215ef3f05e123d63fbcbc";
 
-const BLOQUEADOS = ["pokemon","pokémon","pocket monsters","transformers","transformer","beast wars"];
-const CATEGORIAS = [
-    {id:"aventura",nome:"Aventura",cor:"#4aa3d8",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21202-mPOr80AEjUcZ.png",jikan:2,alGenero:"Adventure"},
-    {id:"acao",nome:"Ação",cor:"#3d7c86",poster:"https://cdn.myanimelist.net/images/anime/1704/139929.jpg",jikan:1,alGenero:"Action"},
-    {id:"comedia",nome:"Comédia",cor:"#c44b32",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx223-scE5uJfXqqj8.png",jikan:4,alGenero:"Comedy"},
-    {id:"dublado",nome:"Dublado",cor:"#3e8f55",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1735-kGfVm0YqCPcu.png",topo:true},
-    {id:"drama",nome:"Drama",cor:"#2c3544",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101922-WBsBl0ClmgYL.jpg",jikan:8,alGenero:"Drama"},
-    {id:"escolar",nome:"Escolar",cor:"#6d7178",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21459-nYh85uj2Fuwr.jpg",jikan:23,alTag:"School"},
-    {id:"fantasia",nome:"Fantasia",cor:"#e07a32",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154587-qQTzQnEJJ3oB.jpg",jikan:10,alGenero:"Fantasy"},
-    {id:"romance",nome:"Romance",cor:"#7d7d8f",poster:"https://cdn.myanimelist.net/images/anime/6/84127.jpg",jikan:22,alGenero:"Romance"},
-    {id:"slice",nome:"Slice Of Life",cor:"#e089b0",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx140960-Kb6R5nYQfjmP.jpg",jikan:36,alGenero:"Slice of Life"},
-    {id:"sobrenatural",nome:"Sobrenatural",cor:"#8b86c2",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx113415-LHBAeoZDIsnF.jpg",jikan:37,alGenero:"Supernatural"},
-    {id:"scifi",nome:"Sci-Fi",cor:"#c4b89a",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx105333-GybuoSoOZfpH.jpg",jikan:24,alGenero:"Sci-Fi"},
-    {id:"shounen",nome:"Shounen",cor:"#355f9a",poster:"https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx21-ELSYx3yMPcKM.jpg",jikan:27,alTag:"Shounen"}
+const campo=document.getElementById("campo-pesquisa");
+const painel=document.getElementById("painel-categorias");
+const listaCat=document.getElementById("lista-categorias");
+const resultados=document.getElementById("resultados");
+const chips=document.getElementById("chips");
+
+const CATS=[
+  {id:"acao",nome:"Ação",cor:"#7a3b2e",alGenero:"Action",jikan:1,poster:"https://cdn.myanimelist.net/images/anime/1704/139929.jpg"},
+  {id:"aventura",nome:"Aventura",cor:"#355f4a",alGenero:"Adventure",jikan:2,poster:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"},
+  {id:"comedia",nome:"Comédia",cor:"#8a6a2a",alGenero:"Comedy",jikan:4,poster:"https://cdn.myanimelist.net/images/anime/4/19644.jpg"},
+  {id:"drama",nome:"Drama",cor:"#4a4a6a",alGenero:"Drama",jikan:8,poster:"https://cdn.myanimelist.net/images/anime/5/64449.jpg"},
+  {id:"fantasia",nome:"Fantasia",cor:"#4a3b6a",alGenero:"Fantasy",jikan:10,poster:"https://cdn.myanimelist.net/images/anime/11/39717.jpg"},
+  {id:"romance",nome:"Romance",cor:"#7d3f65",alGenero:"Romance",jikan:22,poster:"https://cdn.myanimelist.net/images/anime/6/84127.jpg"},
+  {id:"slice",nome:"Slice Of Life",cor:"#9a536f",alGenero:"Slice of Life",jikan:36,poster:"https://cdn.myanimelist.net/images/anime/1935/127974.jpg"},
+  {id:"sobrenatural",nome:"Sobrenatural",cor:"#4e477d",alGenero:"Supernatural",jikan:37,poster:"https://cdn.myanimelist.net/images/anime/1171/109222.jpg"},
+  {id:"scifi",nome:"Sci-Fi",cor:"#4b5969",alGenero:"Sci-Fi",jikan:24,poster:"https://cdn.myanimelist.net/images/anime/5/50331.jpg"},
+  {id:"shounen",nome:"Shounen",cor:"#355f9a",alTag:"Shounen",jikan:27,poster:"https://cdn.myanimelist.net/images/anime/6/73245.jpg"}
 ];
-const campo = document.getElementById("campo-pesquisa");
-const chips = document.getElementById("chips");
-const painelCategorias = document.getElementById("painel-categorias");
-const listaCategorias = document.getElementById("lista-categorias");
-const resultados = document.getElementById("resultados");
-let modo = "categorias";
-let categoriaAtual = null;
-let paginaAtual = 1;
-let temMais = false;
-let carregando = false;
-let temporizador = null;
-let idsMostrados = new Set();
-let seriesMostradas = {};
-let idsPorCategoria = {};
-let pedidoAtual = 0;
-const logoCache = {};
-const artInfo = {};
-try{Object.assign(logoCache,JSON.parse(localStorage.getItem("playnime_logo_en_v9")||"{}"))}catch(e){}
-function saveLogos(){try{localStorage.setItem("playnime_logo_en_v9",JSON.stringify(logoCache))}catch(e){}}
-function escaparHTML(t){return String(t||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");}
-function limpar(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();}
-function bloqueado(titulo){var t=limpar(titulo);return BLOQUEADOS.some(function(p){return t.indexOf(limpar(p))!==-1;});}
-function mostrarLoader(){resultados.hidden=false;painelCategorias.hidden=true;resultados.innerHTML='<div class="loader-wrap"><div class="loader"></div></div>';}
-function atualizarChips(){var html='<button class="chip'+(!categoriaAtual?" active":"")+'" data-modo="tudo" type="button">Tudo</button>';if(categoriaAtual)html+='<button class="chip active" data-modo="categoria">'+escaparHTML(categoriaAtual.nome)+'</button>';chips.innerHTML=html;}
-function mostrarCategorias(){modo="categorias";categoriaAtual=null;paginaAtual=1;temMais=false;idsMostrados=new Set();seriesMostradas={};campo.value="";painelCategorias.hidden=false;resultados.hidden=true;resultados.innerHTML="";atualizarChips();}
-function nomeAnime(item){var ro=item.title||"",en=item.title_english||"",ja=item.title_japanese||"";if(!en&&!ro)return ja||"Sem título";if(!en)return ro||ja;if(!ro)return en;if(limpar(en)===limpar(ro))return en;return en;}
-function anoAnime(item){if(item.year)return String(item.year);if(item.aired&&item.aired.from)return String(item.aired.from).substring(0,4);return "";}
-function posterAnime(item){if(item.images&&item.images.jpg)return item.images.jpg.image_url||item.images.jpg.large_image_url||"";return "";}
-function chaveSerie(item){var t=(item.title_english||item.title||"").replace(/[:\-–]\s*(season|temporada|part|cour|arc)\s*\d+.*/i,"");t=t.replace(/\s*\(?\d+(st|nd|rd|th)\s*(season|cour)\)?.*$/i,"").replace(/\s+/g," ").trim();return t;}
-function eAnime(item){var tipo=String(item.type||"").toLowerCase().replace(/_/g," ");if(["manga","manhwa","manhua","novel","light novel","one shot","doujinshi","music"].indexOf(tipo)!==-1)return false;if(/special|movie|film/i.test(tipo))return false;return true;}
-function valido(item){if(!item||!eAnime(item))return false;if(/rx|hentai/i.test(String(item.rating||"")))return false;if(bloqueado(nomeAnime(item))||bloqueado(item.title||"")||bloqueado(item.title_japanese||""))return false;var tipo=String(item.type||"").toUpperCase();return tipo==="TV"||tipo==="TV SHORT"||tipo==="ONA"||tipo==="OVA";}
-function distancia(a,b){if(a===b)return 0;if(!a.length)return b.length;if(!b.length)return a.length;if(Math.abs(a.length-b.length)>4)return 99;var ant=[],i,j;for(j=0;j<=b.length;j++)ant[j]=j;for(i=0;i<a.length;i++){var nova=[i+1];for(j=0;j<b.length;j++){var custo=a[i]===b[j]?0:1;nova[j+1]=Math.min(ant[j+1]+1,nova[j]+1,ant[j]+custo);}ant=nova;}return ant[b.length];}
-function tokenParecido(a,b){if(!a||!b)return false;if(a===b||a.indexOf(b)!==-1||b.indexOf(a)!==-1)return true;var n=Math.max(a.length,b.length);if(n<=2)return a===b;var d=distancia(a,b);if(n<=4)return d<=1;if(n<=8)return d<=2;return d<=3;}
-function relevancia(item,consulta){var q=limpar(consulta);if(!q)return 50;var titulos=[item.title,item.title_japanese,item.title_english,nomeAnime(item)].concat(item.title_synonyms||[]);var qPartes=q.split(" ").filter(Boolean);var pontos=0;titulos.forEach(function(titulo){var tLimpo=limpar(titulo||"");if(tLimpo===q)pontos=Math.max(pontos,1000);else if(tLimpo.indexOf(q)===0)pontos=Math.max(pontos,900);else if(tLimpo.indexOf(q)!==-1)pontos=Math.max(pontos,700);else{var todas=qPartes.every(function(p){return tLimpo.indexOf(p)!==-1;});if(todas)pontos=Math.max(pontos,500);}});return pontos;}
-function idsDeOutrasCategorias(){var ids=new Set();var atual=categoriaAtual&&categoriaAtual.id;Object.keys(idsPorCategoria).forEach(function(cat){if(cat===atual)return;idsPorCategoria[cat].forEach(function(id){ids.add(id);});});return ids;}
-function cartaoHTML(item,logo){var titulo=nomeAnime(item);var ano=anoAnime(item);var eps=item.episodes?item.episodes+" Episódios":"Episódios —";var poster=posterAnime(item);var logoHTML=logo?'<img class="card-logo" src="'+escaparHTML(logo)+'" alt="" referrerpolicy="no-referrer" loading="lazy" style="display:block;">':'';return '<article class="resultado" data-id="'+escaparHTML(String(item.mal_id||item.id||""))+'" data-chave="'+escaparHTML(chaveSerie(item))+'"><div class="resultado-poster">'+(poster?'<img src="'+escaparHTML(poster)+'" alt="" referrerpolicy="no-referrer" loading="lazy">':'')+logoHTML+'</div><div class="resultado-info"><div class="resultado-titulo">'+escaparHTML(titulo)+'</div>'+(ano?'<div class="resultado-ano">'+escaparHTML(ano)+'</div>':'')+('<span class="tag-anime">Anime</span>')+'</div></article>';}
-function acrescentar(lista,consulta,resetar){var filtrados=lista.filter(valido);if(consulta){filtrados=filtrados.map(function(item){item._score=relevancia(item,consulta);return item;}).sort(function(a,b){return (b._score||0)-(a._score||0);});filtrados=filtrados.filter(function(item){return item._score>=400;});}var idsOutras=idsDeOutrasCategorias();var msg=resetar?'<div class="mensagem">Nenhum anime encontrado.</div>':"";filtrados=filtrados.filter(function(item){var chave=chaveSerie(item);var id=item.mal_id||item.id||"";if(idsMostrados.has(chave)||idsMostrados.has(id))return false;if(idsOutras.has(id))return false;return true;});if(!filtrados.length){if(resetar&&!resultados.querySelector(".resultado")){resultados.innerHTML=msg;}return;}if(resetar){resultados.innerHTML="";}var html=filtrados.map(function(item){return cartaoHTML(item,"");}).join("");if(!resultados.querySelector(".resultado")&&!resetar){var msgElement=resultados.querySelector(".mensagem,.loader-wrap");if(msgElement)msgElement.remove();}resultados.insertAdjacentHTML("beforeend",html);filtrados.forEach(function(item){var chave=chaveSerie(item);var id=item.mal_id||item.id||"";idsMostrados.add(chave);idsMostrados.add(id);seriesMostradas[chave]=item;if(categoriaAtual&&categoriaAtual.id){if(!idsPorCategoria[categoriaAtual.id])idsPorCategoria[categoriaAtual.id]=[];idsPorCategoria[categoriaAtual.id].push(id);}});filtrados.forEach(function(item){obterLogoEN(item);});}
-function normalizarAniList(item){if(!item)return null;return{mal_id:item.idMal||item.id,title:(item.title&&(item.title.romaji||item.title.native||item.title.english))||"Sem título",title_japanese:item.title&&item.title.native||"",title_english:item.title&&item.title.english||"",title_romaji:item.title&&item.title.romaji||"",year:item.seasonYear||"",type:item.format||"TV",format:item.format||"TV",episodes:item.episodes,coverImage:item.coverImage&&(item.coverImage.large||item.coverImage.medium),images:{jpg:{image_url:item.coverImage&&(item.coverImage.large||item.coverImage.medium)||""}}};}
-async function buscarJikan(caminho){try{var r=await fetch(JIKAN+caminho);if(r.status===429){await new Promise(function(ok){setTimeout(ok,1000);});r=await fetch(JIKAN+caminho);}if(!r.ok)return null;var d=await r.json();var lista=(d.data||[]).map(function(item){return{mal_id:item.mal_id,title:item.title,title_english:item.title_english,title_japanese:item.title_japanese,type:item.type,format:item.type,year:item.aired&&item.aired.from?String(item.aired.from).substring(0,4):"",episodes:item.episodes,images:item.images,title_synonyms:item.title_synonyms||[]};});return{lista:lista,mais:!!(d.pagination&&d.pagination.has_next_page)};;}catch(e){return null;}}
-async function buscarAniList(consulta,cat,pagina){var filtros="type: ANIME, isAdult: false, sort: POPULARITY_DESC";if(consulta)filtros+=', search: "'+consulta.replace(/"/g,"")+'"';if(cat&&cat.alGenero)filtros+=', genre: "'+cat.alGenero+'"';if(cat&&cat.alTag)filtros+=', tag: "'+cat.alTag+'"';var query='query{Page(page:'+(pagina||1)+',perPage:50){pageInfo{hasNextPage}media('+filtros+'){id idMal format episodes seasonYear startDate{year}title{romaji english native}coverImage{large medium}}}}';try{var r=await fetch(ANILIST,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:query})});if(!r.ok)return null;var d=await r.json();if(!d.data||!d.data.Page)return null;var page=d.data.Page;var lista=(page.media||[]).map(normalizarAniList).filter(Boolean);return{lista:lista,mais:!!(page.pageInfo&&page.pageInfo.hasNextPage)};}catch(e){return null;}}
-async function tmGet(path){try{var r=await fetch(TM+path+(path.indexOf("?")>=0?"&":"?")+"api_key="+TK+"&language=en-US",{signal:AbortSignal.timeout(4500)});if(!r||!r.ok)return null;return await r.json();}catch(e){return null;}}
-async function fanartGet(id){if(!id)return null;try{var r=await fetch(FANART+"/tv/"+id+"?api_key="+FK,{signal:AbortSignal.timeout(4000)});if(!r||!r.ok)return null;return await r.json();}catch(e){return null;}}
-function pickLogoEN(logos){var en=(logos||[]).filter(function(x){return x&&x.file_path&&String(x.iso_639_1||"").toLowerCase()==="en";});en.sort(function(a,b){return (b.vote_average||0)-(a.vote_average||0);});return en[0]?TI+"w300"+en[0].file_path:"";}
-function pickFanartLogoEN(d){if(!d)return "";var lista=[].concat(d.hdtvlogo||[],d.clearlogo||[]);var en=lista.filter(function(x){if(!x||!x.url)return false;var lang=String(x.lang||"").toLowerCase();return lang==="en"||lang==="eng"||lang==="english";});if(!en.length)return "";en.sort(function(a,b){return (b.width||0)-(a.width||0);});return en[0].url;}
-async function logoDeId(id){if(!id)return {logo:"",temJP:false};var imgs=await tmGet("/tv/"+id+"/images?include_image_language=en,null");var ext=await tmGet("/tv/"+id+"/external_ids");var fa=await fanartGet(ext&&ext.tvdb_id);return {logo:pickFanartLogoEN(fa)||pickLogoEN(imgs&&imgs.logos)||"",temJP:false};}
-async function infoArte(titulo){var key=limpar(titulo||"");if(!key)return {logo:"",temJP:false};if(artInfo[key])return artInfo[key];var info={logo:logoCache[key]||"",temJP:false};try{var s=await tmGet("/search/tv?query="+encodeURIComponent(titulo||""));var results=((s&&s.results)||[]).filter(function(r){return (r.genre_ids||[]).indexOf(16)>=0;});var z=results.filter(function(r){return limpar(r.name)===key;})[0]||results[0];if(z)info=await logoDeId(z.id);}catch(e){}artInfo[key]=info;if(info.logo){logoCache[key]=info.logo;saveLogos();}return info;}
-async function obterLogoEN(item){var chave=chaveSerie(item);if(!chave)return;var card=resultados.querySelector('[data-chave="'+chave+'"]');if(!card)return;var info=await infoArte(nomeAnime(item));if(info.logo){var posterDiv=card.querySelector(".resultado-poster");if(posterDiv&&!posterDiv.querySelector(".card-logo")){var img=document.createElement("img");img.className="card-logo";img.src=info.logo;img.alt="";img.referrerPolicy="no-referrer";img.loading="lazy";posterDiv.appendChild(img);}}}
-async function buscarPagina(resetar){
-    if(carregando)return;
-    var consulta=campo.value.trim();
-    var meuPedido=++pedidoAtual;
-    carregando=true;
-    if(resetar){paginaAtual=1;idsMostrados=new Set();seriesMostradas={};if(categoriaAtual)idsPorCategoria[categoriaAtual.id]=[];mostrarLoader();atualizarChips();}
-    try{
-        var resultado=null;
-        if(consulta){
-            var lista=[], mais=true;
-            if(paginaAtual===1){
-                var consultaLimpa=limpar(consulta);
-                var pedidos=[buscarJikan("/anime?q="+encodeURIComponent(consulta)+"&sfw=true&limit=25&page=1"),buscarAniList(consulta,null,1),buscarAniList("",null,1),buscarAniList("",null,2)];
-                if(consultaLimpa!==consulta.toLowerCase())pedidos.push(buscarAniList(consultaLimpa,null,1));
-                (await Promise.all(pedidos)).forEach(function(r){if(r&&r.lista&&r.lista.length)lista=lista.concat(r.lista);});
-            }else{
-                var extra=await Promise.all([buscarAniList("",null,paginaAtual+1),buscarJikan("/top/anime?filter=bypopularity&type=tv&page="+paginaAtual)]);
-                extra.forEach(function(r){if(r&&r.lista&&r.lista.length)lista=lista.concat(r.lista);});
-                mais=!!lista.length;
-            }
-            resultado={lista:lista,mais:mais};
-        }else if(categoriaAtual&&categoriaAtual.topo){
-            resultado=await buscarJikan("/top/anime?filter=bypopularity&type=tv&page="+paginaAtual);
-        }else if(categoriaAtual){
-            resultado=await buscarJikan("/anime?sfw=true&limit=25&page="+paginaAtual+"&type=tv&genres="+categoriaAtual.jikan+"&order_by=members&sort=desc");
-        }
-        if((!resultado||!resultado.lista.length)&&(consulta||categoriaAtual))resultado=await buscarAniList(consulta,categoriaAtual,paginaAtual);
-        if(meuPedido!==pedidoAtual)return;
-        if(!resultado||!resultado.lista.length){if(resetar||!resultados.querySelector(".resultado"))resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';temMais=false;return;}
-        temMais=consulta?true:!!resultado.mais;
-        acrescentar(resultado.lista,consulta,resetar);
-    }catch(e){
-        if(meuPedido!==pedidoAtual)return;
-        if(!resultados.querySelector(".resultado"))resultados.innerHTML='<div class="mensagem">Não foi possível carregar os animes.</div>';
-    }finally{if(meuPedido===pedidoAtual)carregando=false;}
+
+function mostrarCategorias(){
+  listaCat.innerHTML="";
+  CATS.forEach(function(cat){
+    const b=document.createElement("button");
+    b.type="button"; b.className="cat-card"; b.style.background=cat.cor;
+    b.innerHTML="<span>"+cat.nome+"</span>";
+    const img=document.createElement("img");
+    img.alt=""; img.loading="eager"; img.referrerPolicy="no-referrer"; img.src=cat.poster;
+    img.onerror=function(){
+      if(cat.alt&&this.src!==cat.alt){this.src=cat.alt;return}
+      this.style.display="none";
+    };
+    b.appendChild(img);
+    b.addEventListener("click",function(){abrirCategoria(cat)});
+    listaCat.appendChild(b);
+  });
 }
-function abrirCategoria(id){var cat=CATEGORIAS.find(function(c){return c.id===id;});if(!cat)return;modo="categoria";categoriaAtual=cat;campo.value="";buscarPagina(true);}
-listaCategorias.innerHTML=CATEGORIAS.map(function(cat){return '<button class="cat-card" type="button" data-id="'+cat.id+'" style="background:'+cat.cor+'"><span>'+escaparHTML(cat.nome)+'</span><img src="'+escaparHTML(cat.poster)+'" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="this.style.display=\'none\'"></button>';}).join("");
-campo.addEventListener("input",function(){var consulta=campo.value.trim();clearTimeout(temporizador);if(!consulta){if(categoriaAtual)buscarPagina(true);else mostrarCategorias();return;}categoriaAtual=null;temporizador=setTimeout(function(){buscarPagina(true);},300);});
-chips.addEventListener("click",function(e){var botao=e.target.closest(".chip");if(botao&&botao.getAttribute("data-modo")==="tudo")mostrarCategorias();});
-listaCategorias.addEventListener("click",function(e){var card=e.target.closest(".cat-card");if(card)abrirCategoria(card.getAttribute("data-id"));});
-resultados.addEventListener("click",function(e){var item=e.target.closest(".resultado");if(!item)return;window.location.href="detalhes.html?mal="+encodeURIComponent(item.getAttribute("data-id"));});
-document.getElementById("btn-voltar").addEventListener("click",function(){if(modo!=="categorias")mostrarCategorias();else history.back();});
-window.addEventListener("scroll",function(){if(resultados.hidden||carregando||!temMais)return;if(window.innerHeight+window.scrollY>=document.body.offsetHeight-160){paginaAtual+=1;buscarPagina(false);}});
+
+function normalizar(t){
+  return String(t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9x]+/g," ").trim();
+}
+function temPalavra(texto,palavra){
+  return (" "+normalizar(texto)+" ").indexOf(" "+normalizar(palavra)+" ")>=0;
+}
+function limparTitulo(t){
+  return String(t||"")
+    .replace(/\s*[:\-–]\s*(season|temporada|part|cour|arc)\s*\d+.*/i,"")
+    .replace(/\s+\(?s(?:eason)?\s*\d+\)?.*/i,"")
+    .replace(/\s+arise from the shadow.*$/i,"")
+    .replace(/\s+2\s*$/i,"")
+    .replace(/\s+/g," ").trim();
+}
+function chaveSerie(item){
+  const t=normalizar(tituloCard(item))
+    .replace(/\bx\b/g," ")
+    .replace(/\b(tv|ona|ova|special|season|temporada)\b/g," ")
+    .replace(/\s+/g," ").trim();
+  return t.split(" ").filter(Boolean).sort().join(" ")||String(item.mal_id||item.id||"");
+}
+
+const BLOQ=["pokemon","pokémon","pocket monsters","transformers","spongebob","bob esponja","peppa pig","paw patrol","patrulha canina","tom and jerry","looney tunes","scooby doo","ben 10","teen titans","miraculous","ladybug","winx club","my little pony","frozen","moana","encanto","toy story","shrek","kung fu panda","minions","barbie","power rangers","ultraman","kamen rider","doraemon","anpanman","precure","pretty cure","shin chan","shinchan","crayon shin","hamtaro","simpsons","family guy","south park","rick and morty","adventure time","steven universe","gravity falls","bluey","peanuts","ojamamanga","spy x spect","cat soup","sazae san","chibi maruko","nanami chan","nana moon","wacky tv","nana lucky","haitai nanafa"];
+const LIXO=/\b(recap|recaps|re-cap|digest|chibi|mini anime|sd character|compilation|picture drama|summary|trailer|music video|live action|cartoon|animated series|donghua|manhwa|manga|filme|movie|film|new year special|specials?)\b/i;
+
+const CAPA_SERIE={
+  "angel door next rotten spoils the":"https://cdn.myanimelist.net/images/anime/1010/120082.jpg",
+  "nana":"https://cdn.myanimelist.net/images/anime/2/11232.jpg",
+  "leveling solo":"https://cdn.myanimelist.net/images/anime/1704/139929.jpg"
+};
+const CAPA_COM_LOGO_EN={
+  "ghoul tokyo":1,"gate steins":1,"naruto":1,"naruto shippuden":1,
+  "one piece":1,"art online sword":1,"hunter hunter":1,
+  "jujutsu kaisen":1,"attack on titan":1,"death note":1,
+  "alchemist brotherhood fullmetal":1,"alchemist fullmetal":1,
+  "man one punch":1,"demon slayer":1,"demon kimetsu no slayer yaiba":1,
+  "game life no no":1,"bleach":1,"nana":1
+};
+const CONHECIDOS={
+  "nana":{title:"Nana",title_english:"Nana",year:"2006",mal_id:877,id:877,type:"TV",format:"TV",origem:"fixo"}
+};
+
+function bloqueado(t){
+  t=normalizar(t); if(!t) return 0;
+  return BLOQ.some(function(p){p=normalizar(p);return t===p||(" "+t+" ").indexOf(" "+p+" ")>=0});
+}
+function eAnime(item){
+  if(!item) return false;
+  const tipo=String(item.type||item.format||"").toUpperCase().replace(/_/g," ").trim();
+  if(tipo==="MOVIE"||tipo==="FILM"||tipo==="FILME"||tipo==="SPECIAL"||tipo==="TV SPECIAL") return false;
+  const texto=[item.title,item.title_english,item.title_japanese,item.title_romaji,pegarTitulo(item)].join(" ");
+  if(LIXO.test(texto)||bloqueado(texto)) return false;
+  if(/\b(kids|kodomo|youkai watch|yo kai watch)\b/i.test(texto)) return false;
+  if(tipo===""||tipo==="TV"||tipo==="TV SERIES"||tipo==="TV SHORT"||tipo==="ONA") return true;
+  if(item.origem==="anilist"&&(tipo==="TV"||tipo==="TV SHORT"||tipo==="ONA"||tipo==="OVA")) return true;
+  if(item.origem==="fixo") return true;
+  return false;
+}
+function pegarTitulo(item){
+  if(!item) return "Anime";
+  if(item.title&&typeof item.title==="object") return item.title.english||item.title.romaji||item.title.native||"Anime";
+  return item.title_english||item.title||item.title_romaji||item.title_japanese||"Anime";
+}
+function tituloCard(item){return limparTitulo(pegarTitulo(item))||pegarTitulo(item)}
+function pegarAno(item){
+  if(!item) return "";
+  if(item.year) return String(item.year).slice(0,4);
+  if(item.seasonYear) return String(item.seasonYear);
+  if(item.startDate&&item.startDate.year) return String(item.startDate.year);
+  if(item.aired&&item.aired.from) return String(item.aired.from).slice(0,4);
+  return "";
+}
+function capaJaTemLogoEN(item){
+  const k=chaveSerie(item);
+  if(CAPA_COM_LOGO_EN[k]) return true;
+  return Object.keys(CAPA_COM_LOGO_EN).some(function(n){return k===n});
+}
+
+const visto=new Set();
+const logoCache={};
+const artInfo={};
+try{Object.assign(logoCache,JSON.parse(localStorage.getItem("playnime_logo_en_v8")||"{}"))}catch(e){}
+function saveLogos(){try{localStorage.setItem("playnime_logo_en_v8",JSON.stringify(logoCache))}catch(e){}}
+
+function pegarPoster(item){
+  const k=chaveSerie(item);
+  if(CAPA_SERIE[k]) return CAPA_SERIE[k];
+  if(item.origem==="anilist"&&item.coverImage) return item.coverImage.large||item.coverImage.medium||"";
+  if(item.coverImage) return item.coverImage.large||item.coverImage.medium||"";
+  if(item.images&&item.images.jpg) return item.images.jpg.large_image_url||item.images.jpg.image_url||"";
+  return "";
+}
+
+function seedShuffle(arr,seed){
+  const a=arr.slice();
+  let h=0;
+  String(seed).split("").forEach(function(c){h=((h<<5)-h)+c.charCodeAt(0);h|=0});
+  for(let i=a.length-1;i>0;i--){
+    h=Math.imul(h^h>>>16,2246822507); h^=h>>>13;
+    const j=Math.abs(h)%(i+1);
+    const t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+
+async function fetchTO(url,ms,opt){
+  const c=new AbortController();
+  const t=setTimeout(function(){c.abort()},ms||7000);
+  try{return await fetch(url,Object.assign({},opt||{},{signal:c.signal}))}
+  finally{clearTimeout(t)}
+}
+function esperar(ms){return new Promise(function(ok){setTimeout(ok,ms)})}
+async function tmGet(path){
+  try{
+    const r=await fetchTO(TM+path+(path.indexOf("?")>=0?"&":"?")+"api_key="+TK+"&language=en-US",4500);
+    if(!r||!r.ok) return null;
+    return await r.json();
+  }catch(e){return null}
+}
+async function fanartGet(id){
+  if(!id) return null;
+  try{
+    const r=await fetchTO(FANART+"/tv/"+id+"?api_key="+FK,4000);
+    if(!r||!r.ok) return null;
+    return await r.json();
+  }catch(e){return null}
+}
+function pickLogoEN(logos){
+  const en=(logos||[]).filter(function(x){return x&&x.file_path&&String(x.iso_639_1||"").toLowerCase()==="en"});
+  en.sort(function(a,b){return (b.vote_average||0)-(a.vote_average||0)});
+  return en[0]?TI+"w300"+en[0].file_path:"";
+}
+function pickFanartLogoEN(d){
+  if(!d) return "";
+  const lista=[].concat(d.hdtvlogo||[],d.clearlogo||[]);
+  const en=lista.filter(function(x){
+    if(!x||!x.url) return false;
+    const lang=String(x.lang||"").toLowerCase();
+    return lang==="en"||lang==="eng"||lang==="english";
+  });
+  if(!en.length) return "";
+  en.sort(function(a,b){return (b.width||0)-(a.width||0)});
+  return en[0].url;
+}
+async function logoDeId(id){
+  if(!id) return {logo:"",temJP:false};
+  const imgs=await tmGet("/tv/"+id+"/images?include_image_language=en,null");
+  const ext=await tmGet("/tv/"+id+"/external_ids");
+  const fa=await fanartGet(ext&&ext.tvdb_id);
+  return {logo:pickFanartLogoEN(fa)||pickLogoEN(imgs&&imgs.logos)||"",temJP:false};
+}
+async function infoArte(titulo){
+  const key=normalizar(limparTitulo(titulo)||titulo);
+  if(!key) return {logo:"",temJP:false};
+  if(artInfo[key]) return artInfo[key];
+  let info={logo:logoCache[key]||"",temJP:false};
+  try{
+    const s=await tmGet("/search/tv?query="+encodeURIComponent(limparTitulo(titulo)||titulo));
+    const results=((s&&s.results)||[]).filter(function(r){return (r.genre_ids||[]).indexOf(16)>=0});
+    const z=results.filter(function(r){return normalizar(r.name)===key})[0]||results[0];
+    if(z) info=await logoDeId(z.id);
+  }catch(e){}
+  artInfo[key]=info;
+  if(info.logo){logoCache[key]=info.logo;saveLogos()}
+  return info;
+}
+
+async function buscarAniList(pesquisa,pagina,cat,sort){
+  const search=String(pesquisa||"").replace(/"/g," ").trim();
+  let filtro="type: ANIME, isAdult: false";
+  if(search) filtro+=', search: "'+search+'", sort: SEARCH_MATCH';
+  else filtro+=", sort: "+(sort||"POPULARITY_DESC");
+  if(cat&&cat.alGenero) filtro+=', genre: "'+cat.alGenero+'"';
+  if(cat&&cat.alTag) filtro+=', tag: "'+cat.alTag+'"';
+  const query="query{Page(page:"+(pagina||1)+",perPage:50){pageInfo{hasNextPage}media("+filtro+"){id idMal format episodes seasonYear startDate{year}title{romaji english native}coverImage{large medium}}}}";
+  try{
+    const r=await fetchTO(ANILIST,7000,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:query})});
+    if(!r||!r.ok) return null;
+    const d=await r.json();
+    const page=d&&d.data&&d.data.Page;
+    if(!page) return null;
+    return {lista:(page.media||[]).map(function(item){
+      return {
+        id:item.idMal||item.id,mal_id:item.idMal||item.id,
+        title:(item.title&&(item.title.english||item.title.romaji||item.title.native))||"",
+        title_english:(item.title&&item.title.english)||"",
+        title_romaji:(item.title&&item.title.romaji)||"",
+        title_japanese:(item.title&&item.title.native)||"",
+        format:item.format||"TV",type:item.format||"TV",
+        year:item.seasonYear||(item.startDate&&item.startDate.year)||"",
+        coverImage:item.coverImage||null,origem:"anilist"
+      };
+    }),mais:!!(page.pageInfo&&page.pageInfo.hasNextPage)};
+  }catch(e){return null}
+}
+async function buscarMal(pesquisa,pagina,cat){
+  let path="/anime?sfw=true&type=tv&limit=25&page="+(pagina||1);
+  if(pesquisa) path="/anime?sfw=true&type=tv&limit=25&page="+(pagina||1)+"&q="+encodeURIComponent(pesquisa);
+  else if(cat&&cat.jikan) path+="&genres="+cat.jikan+"&order_by=members&sort=desc";
+  else path="/top/anime?filter=bypopularity&type=tv&sfw=true&page="+(pagina||1);
+  const bases=[JIKAN,TENRAI];
+  for(let i=0;i<bases.length;i++){
+    try{
+      const r=await fetchTO(bases[i]+path,6000);
+      if(!r||!r.ok) continue;
+      const data=await r.json();
+      if(!data||!Array.isArray(data.data)) continue;
+      data.data.forEach(function(item){item.origem="jikan"});
+      return {lista:data.data,mais:!!(data.pagination&&data.pagination.has_next_page)};
+    }catch(e){}
+  }
+  return null;
+}
+const ALTERNATIVOS={
+  "solo":"Solo Leveling","solo leveling":"Solo Leveling",
+  "otonari":"The Angel Next Door Spoils Me Rotten","otonari no tenshi sama":"The Angel Next Door Spoils Me Rotten",
+  "nana":"Nana","one piece":"One Piece","naruto":"Naruto","spy x family":"Spy x Family",
+  "hunter hunter":"Hunter x Hunter","hunter x hunter":"Hunter x Hunter"
+};
+function consultas(pesquisa){
+  const out=[],seen={};
+  function add(v){v=String(v||"").trim();const k=normalizar(v);if(!k||seen[k])return;seen[k]=1;out.push(v)}
+  add(pesquisa); add(ALTERNATIVOS[normalizar(pesquisa)]);
+  add(pesquisa.replace(/[-_:]/g," ").replace(/\s+/g," ").trim());
+  return out;
+}
+function pontuar(item,pesquisa){
+  const q=normalizar(pesquisa); if(!q) return 40;
+  const titulo=normalizar(tituloCard(item));
+  const nomes=[item.title,item.title_english,item.title_romaji,item.title_japanese,tituloCard(item)].map(normalizar).filter(Boolean);
+  let best=0;
+  nomes.forEach(function(t){
+    if(t===q) best=Math.max(best,1000);
+    else if(t.indexOf(q+" ")===0) best=Math.max(best,900);
+    else if(temPalavra(t,q)) best=Math.max(best,650);
+  });
+  if(q.length<=4 && !temPalavra(titulo,q) && titulo!==q) return 0;
+  if(q.length<=4 && /nanatsu|nanaka|nanami|nanana|nanaf/.test(titulo) && titulo!==q) return 0;
+  return best;
+}
+function juntar(lista,pesquisa,minScore){
+  const mapa={};
+  (lista||[]).forEach(function(item){
+    if(!eAnime(item)) return;
+    const k=chaveSerie(item);
+    if(!k||visto.has(k)) return;
+    item._score=pesquisa?pontuar(item,pesquisa):50;
+    if(pesquisa&&minScore&&item._score<minScore) return;
+    const old=mapa[k];
+    if(!old||(item._score||0)>(old._score||0)||(item.origem==="anilist"&&old.origem!=="anilist")) mapa[k]=item;
+  });
+  return Object.keys(mapa).map(function(k){return mapa[k]}).sort(function(a,b){return (b._score||0)-(a._score||0)});
+}
+
+function cardHTML(item,logo){
+  const titulo=tituloCard(item);
+  const ano=pegarAno(item);
+  const poster=pegarPoster(item);
+  const id=item.mal_id||item.id||"";
+  const k=chaveSerie(item);
+  return '<article class="resultado" data-id="'+String(id).replace(/"/g,"")+'" data-key="'+k+'" data-title="'+String(titulo).replace(/"/g,"&quot;")+'">'+
+    '<div class="resultado-poster">'+
+      (poster?'<img class="capa" src="'+poster+'" alt="" loading="eager" referrerpolicy="no-referrer">':'')+
+      (logo?'<img class="card-logo" src="'+logo+'" alt="" referrerpolicy="no-referrer">':'')+
+    '</div>'+
+    '<div class="resultado-info"><div class="resultado-titulo">'+titulo+'</div>'+(ano?'<div class="resultado-ano">'+ano+'</div>':'')+'<span class="tag-anime">Anime</span></div></article>';
+}
+function meterLogo(card,url){
+  if(!card||!url||card.querySelector(".card-logo")) return;
+  const box=card.querySelector(".resultado-poster");
+  if(!box) return;
+  const img=document.createElement("img");
+  img.className="card-logo"; img.src=url; img.alt=""; img.referrerPolicy="no-referrer";
+  box.appendChild(img);
+}
+async function logoSePreciso(item){
+  if(capaJaTemLogoEN(item)) return "";
+  const info=await infoArte(tituloCard(item));
+  return info.logo||"";
+}
+
+async function mostrarResultados(lista,limpar){
+  if(limpar) resultados.innerHTML="";
+  const novos=[];
+  lista.forEach(function(item){
+    const k=chaveSerie(item);
+    if(!k||!eAnime(item)) return;
+    if(visto.has(k)||resultados.querySelector('.resultado[data-key="'+k+'"]')){
+      visto.add(k);
+      return;
+    }
+    visto.add(k);
+    novos.push(item);
+  });
+  if(!novos.length){
+    if(limpar&&!resultados.querySelector(".resultado")){
+      resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';
+    }
+    return novos;
+  }
+  const htmls=await Promise.all(novos.map(async function(item){
+    const logo=await Promise.race([logoSePreciso(item),esperar(1200).then(function(){return ""})]);
+    return cardHTML(item,logo||"");
+  }));
+  const msg=resultados.querySelector(".mensagem,.loader-wrap");
+  if(msg) msg.remove();
+  resultados.insertAdjacentHTML("beforeend",htmls.join(""));
+  novos.forEach(function(item){
+    if(capaJaTemLogoEN(item)) return;
+    const k=chaveSerie(item);
+    const card=resultados.querySelector('.resultado[data-key="'+k+'"]');
+    if(!card||card.querySelector(".card-logo")) return;
+    logoSePreciso(item).then(function(url){if(url) meterLogo(card,url)});
+  });
+  return novos;
+}
+
+let pagina=1,carregando=false,temMais=true,categoriaAtual=null,modo="categorias",timerPesquisa=null,pesquisaID=0,queryAtual="";
+
+function mostrarLoader(forcar){
+  painel.style.display="none";
+  resultados.hidden=false;
+  if(forcar||!resultados.querySelector(".resultado")){
+    resultados.innerHTML='<div class="loader-wrap"><div class="loader"></div></div>';
+  }
+}
+function chipsHTML(){
+  chips.innerHTML='<button class="chip active" data-modo="tudo" type="button">Tudo</button>'+(categoriaAtual?'<button class="chip active" type="button">'+categoriaAtual.nome+'</button>':'');
+}
+function homeCats(){
+  modo="categorias"; categoriaAtual=null; queryAtual=""; campo.value="";
+  visto.clear(); pagina=1;
+  resultados.hidden=true; resultados.innerHTML="";
+  painel.style.display="block"; chipsHTML();
+}
+
+async function mixExtra(pag,q){
+  const p1=1+((pag*3+hash(q))%8);
+  const p2=1+((pag*5+hash(q+":b"))%6);
+  const sort=pag%2?"TRENDING_DESC":"POPULARITY_DESC";
+  const a=await Promise.all([buscarAniList("",p1,null,sort),buscarMal("",p2,null)]);
+  let lista=[];
+  a.forEach(function(r){if(r&&r.lista) lista=lista.concat(r.lista)});
+  return seedShuffle(juntar(lista,"",0),q+"|"+pag+"|"+Date.now()%7);
+}
+function hash(s){
+  let h=0; String(s||"").split("").forEach(function(c){h=((h<<5)-h)+c.charCodeAt(0);h|=0});
+  return Math.abs(h);
+}
+
+async function pesquisar(reset){
+  if(reset===undefined) reset=true;
+  if(carregando&&!reset) return;
+  const q=String(campo.value||"").trim();
+  if(q.length<2) return;
+  const minha=++pesquisaID;
+  carregando=true;
+  modo="pesquisa"; categoriaAtual=null; queryAtual=q;
+  if(reset){pagina=1;temMais=true;visto.clear();mostrarLoader(true);chipsHTML()}
+  try{
+    if(reset){
+      const qs=consultas(q);
+      const jobs=[buscarAniList(qs[0],1),buscarMal(qs[0],1)];
+      if(qs[1]) jobs.push(buscarAniList(qs[1],1),buscarMal(qs[1],1));
+      const respostas=await Promise.all(jobs);
+      if(minha!==pesquisaID) return;
+      let lista=[];
+      respostas.forEach(function(res){if(res&&res.lista) lista=lista.concat(res.lista)});
+      const conhecido=CONHECIDOS[normalizar(q)];
+      if(conhecido) lista.unshift(conhecido);
+      let primeiros=juntar(lista,q,400);
+      if(!primeiros.length&&conhecido) primeiros=[conhecido];
+      await mostrarResultados(primeiros,true);
+      if(minha!==pesquisaID) return;
+      await mostrarResultados(await mixExtra(1,q),false);
+    }else{
+      await mostrarResultados(await mixExtra(pagina,queryAtual),false);
+    }
+    if(!resultados.querySelector(".resultado")){
+      resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';
+    }
+    temMais=true;
+  }catch(e){
+    if(minha===pesquisaID&&!resultados.querySelector(".resultado")){
+      resultados.innerHTML='<div class="mensagem">Não foi possível carregar os animes.</div>';
+    }
+  }finally{if(minha===pesquisaID) carregando=false}
+}
+
+async function abrirCategoria(cat){
+  categoriaAtual=cat; modo="categoria"; campo.value=""; queryAtual="";
+  const minha=++pesquisaID;
+  visto.clear(); pagina=1; temMais=true;
+  mostrarLoader(true); chipsHTML(); carregando=true;
+  try{
+    const sort=cat.id==="romance"?"FAVOURITES_DESC":(cat.id==="scifi"?"TRENDING_DESC":"POPULARITY_DESC");
+    const respostas=await Promise.all([buscarAniList("",1,cat,sort),buscarMal("",1,cat)]);
+    if(minha!==pesquisaID) return;
+    let lista=[];
+    respostas.forEach(function(res){if(res&&res.lista) lista=lista.concat(res.lista)});
+    lista=juntar(lista,"",0);
+    if(!lista.length) resultados.innerHTML='<div class="mensagem">Nenhum anime encontrado.</div>';
+    else await mostrarResultados(lista,true);
+  }catch(e){resultados.innerHTML='<div class="mensagem">Não foi possível carregar.</div>'}
+  finally{if(minha===pesquisaID) carregando=false}
+}
+
+resultados.addEventListener("click",function(e){
+  const card=e.target.closest(".resultado"); if(!card) return;
+  const id=card.dataset.id||"", titulo=card.dataset.title||"";
+  try{localStorage.setItem("playnime_atual",JSON.stringify({id:id,name:titulo}))}catch(err){}
+  location.href="detalhes.html?id="+encodeURIComponent(id)+"&mal="+encodeURIComponent(id);
+});
+campo.addEventListener("input",function(){
+  const q=campo.value.trim();
+  if(timerPesquisa) clearTimeout(timerPesquisa);
+  if(!q){homeCats();return}
+  timerPesquisa=setTimeout(function(){pesquisar(true)},280);
+});
+campo.addEventListener("keydown",function(e){
+  if(e.key==="Enter"){if(timerPesquisa)clearTimeout(timerPesquisa);if(campo.value.trim().length>=2)pesquisar(true)}
+});
+chips.addEventListener("click",function(e){
+  const b=e.target.closest(".chip");
+  if(b&&b.getAttribute("data-modo")==="tudo") homeCats();
+});
+window.addEventListener("scroll",function(){
+  if(resultados.hidden||carregando||!temMais) return;
+  if(innerHeight+scrollY>=document.body.offsetHeight-250){
+    pagina++;
+    if(modo==="pesquisa") pesquisar(false);
+    else if(modo==="categoria"&&categoriaAtual){
+      carregando=true;
+      const cat=categoriaAtual,p=pagina;
+      Promise.all([buscarAniList("",p,cat),buscarMal("",p,cat)]).then(function(a){
+        let lista=[];
+        a.forEach(function(r){if(r&&r.lista) lista=lista.concat(r.lista)});
+        return mostrarResultados(juntar(lista,"",0),false);
+      }).finally(function(){carregando=false});
+    }
+  }
+});
+document.getElementById("btn-voltar").addEventListener("click",function(){
+  if(!resultados.hidden){homeCats();return}
+  if(history.length>1) history.back(); else location.href="home.html";
+});
+
+chipsHTML();
 mostrarCategorias();
-campo.focus();
 </script>
 </body>
 </html>
